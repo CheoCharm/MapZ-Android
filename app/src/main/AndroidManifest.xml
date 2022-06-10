@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MapZ">
         <activity
-            android:name=".MainActivity"
+            android:name="com.cheocharm.presentation.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
