@@ -14,3 +14,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MapZ"
 include ':app'
+include ':domain'
+include ':data'
+include ':presentation'
+include ':local'
+include ':remote'
