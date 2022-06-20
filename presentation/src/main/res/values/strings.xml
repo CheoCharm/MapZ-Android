@@ -1,1 +1,6 @@
-<resources></resources>
+<resources>
+    <string name="main_menu_home_title">Home</string>
+    <string name="main_menu_search_title">Search</string>
+    <string name="main_menu_write_title">Write</string>
+    <string name="main_menu_my_page_title">My Page</string>
+</resources>
