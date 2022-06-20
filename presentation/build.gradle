@@ -54,4 +54,7 @@ dependencies {
 
     // Google Maps
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
+
+    // google login
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
 }
