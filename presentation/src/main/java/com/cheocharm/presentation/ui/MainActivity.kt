@@ -1,22 +1,16 @@
 package com.cheocharm.presentation.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.cheocharm.base.BaseActivity
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding =
-            DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
 
         setContentView(binding.root)
 
