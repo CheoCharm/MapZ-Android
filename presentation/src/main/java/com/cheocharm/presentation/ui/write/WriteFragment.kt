@@ -13,7 +13,6 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = writeViewModel
 
         writeViewModel.countUp()
