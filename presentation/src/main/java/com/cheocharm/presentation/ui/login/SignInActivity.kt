@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.cheocharm.base.BaseActivity
+import com.cheocharm.presentation.BuildConfig
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.ActivitySignInBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -28,6 +29,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         super.onCreate(savedInstanceState)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(BuildConfig.GOOGLE_LOGIN_WEB_CLIENT_ID)
             .requestEmail()
             .build()
 
