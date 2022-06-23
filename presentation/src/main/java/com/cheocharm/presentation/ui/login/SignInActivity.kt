@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import com.cheocharm.base.BaseActivity
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.ActivitySignInBinding
@@ -16,6 +17,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
+
+    private val loginViewModel by viewModels<LoginViewModel>()
 
     private lateinit var googleSignInClient: GoogleSignInClient
 
