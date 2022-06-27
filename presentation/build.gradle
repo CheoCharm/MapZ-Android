@@ -1,14 +1,11 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
     compileSdk 32
-
-    Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    def maps_api_key = properties.getProperty('MAPS_API_KEY')
 
     defaultConfig {
         minSdk 23
@@ -16,8 +13,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-
-        manifestPlaceholders = [MAPS_API_KEY: maps_api_key]
     }
 
     buildTypes {
