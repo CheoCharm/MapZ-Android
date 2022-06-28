@@ -31,7 +31,7 @@ jobs:
     - name: Access GOOGLE_LOGIN_WEB_CLIENT_ID
       env:
         GOOGLE_LOGIN_WEB_CLIENT_ID: $
-      run: echo GOOGLE_LOGIN_WEB_CLIENT_ID=\"$GOOGLE_LOGIN_WEB_CLIENT_ID\" >> ./local.properties
+      run: echo google.login.web.client.id=\"$GOOGLE_LOGIN_WEB_CLIENT_ID\" >> ./local.properties
 
     - name: Build with Gradle
       run: ./gradlew build
