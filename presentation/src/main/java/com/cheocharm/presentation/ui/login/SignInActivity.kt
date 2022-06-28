@@ -3,6 +3,7 @@ package com.cheocharm.presentation.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -36,7 +37,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         intentResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            println("Activity Result: $it")
             if (it.resultCode == RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
                 handleSignInResult(task)
@@ -49,7 +49,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         super.onStart()
 
         val account = GoogleSignIn.getLastSignedInAccount(this)
-        println("onStart: $account")
     }
 
     private fun initButton() {
@@ -61,7 +60,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         binding.btnSignOutGoogle.setOnClickListener {
             googleSignInClient.signOut()
                 .addOnCompleteListener {
-                    println("google log out")
+                    Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
                 }
         }
     }
@@ -70,8 +69,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         try {
             val account = completedTask.getResult(ApiException::class.java)
 
-            Log.d("handleSignInResult", "$account")
-//            updateUI()
         } catch (e: ApiException) {
             Log.w("handleSignInResult", "${e.message}")
         }
