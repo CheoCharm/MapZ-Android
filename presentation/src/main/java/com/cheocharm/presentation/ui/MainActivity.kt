@@ -7,7 +7,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.cheocharm.base.BaseActivity
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
