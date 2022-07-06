@@ -9,6 +9,7 @@ plugins {
 
 ext {
     hiltVersion = "2.42"
+    coroutineVersion = "1.6.3"
 }
 
 task clean(type: Delete) {

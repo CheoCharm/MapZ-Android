@@ -68,4 +68,8 @@ dependencies {
 
     // google login
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
+    // kotlin coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
 }
