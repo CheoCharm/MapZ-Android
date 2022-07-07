@@ -14,18 +14,25 @@ class WriteViewModel @Inject constructor() : ViewModel() {
         listOf(
             Group(
                 "그룹제목 1", listOf(
-                    GroupMember(), GroupMember(), GroupMember(), GroupMember()
-                )
+                    GroupMember(),
+                    GroupMember(),
+                    GroupMember(),
+                    GroupMember(),
+                    GroupMember(),
+                    GroupMember(),
+                    GroupMember(),
+                    GroupMember()
+                ), 4
             ),
             Group(
                 "그룹제목 2", listOf(
                     GroupMember(), GroupMember(), GroupMember()
-                )
+                ), 0
             ),
             Group(
                 "그룹제목 3", listOf(
                     GroupMember(), GroupMember(), GroupMember()
-                )
+                ), 0
             ),
         )
     )

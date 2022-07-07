@@ -10,7 +10,7 @@ import com.cheocharm.presentation.databinding.ItemWriteGroupMemberBinding
 
 class MembersAdapter : ListAdapter<GroupMember, MembersAdapter.ViewHolder>(MemberDiffCallback) {
 
-    class ViewHolder(val binding: ItemWriteGroupMemberBinding) :
+    class ViewHolder(binding: ItemWriteGroupMemberBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private var currentMember: GroupMember? = null
 
