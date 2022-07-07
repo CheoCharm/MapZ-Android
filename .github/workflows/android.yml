@@ -33,5 +33,10 @@ jobs:
         GOOGLE_LOGIN_WEB_CLIENT_ID: $
       run: echo google.login.web.client.id=\"$GOOGLE_LOGIN_WEB_CLIENT_ID\" >> ./local.properties
 
+    - name: Access BASE_URL
+      env:
+        BASE_URL: $
+      run: echo base.url=\"BASE_URL\" >> ./local.properties
+
     - name: Build with Gradle
       run: ./gradlew build

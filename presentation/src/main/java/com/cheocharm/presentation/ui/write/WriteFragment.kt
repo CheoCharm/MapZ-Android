@@ -6,7 +6,9 @@ import androidx.fragment.app.viewModels
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write) {
     private val writeViewModel: WriteViewModel by viewModels()
 
