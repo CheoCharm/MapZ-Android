@@ -7,4 +7,6 @@
     <string name="format_search_count">Search %d</string>
     <string name="format_write_count">Write %d</string>
     <string name="format_my_page_count">My Page %d</string>
+    <string name="write_title">일기 작성</string>
+    <string name="format_write_number_of_group_members">+ %d</string>
 </resources>

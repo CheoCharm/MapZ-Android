@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="map_z_red">#FFF8444F</color>
-    <color name="map_z_blue">#FF78BDC4</color>
+    <color name="map_z_red_200">#FFFF7A7B</color>
+    <color name="map_z_red_500">#FFF8444F</color>
+    <color name="map_z_red_700">#FFBE0027</color>
+    <color name="map_z_blue_200">#FFAAF0F7</color>
+    <color name="map_z_blue_500">#FF78BDC4</color>
+    <color name="map_z_blue_700">#FF478D94</color>
     <color name="map_z_ivory">#FFF7F8F3</color>
+    <color name="white">#FFFFFFFF</color>
     <color name="gray">#FFCCCCCC</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
 
-    <color name="bottom_nav_icon">@color/gray</color>
+    <color name="bottom_nav_icon_color">@color/gray</color>
+    <color name="write_title_background_color">#FFBABABA</color>
+    <color name="write_group_image_empty_color">#FFD9D9D9</color>
 </resources>
