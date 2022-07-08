@@ -3,6 +3,7 @@ package com.cheocharm.presentation.ui.write
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.model.Group
@@ -19,9 +20,14 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
         binding.viewmodel = writeViewModel
 
-        val groupsAdapter = GroupsAdapter { group -> adapterOnClick(group) }
         val recyclerView: RecyclerView = binding.rvWriteGroups
-        recyclerView.adapter = groupsAdapter
+        val groupsAdapter = GroupsAdapter { group -> adapterOnClick(group) }
+        val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+
+        with(recyclerView) {
+            addItemDecoration(decoration)
+            adapter = groupsAdapter
+        }
 
         writeViewModel.groups.observe(viewLifecycleOwner) {
             it?.let {
