@@ -12,6 +12,12 @@
     <color name="gray_700">#FFBCBCBC</color>
     <color name="black">#FF000000</color>
 
+    <color name="gray_extra_200">#F3F3F3</color>
+    <color name="gray_extra_300">#F4F4F4</color>
+    <color name="gray_extra_400">#FFCCCCCC</color>
+    <color name="gray_extra_500">#CDCDCD</color>
+    <color name="gray_extra_600">#BBBBBB</color>
+
     <color name="bottom_nav_icon_color">@color/gray_500</color>
     <color name="write_title_background_color">#FFBABABA</color>
     <color name="write_group_image_empty_color">#FFD9D9D9</color>
