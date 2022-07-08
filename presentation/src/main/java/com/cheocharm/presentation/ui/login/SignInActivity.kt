@@ -54,16 +54,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     private fun initButton() {
-        binding.btnSignInGoogle.setOnClickListener {
+        binding.btnSignInGoogleSignUp.setOnClickListener {
             val intent = googleSignInClient.signInIntent
             intentResult.launch(intent)
-        }
-
-        binding.btnSignOutGoogle.setOnClickListener {
-            googleSignInClient.signOut()
-                .addOnCompleteListener {
-                    Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
-                }
         }
     }
 

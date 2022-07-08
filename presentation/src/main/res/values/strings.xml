@@ -7,6 +7,14 @@
     <string name="format_search_count">Search %d</string>
     <string name="format_write_count">Write %d</string>
     <string name="format_my_page_count">My Page %d</string>
-    <string name="write_title">일기 작성</string>
     <string name="format_write_number_of_group_members">+ %d</string>
+    <string name="write_title">일기 작성</string>
+    <string name="sign_in_title">Login</string>
+    <string name="sign_in_email">E-mail</string>
+    <string name="sign_in_pwd">Password</string>
+    <string name="sign_in_find_email">아이디 찾기</string>
+    <string name="sign_in_find_pwd">비밀번호 찾기</string>
+    <string name="sign_in_sign_in">로그인</string>
+    <string name="sign_in_sign_up">회원가입하기</string>
+    <string name="sign_in_google_sign_up">구글 계정으로 로그인하기</string>
 </resources>
