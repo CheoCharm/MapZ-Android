@@ -13,4 +13,12 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.MapZ.Button.Default" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@drawable/bg_rectangle_round_outlined</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:elevation">@dimen/space_xx_small</item>
+        <item name="android:padding">@dimen/space_median</item>
+    </style>
 </resources>
