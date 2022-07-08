@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
+            android:id="@+id/container_write_group_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_top_round"
