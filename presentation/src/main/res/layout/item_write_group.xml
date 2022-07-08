@@ -57,7 +57,7 @@
             android:id="@+id/tv_write_number_of_group_members"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/map_z_blue_500"
+            android:textColor="@color/map_z_blue_700"
             app:layout_constraintBottom_toBottomOf="@+id/rv_write_group_members"
             app:layout_constraintStart_toEndOf="@+id/rv_write_group_members"
             app:layout_constraintTop_toTopOf="@+id/rv_write_group_members"
