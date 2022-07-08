@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.cheocharm.base.BaseFragment
-import com.cheocharm.domain.Group
+import com.cheocharm.presentation.model.Group
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
 import dagger.hilt.android.AndroidEntryPoint

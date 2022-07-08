@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cheocharm.domain.GroupMember
+import com.cheocharm.presentation.model.GroupMember
 import com.cheocharm.presentation.databinding.ItemWriteGroupMemberBinding
 
 class MembersAdapter : ListAdapter<GroupMember, MembersAdapter.ViewHolder>(MemberDiffCallback) {
