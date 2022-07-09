@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/space_median">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_write_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_round"
+            android:backgroundTint="@color/write_group_image_empty_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_write_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_median"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/iv_write_group"
+            app:layout_constraintTop_toTopOf="@+id/iv_write_group"
+            tools:text="그룹 제목 1" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_write_user_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_small"
+            app:layout_constraintStart_toStartOf="@+id/tv_write_group_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_write_group_name"
+            app:srcCompat="@drawable/ic_write_user_tag" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_write_group_members"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_small"
+            android:orientation="horizontal"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_write_user_tag"
+            app:layout_constraintStart_toEndOf="@+id/iv_write_user_tag"
+            app:layout_constraintTop_toTopOf="@+id/iv_write_user_tag"
+            tools:listitem="@layout/item_write_group_member" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_write_number_of_group_members"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/map_z_blue_700"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_write_group_members"
+            app:layout_constraintStart_toEndOf="@+id/rv_write_group_members"
+            app:layout_constraintTop_toTopOf="@+id/rv_write_group_members"
+            tools:text="+ 4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
