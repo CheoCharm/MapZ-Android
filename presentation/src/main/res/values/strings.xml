@@ -1,7 +1,10 @@
 <resources>
     <string name="email">이메일</string>
     <string name="password">비밀번호</string>
+    <string name="nickname">닉네임</string>
     <string name="next">다음</string>
+    <string name="complete">완료</string>
+
     <string name="main_menu_home_title">Home</string>
     <string name="main_menu_search_title">Search</string>
     <string name="main_menu_write_title">Write</string>
@@ -24,4 +27,6 @@
     <string name="sign_up_pwd_check">비밀번호 확인</string>
     <string name="sign_up_email_condition">영문, 숫자 조합 8자 이상</string>
     <string name="sign_up_pwd_condition">영문, 숫자 조합 8자 이상</string>
+    <string name="sign_up_profile_title">프로필 설정</string>
+    <string name="sign_up_profile_nickname_condition">최대 12자</string>
 </resources>

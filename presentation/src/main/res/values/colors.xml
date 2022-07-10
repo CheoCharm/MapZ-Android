@@ -17,6 +17,7 @@
     <color name="gray_extra_400">#FFCCCCCC</color>
     <color name="gray_extra_500">#CDCDCD</color>
     <color name="gray_extra_600">#BBBBBB</color>
+    <color name="gray_extra_700">#D9D9D9</color>
 
     <color name="bottom_nav_icon_color">@color/gray_500</color>
     <color name="write_title_background_color">#FFBABABA</color>
