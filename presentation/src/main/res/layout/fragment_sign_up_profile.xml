@@ -13,7 +13,7 @@
         android:background="@color/map_z_red_500"
         tools:context=".ui.login.SignUpProfileFragment">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/btn_sign_up_profile_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_top_round"
                 android:backgroundTint="@color/white"
-                android:paddingBottom="@dimen/space_xxx_large">
+                android:paddingBottom="@dimen/space_max_large">
 
                 <ImageView
                     android:id="@+id/iv_sign_up_profile"
@@ -75,8 +75,15 @@
                     android:layout_width="@dimen/sign_up_profile_camera"
                     android:layout_height="@dimen/sign_up_profile_camera"
                     android:background="@drawable/bg_round"
-                    android:backgroundTint="@color/gray_extra_300"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:backgroundTint="@color/gray_extra_300"
                     app:icon="@drawable/ic_camera"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="@color/sign_up_profile_icon"
                     app:layout_constraintBottom_toBottomOf="@id/iv_sign_up_profile"
                     app:layout_constraintEnd_toEndOf="@id/iv_sign_up_profile" />
 
