@@ -3,6 +3,7 @@ package com.cheocharm.presentation.ui.login
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
@@ -12,6 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignUpAgreeFragment :
     BaseFragment<FragmentSignUpAgreeBinding>(R.layout.fragment_sign_up_agree) {
+
+    private val signViewModel by activityViewModels<SignViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

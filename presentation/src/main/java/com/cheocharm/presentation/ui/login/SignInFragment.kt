@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sign_in) {
 
-    private val loginViewModel by viewModels<LoginViewModel>()
+    private val signViewModel by viewModels<SignViewModel>()
 
     private lateinit var googleSignInClient: GoogleSignInClient
 
