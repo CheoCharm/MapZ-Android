@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.BuildConfig
 import com.cheocharm.presentation.R
@@ -63,6 +64,9 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
         binding.btnSignInGoogleSignUp.setOnClickListener {
             val intent = googleSignInClient.signInIntent
             intentResult.launch(intent)
+        }
+        binding.btnSignInSignUp.setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_signUpAgreeFragment)
         }
     }
 
