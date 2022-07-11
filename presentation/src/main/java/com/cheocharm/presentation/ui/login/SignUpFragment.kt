@@ -2,6 +2,7 @@ package com.cheocharm.presentation.ui.login
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentSignUpBinding
@@ -17,6 +18,11 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
     }
 
     private fun initButton() {
-
+        binding.btnSignUpBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.btnSignUpNext.setOnClickListener {
+            findNavController().navigate(R.id.action_signUpFragment_to_signUpProfileFragment)
+        }
     }
 }
