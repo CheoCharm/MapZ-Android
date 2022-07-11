@@ -24,6 +24,9 @@ class SignUpAgreeFragment :
     }
 
     private fun initButton() {
+        binding.btnSignUpAgreeBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
         binding.btnSignUpAgreeNext.setOnClickListener {
             findNavController().navigate(R.id.action_signUpAgreeFragment_to_signUpFragment)
         }

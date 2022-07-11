@@ -12,20 +12,32 @@
         android:layout_height="match_parent"
         tools:context=".ui.login.SignUpAgreeFragment">
 
+        <TextView
+            android:id="@+id/btn_sign_up_agree_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_small"
+            android:layout_marginTop="@dimen/space_large"
+            android:background="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_sign_up_agree_back">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/space_xxx_large">
+                android:paddingBottom="@dimen/space_max_large">
 
                 <TextView
                     android:id="@+id/tv_sign_up_agree_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_max_large"
+                    android:layout_marginTop="@dimen/space_large"
                     android:text="@string/app_name"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_xx_large"
@@ -84,7 +96,7 @@
                     layout="@layout/layout_sign_up_agree_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_large"
+                    android:layout_marginTop="@dimen/space_median"
                     app:layout_constraintTop_toBottomOf="@id/container_sign_up_agree_item_3" />
 
                 <TextView
@@ -94,9 +106,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/space_xx_large"
                     android:layout_marginTop="@dimen/sign_up_button_next_top"
+                    android:layout_marginBottom="@dimen/space_max_large"
                     android:backgroundTint="@color/gray_extra_300"
                     android:elevation="0dp"
                     android:text="@string/next"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/container_sign_up_agree_all" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

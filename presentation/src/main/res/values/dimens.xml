@@ -26,7 +26,7 @@
     <dimen name="sign_up_title_text">20sp</dimen>
     <dimen name="sign_up_text">16sp</dimen>
     <dimen name="sign_up_condition_text">12sp</dimen>
-    <dimen name="sign_up_button_next_top">150dp</dimen>
+    <dimen name="sign_up_button_next_top">100dp</dimen>
     <dimen name="sign_up_profile_image">160dp</dimen>
     <dimen name="sign_up_profile_top">70dp</dimen>
     <dimen name="sign_up_profile_camera">42dp</dimen>
