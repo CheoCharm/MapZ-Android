@@ -8,7 +8,7 @@ import com.cheocharm.presentation.databinding.ActivitySignInBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
+class SignActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
