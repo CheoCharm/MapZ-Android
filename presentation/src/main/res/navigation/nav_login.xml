@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_login"
+    app:startDestination="@id/signInFragment">
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.cheocharm.presentation.ui.login.SignInFragment"
+        android:label="SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_signUpAgreeFragment"
+            app:destination="@id/signUpAgreeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpAgreeFragment"
+        android:name="com.cheocharm.presentation.ui.login.SignUpAgreeFragment"
+        android:label="SignUpAgreeFragment"
+        tools:layout="@layout/fragment_sign_up_agree">
+        <action
+            android:id="@+id/action_signUpAgreeFragment_to_signUpProfileFragment"
+            app:destination="@id/signUpProfileFragment" />
+        <action
+            android:id="@+id/action_signUpAgreeFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.cheocharm.presentation.ui.login.SignUpFragment"
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_signUpProfileFragment"
+            app:destination="@id/signUpProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpProfileFragment"
+        android:name="com.cheocharm.presentation.ui.login.SignUpProfileFragment"
+        android:label="SignUpProfileFragment"
+        tools:layout="@layout/fragment_sign_up_profile" />
+</navigation>

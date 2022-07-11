@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.login.SignInFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/map_z_red_500"
+            tools:context=".ui.login.SignInFragment">
+
+            <TextView
+                android:id="@+id/tv_sign_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sign_in_top"
+                android:text="@string/sign_in_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sign_in_title_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_sign_title">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container_sign_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xxx_large"
+                    android:background="@drawable/bg_top_round"
+                    android:backgroundTint="@color/white"
+                    android:paddingBottom="@dimen/space_xxx_large"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sign_title">
+
+                    <EditText
+                        android:id="@+id/et_sign_in_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/space_xx_large"
+                        android:layout_marginTop="@dimen/space_xxx_large"
+                        android:background="@drawable/bg_rectangle_round"
+                        android:backgroundTint="@color/gray_extra_300"
+                        android:hint="@string/sign_in_email"
+                        android:inputType="textWebEmailAddress"
+                        android:padding="@dimen/space_median"
+                        android:textColorHint="@color/gray_extra_600"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/et_sign_in_pwd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:background="@drawable/bg_rectangle_round"
+                        android:backgroundTint="@color/gray_extra_300"
+                        android:hint="@string/sign_in_pwd"
+                        android:inputType="textPassword"
+                        android:padding="@dimen/space_median"
+                        android:textColorHint="@color/gray_extra_600"
+                        app:layout_constraintEnd_toEndOf="@id/et_sign_in_email"
+                        app:layout_constraintStart_toStartOf="@id/et_sign_in_email"
+                        app:layout_constraintTop_toBottomOf="@id/et_sign_in_email" />
+
+                    <TextView
+                        android:id="@+id/tv_sign_in_find_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_x_small"
+                        android:layout_marginEnd="@dimen/space_xx_large"
+                        android:text="@string/sign_in_find_email"
+                        android:textColor="@color/gray_500"
+                        app:layout_constraintEnd_toStartOf="@id/tv_sign_in_find_pwd"
+                        app:layout_constraintTop_toBottomOf="@id/et_sign_in_pwd" />
+
+                    <TextView
+                        android:id="@+id/tv_sign_in_find_pwd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_x_small"
+                        android:text="@string/sign_in_find_pwd"
+                        android:textColor="@color/gray_500"
+                        app:layout_constraintEnd_toEndOf="@id/et_sign_in_email"
+                        app:layout_constraintTop_toBottomOf="@id/et_sign_in_pwd" />
+
+                    <TextView
+                        android:id="@+id/btn_sign_in"
+                        style="@style/Theme.MapZ.Button.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sign_in_button_top"
+                        android:elevation="0dp"
+                        android:text="@string/sign_in_sign_in"
+                        app:backgroundTint="@color/gray_extra_400"
+                        app:layout_constraintEnd_toEndOf="@id/et_sign_in_email"
+                        app:layout_constraintStart_toStartOf="@id/et_sign_in_email"
+                        app:layout_constraintTop_toBottomOf="@id/tv_sign_in_find_email" />
+
+                    <View
+                        android:id="@+id/divider_sign_in"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_small"
+                        android:layout_marginTop="@dimen/space_xxx_large"
+                        android:background="@color/gray_200"
+                        app:layout_constraintTop_toBottomOf="@id/btn_sign_in" />
+
+                    <TextView
+                        android:id="@+id/btn_sign_in_sign_up"
+                        style="@style/Theme.MapZ.Button.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_xx_large"
+                        android:text="@string/sign_in_sign_up"
+                        app:backgroundTint="@color/white"
+                        app:drawableStartCompat="@drawable/ic_user_square"
+                        app:layout_constraintEnd_toEndOf="@id/et_sign_in_email"
+                        app:layout_constraintStart_toStartOf="@id/et_sign_in_email"
+                        app:layout_constraintTop_toBottomOf="@id/divider_sign_in" />
+
+                    <TextView
+                        android:id="@+id/btn_sign_in_google_sign_up"
+                        style="@style/Theme.MapZ.Button.Default"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:layout_marginBottom="@dimen/space_xxx_large"
+                        android:text="@string/sign_in_google_sign_up"
+                        app:backgroundTint="@color/white"
+                        app:drawableStartCompat="@drawable/ic_google"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/et_sign_in_email"
+                        app:layout_constraintStart_toStartOf="@id/et_sign_in_email"
+                        app:layout_constraintTop_toBottomOf="@id/btn_sign_in_sign_up" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
