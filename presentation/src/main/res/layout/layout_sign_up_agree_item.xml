@@ -11,13 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
+        <CheckBox
             android:id="@+id/btn_sign_up_agree"
             android:layout_width="@dimen/sign_up_agree_btn"
             android:layout_height="@dimen/sign_up_agree_btn"
             android:layout_marginStart="@dimen/space_median"
             android:layout_marginTop="@dimen/space_large"
             android:background="@drawable/bg_sign_up_btn"
+            android:checked="false"
+            android:button="@null"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
