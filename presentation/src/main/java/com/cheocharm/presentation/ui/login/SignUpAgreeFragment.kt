@@ -3,6 +3,7 @@ package com.cheocharm.presentation.ui.login
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentSignUpAgreeBinding
@@ -20,7 +21,9 @@ class SignUpAgreeFragment :
     }
 
     private fun initButton() {
-
+        binding.btnSignUpAgreeNext.setOnClickListener {
+            findNavController().navigate(R.id.action_signUpAgreeFragment_to_signUpFragment)
+        }
     }
 
     private fun initView() {
