@@ -39,7 +39,7 @@ class SignUpAgreeFragment :
         binding.containerSignUpAgreeItem3.tvSignUpAgreeDescription.visibility = View.GONE
         binding.containerSignUpAgreeItem3.tvSignUpAgreeItem.text =
             getString(R.string.sign_up_agree_item_3)
-        binding.containerSignUpAgreeItem3.tvSignUpAgreeItem.setTextColor(
+        binding.containerSignUpAgreeItem3.tvSignUpAgreeCheck.setTextColor(
             ContextCompat.getColor(
                 requireActivity(),
                 R.color.gray_dark
