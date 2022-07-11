@@ -37,8 +37,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_xx_large"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_title">
 
@@ -46,6 +45,7 @@
                 android:id="@+id/container_sign_up_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xx_large"
                 android:background="@drawable/bg_top_round"
                 android:backgroundTint="@color/white"
                 android:paddingBottom="@dimen/space_max_large">
@@ -146,9 +146,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/sign_up_button_next_top"
+                    android:layout_marginBottom="@dimen/space_max_large"
                     android:backgroundTint="@color/gray_extra_300"
                     android:elevation="0dp"
                     android:text="@string/next"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/et_sign_up_email"
                     app:layout_constraintStart_toStartOf="@id/et_sign_up_email"
                     app:layout_constraintTop_toBottomOf="@id/et_sign_up_pwd_check" />
