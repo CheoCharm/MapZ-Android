@@ -30,6 +30,7 @@
     <dimen name="sign_up_profile_image">160dp</dimen>
     <dimen name="sign_up_profile_top">70dp</dimen>
     <dimen name="sign_up_profile_camera">42dp</dimen>
+    <dimen name="sign_up_profile_btn_top">137dp</dimen>
     <dimen name="sign_up_agree_btn">14dp</dimen>
     <dimen name="sign_up_agree_divider">1.5dp</dimen>
     
