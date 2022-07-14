@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
@@ -67,6 +68,20 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
         }
         binding.btnSignInSignUp.setOnClickListener {
             findNavController().navigate(R.id.action_signInFragment_to_signUpAgreeFragment)
+        }
+        binding.cbSignInKeepLogin.setOnCheckedChangeListener { button, checked ->
+            if (checked) binding.tvSignInKeepLogin.setTextColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.map_z_red_500
+                )
+            )
+            else binding.tvSignInKeepLogin.setTextColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.gray_extra_500
+                )
+            )
         }
     }
 

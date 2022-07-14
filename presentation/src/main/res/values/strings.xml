@@ -22,6 +22,7 @@
     <string name="sign_in_pwd">Password</string>
     <string name="sign_in_find_email">아이디 찾기</string>
     <string name="sign_in_find_pwd">비밀번호 찾기</string>
+    <string name="sign_in_keep_login">자동 로그인</string>
     <string name="sign_in_sign_in">로그인</string>
     <string name="sign_in_sign_up">회원가입하기</string>
     <string name="sign_in_google_sign_up">구글 계정으로 로그인하기</string>

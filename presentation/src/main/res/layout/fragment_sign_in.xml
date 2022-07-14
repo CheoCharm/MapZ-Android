@@ -78,17 +78,6 @@
                         app:layout_constraintTop_toBottomOf="@id/et_sign_in_email" />
 
                     <TextView
-                        android:id="@+id/tv_sign_in_find_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_x_small"
-                        android:layout_marginEnd="@dimen/space_xx_large"
-                        android:text="@string/sign_in_find_email"
-                        android:textColor="@color/gray_500"
-                        app:layout_constraintEnd_toStartOf="@id/tv_sign_in_find_pwd"
-                        app:layout_constraintTop_toBottomOf="@id/et_sign_in_pwd" />
-
-                    <TextView
                         android:id="@+id/tv_sign_in_find_pwd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -97,6 +86,29 @@
                         android:textColor="@color/gray_500"
                         app:layout_constraintEnd_toEndOf="@id/et_sign_in_email"
                         app:layout_constraintTop_toBottomOf="@id/et_sign_in_pwd" />
+
+                    <CheckBox
+                        android:id="@+id/cb_sign_in_keep_login"
+                        android:layout_width="@dimen/sign_in_keep_login_button_size"
+                        android:layout_height="@dimen/sign_in_keep_login_button_size"
+                        android:background="@drawable/bg_sign_in_keep_login_btn"
+                        android:button="@android:color/transparent"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_sign_in_keep_login"
+                        app:layout_constraintEnd_toStartOf="@id/tv_sign_in_keep_login"
+                        app:layout_constraintStart_toStartOf="@id/et_sign_in_pwd"
+                        app:layout_constraintTop_toTopOf="@id/tv_sign_in_keep_login" />
+
+                    <TextView
+                        android:id="@+id/tv_sign_in_keep_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_xx_small"
+                        android:text="@string/sign_in_keep_login"
+                        android:textColor="@color/gray_extra_500"
+                        android:textSize="@dimen/text_median"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_sign_in_find_pwd"
+                        app:layout_constraintStart_toEndOf="@id/cb_sign_in_keep_login"
+                        app:layout_constraintTop_toTopOf="@id/tv_sign_in_find_pwd" />
 
                     <TextView
                         android:id="@+id/btn_sign_in"
@@ -109,7 +121,7 @@
                         app:backgroundTint="@color/gray_extra_400"
                         app:layout_constraintEnd_toEndOf="@id/et_sign_in_email"
                         app:layout_constraintStart_toStartOf="@id/et_sign_in_email"
-                        app:layout_constraintTop_toBottomOf="@id/tv_sign_in_find_email" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_sign_in_find_pwd" />
 
                     <View
                         android:id="@+id/divider_sign_in"
