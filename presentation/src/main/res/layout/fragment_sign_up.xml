@@ -37,7 +37,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_title">
 
@@ -211,29 +211,42 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_xx_small"
+                    android:layout_marginBottom="@dimen/space_max_large"
                     android:inputType="textPassword"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/et_sign_up_email"
                     app:layout_constraintStart_toStartOf="@id/tv_sign_up_email"
                     app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pwd_check" />
-
-                <TextView
-                    android:id="@+id/btn_sign_up_next"
-                    style="@style/Theme.MapZ.Button.Default"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/sign_up_button_next_top"
-                    android:layout_marginBottom="@dimen/space_max_large"
-                    android:backgroundTint="@color/gray_extra_300"
-                    android:elevation="0dp"
-                    android:text="@string/next"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/et_sign_up_email"
-                    app:layout_constraintStart_toStartOf="@id/et_sign_up_email"
-                    app:layout_constraintTop_toBottomOf="@id/et_sign_up_pwd_check" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_200"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/btn_sign_up_next"
+                style="@style/Theme.MapZ.Button.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_xx_large"
+                android:layout_marginTop="@dimen/space_small"
+                android:layout_marginBottom="@dimen/space_xx_large"
+                android:backgroundTint="@color/gray_extra_300"
+                android:elevation="0dp"
+                android:text="@string/next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
