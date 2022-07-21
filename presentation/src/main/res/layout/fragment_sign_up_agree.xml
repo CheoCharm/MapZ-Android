@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="viewmodel"
+            type="com.cheocharm.presentation.ui.login.SignViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,5 +1,6 @@
 package com.cheocharm.presentation.ui.login
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -21,6 +22,7 @@ class SignUpAgreeFragment :
 
         initView()
         initButton()
+        initObservers()
     }
 
     private fun initButton() {
@@ -29,6 +31,63 @@ class SignUpAgreeFragment :
         }
         binding.btnSignUpAgreeNext.setOnClickListener {
             findNavController().navigate(R.id.action_signUpAgreeFragment_to_signUpFragment)
+        }
+        binding.containerSignUpAgreeItem1.btnSignUpAgree.setOnClickListener {
+            signViewModel.onAgreementItem1Clicked()
+        }
+        binding.containerSignUpAgreeItem2.btnSignUpAgree.setOnClickListener {
+            signViewModel.onAgreementItem2Clicked()
+        }
+        binding.containerSignUpAgreeItem3.btnSignUpAgree.setOnClickListener {
+            signViewModel.onAgreementItem3Clicked()
+        }
+        binding.containerSignUpAgreeAll.btnSignUpAgree.setOnClickListener {
+            signViewModel.onAgreementItemAllClicked()
+        }
+    }
+
+    private fun initObservers() {
+        signViewModel.isAgreementSatisfied.observe(viewLifecycleOwner) {
+            binding.btnSignUpAgreeNext.isEnabled = it
+            if (it) {
+                binding.btnSignUpAgreeNext.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.map_z_red_500
+                    )
+                )
+                binding.btnSignUpAgreeNext.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.white
+                    )
+                )
+            } else {
+                binding.btnSignUpAgreeNext.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.gray_extra_300
+                    )
+                )
+                binding.btnSignUpAgreeNext.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.black
+                    )
+                )
+            }
+        }
+        signViewModel.agreementItem1.observe(viewLifecycleOwner) {
+            binding.containerSignUpAgreeItem1.btnSignUpAgree.isChecked = it
+        }
+        signViewModel.agreementItem2.observe(viewLifecycleOwner) {
+            binding.containerSignUpAgreeItem2.btnSignUpAgree.isChecked = it
+        }
+        signViewModel.agreementItem3.observe(viewLifecycleOwner) {
+            binding.containerSignUpAgreeItem3.btnSignUpAgree.isChecked = it
+        }
+        signViewModel.agreementItemAll.observe(viewLifecycleOwner) {
+            binding.containerSignUpAgreeAll.btnSignUpAgree.isChecked = it
         }
     }
 
