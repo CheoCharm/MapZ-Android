@@ -3,12 +3,13 @@ package com.cheocharm.presentation.ui.write
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.cheocharm.base.BaseFragment
-import com.cheocharm.presentation.model.Group
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
+import com.cheocharm.presentation.model.Group
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,6 +38,7 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
     }
 
     private fun adapterOnClick(group: Group) {
-        // TODO: 사진 선택 화면 or 일기 작성 화면으로 이동
+        val action = WriteFragmentDirections.actionWriteDestToPictureFragment()
+        findNavController().navigate(action)
     }
 }

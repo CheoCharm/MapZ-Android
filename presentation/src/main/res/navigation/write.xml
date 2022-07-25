@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/write"
+    app:startDestination="@id/write_dest">
+
+    <fragment
+        android:id="@+id/write_dest"
+        android:name="com.cheocharm.presentation.ui.write.WriteFragment"
+        android:label="fragment_write"
+        tools:layout="@layout/fragment_write" >
+        <action
+            android:id="@+id/action_write_dest_to_pictureFragment"
+            app:destination="@id/pictureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pictureFragment"
+        android:name="com.cheocharm.presentation.ui.write.PictureFragment"
+        android:label="PictureFragment"
+        tools:layout="@layout/fragment_picture" >
+        <action
+            android:id="@+id/action_pictureFragment_to_write_dest"
+            app:destination="@id/write_dest" />
+    </fragment>
+
+</navigation>

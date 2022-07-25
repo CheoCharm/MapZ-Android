@@ -12,4 +12,7 @@
     <dimen name="write_title_text_size">20sp</dimen>
     <dimen name="write_group_member_image_size">23dp</dimen>
     <dimen name="write_group_members_margin">10dp</dimen>
+    <dimen name="picture_gallery_image_margin_top">168dp</dimen>
+    <dimen name="gallery_button_margin_top">100dp</dimen>
+    <dimen name="default_elevation">4dp</dimen>
 </resources>
