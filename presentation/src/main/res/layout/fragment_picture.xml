@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.write.SelectPictureFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="사진 선택하기"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_picture_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/picture_gallery_image_margin_top"
+                    android:src="@drawable/ic_gallery"
+                    android:tint="@color/picture_gallery_desc_text_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar_picture" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_picture_desc"
+                    android:layout_width="138dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/picture_desc"
+                    android:textSize="14sp"
+                    android:textColor="@color/picture_gallery_desc_text_color"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_picture_desc" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_picture_get"
+                    android:layout_width="258dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/gallery_button_margin_top"
+                    android:background="@drawable/bg_radius_50dp"
+                    android:backgroundTint="@color/gray_500"
+                    android:text="@string/picture_button"
+                    android:gravity="center"
+                    android:elevation="@dimen/default_elevation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_picture_desc" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_picture_selected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar_picture" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_picture_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="iv_picture_desc, tv_picture_desc, btn_picture_get" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

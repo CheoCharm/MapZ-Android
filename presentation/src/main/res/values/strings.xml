@@ -9,4 +9,6 @@
     <string name="format_my_page_count">My Page %d</string>
     <string name="write_title">일기 작성</string>
     <string name="format_write_number_of_group_members">+ %d</string>
+    <string name="picture_desc">친구들과의 추억이 담긴 사진을 선택해주세요.</string>
+    <string name="picture_button">사진 가져오기</string>
 </resources>

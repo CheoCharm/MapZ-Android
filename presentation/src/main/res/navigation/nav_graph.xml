@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/home_dest">
+    app:startDestination="@+id/home">
 
-    <fragment
-        android:id="@+id/home_dest"
-        android:name="com.cheocharm.presentation.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/search_dest"
-        android:name="com.cheocharm.presentation.ui.search.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
-    <fragment
-        android:id="@+id/write_dest"
-        android:name="com.cheocharm.presentation.ui.write.WriteFragment"
-        android:label="fragment_write"
-        tools:layout="@layout/fragment_write" />
-    <fragment
-        android:id="@+id/my_page_dest"
-        android:name="com.cheocharm.presentation.ui.mypage.MyPageFragment"
-        android:label="fragment_my_page"
-        tools:layout="@layout/fragment_my_page" />
+    <include app:graph="@navigation/nav_home" />
+    <include app:graph="@navigation/nav_search" />
+    <include app:graph="@navigation/nav_write" />
+    <include app:graph="@navigation/nav_my_page" />
+
 </navigation>
