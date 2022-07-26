@@ -4,9 +4,9 @@
     android:id="@+id/nav_graph"
     app:startDestination="@+id/home">
 
-    <include app:graph="@navigation/home" />
-    <include app:graph="@navigation/search" />
-    <include app:graph="@navigation/write" />
-    <include app:graph="@navigation/my_page" />
+    <include app:graph="@navigation/nav_home" />
+    <include app:graph="@navigation/nav_search" />
+    <include app:graph="@navigation/nav_write" />
+    <include app:graph="@navigation/nav_my_page" />
 
 </navigation>
