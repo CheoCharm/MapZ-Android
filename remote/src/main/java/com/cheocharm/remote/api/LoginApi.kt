@@ -9,9 +9,12 @@ import retrofit2.http.POST
 
 interface LoginApi {
 
-    @POST("/users")
+    @POST("users")
     suspend fun signUpGoogleLogin(@Body body: RequestBody): BaseResponse<GoogleSignUpResponse>
 
-    @POST("/users/login")
+    @POST("users/login")
     suspend fun signInGoogleLogin(@Body body: RequestBody): BaseResponse<GoogleSignInResponse>
+
+    @POST("users/email")
+    suspend fun requestEmailCertNumber(@Body body: RequestBody): BaseResponse<String>
 }

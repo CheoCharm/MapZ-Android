@@ -3,11 +3,16 @@ package com.cheocharm.presentation.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.cheocharm.domain.usecase.RequestCertNumberUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignViewModel @Inject constructor() : ViewModel() {
+class SignViewModel @Inject constructor(
+    private val requestCertNumberUseCase: RequestCertNumberUseCase
+) : ViewModel() {
 
     // Agreement
     private val _agreementItem1 = MutableLiveData(false)
@@ -29,6 +34,19 @@ class SignViewModel @Inject constructor() : ViewModel() {
     private val _isAgreementSatisfied = MutableLiveData(false)
     val isAgreementSatisfied: LiveData<Boolean>
         get() = _isAgreementSatisfied
+
+    // SignUp
+    private val _email = MutableLiveData("")
+    val email: LiveData<String>
+        get() = _email
+
+    private val _isEmailValid = MutableLiveData(false)
+    val isEmailValid: LiveData<Boolean>
+        get() = _isEmailValid
+
+    private val _emailCertNumber = MutableLiveData("")
+    val emailCertNumber: LiveData<String>
+        get() = _emailCertNumber
 
     // Agreement
     fun onAgreementItem1Clicked() {
@@ -67,4 +85,23 @@ class SignViewModel @Inject constructor() : ViewModel() {
         _isAgreementSatisfied.value = agreementItem1.value == true && agreementItem2.value == true
     }
 
+    // SignUp
+    fun setEmail(email: String) {
+        _email.value = email
+    }
+
+    fun checkEmailValid() {
+        _isEmailValid.value = email.value?.contains("@") == true
+    }
+
+    fun requestEmailCertNumber() {
+        viewModelScope.launch {
+            email.value?.let {
+                requestCertNumberUseCase.invoke(it)
+                    .onSuccess {
+                        _emailCertNumber.value = it
+                    }
+            }
+        }
+    }
 }
