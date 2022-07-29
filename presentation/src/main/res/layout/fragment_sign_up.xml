@@ -95,9 +95,11 @@
                     android:paddingHorizontal="@dimen/space_xx_small"
                     android:text="@string/sign_up_cert_request"
                     android:textColor="@color/white"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@id/et_sign_up_cert_request"
                     app:layout_constraintStart_toStartOf="@id/tv_sign_up_email"
-                    app:layout_constraintTop_toTopOf="@id/et_sign_up_cert_request" />
+                    app:layout_constraintTop_toTopOf="@id/et_sign_up_cert_request"
+                    tools:visibility="visible" />
 
                 <EditText
                     android:id="@+id/et_sign_up_cert_request"
@@ -108,10 +110,13 @@
                     android:background="@drawable/bg_rectangle_right_round"
                     android:hint="@string/sign_up_cert_write"
                     android:inputType="number"
+                    android:maxLength="4"
                     android:textAlignment="center"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@id/et_sign_up_email"
                     app:layout_constraintStart_toEndOf="@id/btn_sign_up_cert_request"
-                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_email_condition" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_email_condition"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/tv_sign_up_cert_complete"
@@ -124,7 +129,7 @@
                     android:text="@string/sign_up_cert_complete"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@id/et_sign_up_email"
                     app:layout_constraintStart_toStartOf="@id/et_sign_up_email"
                     app:layout_constraintTop_toBottomOf="@id/tv_sign_up_email_condition"
@@ -136,9 +141,11 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/space_xx_small"
                     android:text="@string/sign_up_time_remain"
+                    android:visibility="invisible"
                     app:drawableStartCompat="@drawable/ic_clock"
                     app:layout_constraintEnd_toEndOf="@id/et_sign_up_cert_request"
-                    app:layout_constraintTop_toBottomOf="@id/et_sign_up_cert_request" />
+                    app:layout_constraintTop_toBottomOf="@id/et_sign_up_cert_request"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/tv_sign_up_cert_wrong"
@@ -147,8 +154,10 @@
                     android:text="@string/sign_up_cert_wrong"
                     android:textColor="@color/map_z_red_500"
                     android:textSize="@dimen/text_small"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@id/et_sign_up_cert_request"
-                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_time_remain" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_time_remain"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/tv_sign_up_pwd"
@@ -158,8 +167,10 @@
                     android:text="@string/password"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sign_up_text"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="@id/tv_sign_up_email"
-                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_cert_wrong" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_cert_wrong"
+                    tools:visibility="visible" />
 
                 <EditText
                     android:id="@+id/et_sign_up_pwd"
@@ -168,20 +179,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_xx_small"
                     android:inputType="textPassword"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@id/et_sign_up_email"
                     app:layout_constraintStart_toStartOf="@id/tv_sign_up_email"
-                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pwd" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pwd"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/tv_sign_up_pwd_err"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/space_small"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:drawableStartCompat="@drawable/ic_error"
                     app:layout_constraintBottom_toBottomOf="@id/et_sign_up_pwd"
                     app:layout_constraintEnd_toEndOf="@id/et_sign_up_pwd"
-                    app:layout_constraintTop_toTopOf="@id/et_sign_up_pwd" />
+                    app:layout_constraintTop_toTopOf="@id/et_sign_up_pwd"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/tv_sign_up_pwd_condition"
@@ -191,8 +205,10 @@
                     android:text="@string/sign_up_pwd_condition"
                     android:textColor="@color/map_z_red_500"
                     android:textSize="@dimen/sign_up_condition_text"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@id/et_sign_up_pwd"
-                    app:layout_constraintTop_toBottomOf="@id/et_sign_up_pwd" />
+                    app:layout_constraintTop_toBottomOf="@id/et_sign_up_pwd"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/tv_sign_up_pwd_check"
@@ -202,8 +218,10 @@
                     android:text="@string/sign_up_pwd_check"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sign_up_text"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="@id/tv_sign_up_email"
-                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pwd_condition" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pwd_condition"
+                    tools:visibility="visible" />
 
                 <EditText
                     android:id="@+id/et_sign_up_pwd_check"
@@ -213,10 +231,12 @@
                     android:layout_marginTop="@dimen/space_xx_small"
                     android:layout_marginBottom="@dimen/space_max_large"
                     android:inputType="textPassword"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/et_sign_up_email"
                     app:layout_constraintStart_toStartOf="@id/tv_sign_up_email"
-                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pwd_check" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pwd_check"
+                    tools:visibility="visible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
