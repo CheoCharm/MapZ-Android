@@ -49,33 +49,6 @@ class SignUpAgreeFragment :
     private fun initObservers() {
         signViewModel.isAgreementSatisfied.observe(viewLifecycleOwner) {
             binding.btnSignUpAgreeNext.isEnabled = it
-            if (it) {
-                binding.btnSignUpAgreeNext.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        requireActivity(),
-                        R.color.map_z_red_500
-                    )
-                )
-                binding.btnSignUpAgreeNext.setTextColor(
-                    ContextCompat.getColor(
-                        requireActivity(),
-                        R.color.white
-                    )
-                )
-            } else {
-                binding.btnSignUpAgreeNext.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        requireActivity(),
-                        R.color.gray_extra_300
-                    )
-                )
-                binding.btnSignUpAgreeNext.setTextColor(
-                    ContextCompat.getColor(
-                        requireActivity(),
-                        R.color.black
-                    )
-                )
-            }
         }
         signViewModel.agreementItem1.observe(viewLifecycleOwner) {
             binding.containerSignUpAgreeItem1.btnSignUpAgree.isChecked = it

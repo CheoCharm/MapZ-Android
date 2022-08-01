@@ -129,9 +129,10 @@
                 android:layout_marginHorizontal="@dimen/space_xx_large"
                 android:layout_marginTop="@dimen/space_small"
                 android:layout_marginBottom="@dimen/space_xx_large"
-                android:backgroundTint="@color/gray_extra_300"
+                android:background="@drawable/bg_rectangle_round_btn"
                 android:elevation="0dp"
                 android:text="@string/next"
+                android:textColor="@color/text_enabled"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
