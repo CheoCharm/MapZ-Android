@@ -238,6 +238,18 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pwd_check"
                     tools:visibility="visible" />
 
+                <TextView
+                    android:id="@+id/tv_sign_up_pwd_check_err"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_small"
+                    android:visibility="invisible"
+                    app:drawableStartCompat="@drawable/ic_error"
+                    app:layout_constraintBottom_toBottomOf="@id/et_sign_up_pwd_check"
+                    app:layout_constraintEnd_toEndOf="@id/et_sign_up_pwd_check"
+                    app:layout_constraintTop_toTopOf="@id/et_sign_up_pwd_check"
+                    tools:visibility="visible" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
@@ -261,9 +273,11 @@
                 android:layout_marginHorizontal="@dimen/space_xx_large"
                 android:layout_marginTop="@dimen/space_small"
                 android:layout_marginBottom="@dimen/space_xx_large"
-                android:backgroundTint="@color/gray_extra_300"
+                android:background="@drawable/bg_rectangle_round_btn"
                 android:elevation="0dp"
+                android:enabled="false"
                 android:text="@string/next"
+                android:textColor="@color/text_enabled"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

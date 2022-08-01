@@ -1,5 +1,6 @@
 package com.cheocharm.presentation.ui.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.cheocharm.domain.usecase.RequestCertNumberUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -47,6 +49,34 @@ class SignViewModel @Inject constructor(
     private val _emailCertNumber = MutableLiveData("")
     val emailCertNumber: LiveData<String>
         get() = _emailCertNumber
+
+    private val _emailCertNumUserFilled = MutableLiveData("")
+    val emailCertNumUserFilled: LiveData<String>
+        get() = _emailCertNumUserFilled
+
+    private val _isCertNumberVerified = MutableLiveData<Boolean>()
+    val isCertNumberVerified: LiveData<Boolean>
+        get() = _isCertNumberVerified
+
+    private val _pwd = MutableLiveData("")
+    val pwd: LiveData<String>
+        get() = _pwd
+
+    private val _pwdCheck = MutableLiveData("")
+    val pwdCheck: LiveData<String>
+        get() = _pwdCheck
+
+    private val _isPwdVerified = MutableLiveData<Boolean>()
+    val isPwdVerified: LiveData<Boolean>
+        get() = _isPwdVerified
+
+    private val _isPwdSame = MutableLiveData<Boolean>()
+    val isPwdSame: LiveData<Boolean>
+        get() = _isPwdSame
+
+    private val _isSignUpEnabled = MutableLiveData(false)
+    val isSignUpEnabled: LiveData<Boolean>
+        get() = _isSignUpEnabled
 
     // Agreement
     fun onAgreementItem1Clicked() {
@@ -91,7 +121,8 @@ class SignViewModel @Inject constructor(
     }
 
     fun checkEmailValid() {
-        _isEmailValid.value = email.value?.contains("@") == true
+        _isEmailValid.value =
+            Patterns.EMAIL_ADDRESS.matcher(email.value ?: return).matches() == true
     }
 
     fun requestEmailCertNumber() {
@@ -101,7 +132,42 @@ class SignViewModel @Inject constructor(
                     .onSuccess {
                         _emailCertNumber.value = it
                     }
+                    .onFailure {
+                        // TODO: 테스트하는 동안만 1234
+                        _emailCertNumber.value = "1234"
+                    }
             }
         }
+    }
+
+    fun setEmailCertNumUserFilled(certNum: String) {
+        _emailCertNumUserFilled.value = certNum
+    }
+
+    fun checkEmailCertNumber() {
+        _isCertNumberVerified.value = emailCertNumber.value == emailCertNumUserFilled.value
+    }
+
+    fun setPwd(pwd: String) {
+        _pwd.value = pwd
+    }
+
+    fun setPwdCheck(pwdCheck: String) {
+        _pwdCheck.value = pwdCheck
+    }
+
+    fun checkPwdVerified() {
+        val pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{8,50}$")
+        _isPwdVerified.value = pattern.matcher(pwd.value ?: return).find() == true
+    }
+
+    fun checkPwdSame() {
+        _isPwdSame.value = pwd.value == pwdCheck.value
+        checkSignUpEnabled()
+    }
+
+    fun checkSignUpEnabled() {
+        _isSignUpEnabled.value =
+            isEmailValid.value == true && isCertNumberVerified.value == true && isPwdVerified.value == true && isPwdSame.value == true
     }
 }
