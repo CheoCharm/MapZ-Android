@@ -40,14 +40,6 @@
             app:layout_constraintVertical_bias="0.4"
             app:layout_constraintVertical_chainStyle="packed" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_picture_selected"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_picture" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_picture_desc"
             android:layout_width="138dp"

@@ -32,7 +32,7 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
         writeViewModel.groups.observe(viewLifecycleOwner) {
             it?.let {
-                groupsAdapter.submitList(it as MutableList<Group>)
+                groupsAdapter.submitList(it)
             }
         }
     }

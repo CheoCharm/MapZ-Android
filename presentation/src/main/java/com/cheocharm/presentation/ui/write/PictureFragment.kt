@@ -1,21 +1,37 @@
 package com.cheocharm.presentation.ui.write
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.exifinterface.media.ExifInterface
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentPictureBinding
-
-const val PICK_IMAGE = 1111
+import com.cheocharm.presentation.model.Picture
 
 class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_picture) {
-    private val pictureViewModel: PictureViewModel by viewModels()
+    private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
+
+    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            requireContext().contentResolver.openInputStream(uri)?.let { inputStream ->
+                val exif = ExifInterface(inputStream)
+                val location = exif.latLong?.let {
+                    "(${it[0]}, ${it[1]})"
+                }
+
+                pictureViewModel.setPicture(Picture(uri, location))
+
+                inputStream.close()
+            }
+
+            navigateToLocationFragment()
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,36 +45,12 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
         }
 
         binding.btnPictureGet.setOnClickListener {
-            getPicture()
-        }
-
-        pictureViewModel.picture.observe(viewLifecycleOwner) {
-            binding.ivPictureSelected.apply {
-                binding.groupPictureDesc.isVisible = false
-                setImageURI(it)
-            }
+            getContent.launch("image/*")
         }
     }
 
-    private fun getPicture() {
-        val mimeTypes = arrayOf("image/jpeg", "image/png")
-        val intent = Intent(Intent.ACTION_PICK).apply {
-            type = "image/*"
-            putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-        }
-
-        startActivityForResult(intent, PICK_IMAGE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
-            val selectedImage = data?.data
-
-            selectedImage?.let {
-                pictureViewModel.setPicture(selectedImage)
-            }
-        }
+    private fun navigateToLocationFragment() {
+        val action = PictureFragmentDirections.actionPictureFragmentToLocationFragment()
+        findNavController().navigate(action)
     }
 }
