@@ -20,6 +20,7 @@
             android:id="@+id/toolbar_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:title="위치 확인하기" />
 

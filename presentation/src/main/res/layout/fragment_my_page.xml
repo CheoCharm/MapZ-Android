@@ -12,9 +12,8 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.mypage.MyPageFragment">
+        tools:context=".ui.mypage.MyPageFragment"
+        style="@style/root_layout_default">
 
         <Button
             android:id="@+id/btn_my_page_sign_out"
