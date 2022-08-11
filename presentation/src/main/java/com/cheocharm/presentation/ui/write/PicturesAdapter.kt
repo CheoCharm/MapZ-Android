@@ -17,9 +17,9 @@ class PicturesAdapter : ListAdapter<Picture, PicturesAdapter.ViewHolder>(Picture
         fun bind(picture: Picture) {
             currentPicture = picture
 
-            with(binding) {
-                ivLocationPicture.setImageURI(picture.uri)
-
+            with(binding.ivLocationPicture) {
+                setImageURI(picture.uri)
+                clipToOutline = true
             }
         }
     }
