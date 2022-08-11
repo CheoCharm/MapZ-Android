@@ -3,11 +3,13 @@ package com.cheocharm.presentation.ui.write
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.navGraphViewModels
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentLocationBinding
+import com.cheocharm.presentation.ui.MainActivity
 
 class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location) {
     private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
@@ -28,6 +30,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 findNavController().navigate(action)
             }
         }
+
+        val mainActivityBinding = (activity as MainActivity).getBinding()
+        mainActivityBinding.fragmentMainMap.isVisible = true
 
         pictureViewModel.picture.observe(viewLifecycleOwner) {
             it?.let {

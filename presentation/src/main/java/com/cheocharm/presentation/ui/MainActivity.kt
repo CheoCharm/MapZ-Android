@@ -1,6 +1,7 @@
 package com.cheocharm.presentation.ui
 
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.cheocharm.base.BaseActivity
@@ -21,5 +22,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             binding.bottomNavMain.setupWithNavController(navController)
         }
+
+        binding.fragmentMainMap.isVisible = false
     }
+
+    fun getBinding(): ActivityMainBinding = binding
 }
