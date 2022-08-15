@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/write_dest"
-        android:name="com.cheocharm.presentation.ui.write.WriteFragment"
+        android:name="com.cheocharm.presentation.ui.write.GroupsFragment"
         android:label="fragment_write"
-        tools:layout="@layout/fragment_write" >
+        tools:layout="@layout/fragment_groups" >
         <action
             android:id="@+id/action_write_dest_to_pictureFragment"
             app:destination="@id/pictureFragment" />
