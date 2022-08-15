@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="위치 확인하기" />
+            app:title="위치 확인하기"
+            app:menu="@menu/menu_location" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

@@ -1,10 +1,13 @@
 package com.cheocharm.presentation.ui.write
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
@@ -17,6 +20,11 @@ import com.google.android.gms.maps.model.MarkerOptions
 class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location) {
     private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -26,7 +34,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         binding.rvLocationPictures.apply {
             adapter = picturesAdapter
         }
+
         with(binding.toolbarLocation) {
+            (activity as MainActivity).setSupportActionBar(this)
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
                 val action = LocationFragmentDirections.actionLocationFragmentToPictureFragment()
@@ -61,10 +71,16 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_location, menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.location_confirm -> {
-                // TODO: 일기 작성하기 화면으로 이동
+                val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
+                findNavController().navigate(action)
                 true
             }
             else -> {
