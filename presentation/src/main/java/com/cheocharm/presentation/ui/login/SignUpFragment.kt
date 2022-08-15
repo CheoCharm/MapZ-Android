@@ -64,6 +64,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 signViewModel.setPwd(p0.toString())
                 signViewModel.checkPwdVerified()
+                signViewModel.checkPwdSame()
             }
 
             override fun afterTextChanged(p0: Editable?) {}
@@ -103,7 +104,8 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
                 binding.tvSignUpPwdCondition.visibility = View.VISIBLE
                 binding.tvSignUpPwdCheck.visibility = View.VISIBLE
                 binding.etSignUpPwdCheck.visibility = View.VISIBLE
-//                binding.tvSignUpTimeRemain.visibility = View.INVISIBLE
+                binding.tvSignUpTimeRemain.visibility = View.INVISIBLE
+                binding.tvSignUpCertWrong.visibility = View.INVISIBLE
 
                 binding.btnSignUpCertRequest.isEnabled = false
                 binding.etSignUpEmail.isEnabled = false
