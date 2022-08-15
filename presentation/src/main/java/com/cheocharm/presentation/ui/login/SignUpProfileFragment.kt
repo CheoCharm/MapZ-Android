@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -14,12 +15,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.common.UriUtil
 import com.cheocharm.presentation.databinding.FragmentSignUpProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 
 @AndroidEntryPoint
 class SignUpProfileFragment :
@@ -45,7 +49,6 @@ class SignUpProfileFragment :
         }
         binding.ivSignUpProfileUser.setOnClickListener {
             selectProfileImage()
-
         }
         binding.btnSignUpProfileGallery.setOnClickListener {
             selectProfileImage()
@@ -57,13 +60,20 @@ class SignUpProfileFragment :
                 signViewModel.setNickname(p0.toString())
             }
 
-            override fun afterTextChanged(p0: Editable?) {}
+            override fun afterTextChanged(p0: Editable?) {
+                signViewModel.setNickname(p0.toString())
+            }
 
         })
+        binding.btnSignUpProfileComplete.setOnClickListener {
+            signViewModel.requestMapZSignUp()
+        }
     }
 
     private fun initObservers() {
-
+        signViewModel.isProfileEnabled.observe(viewLifecycleOwner) {
+            binding.btnSignUpProfileComplete.isEnabled = it
+        }
     }
 
     private fun initGalleryLauncher() {
@@ -72,7 +82,7 @@ class SignUpProfileFragment :
                 if (activityResult.resultCode == RESULT_OK && activityResult.data != null) {
                     val imageUri = activityResult.data?.data
                     runCatching {
-                        imageUri.let { uri ->
+                        imageUri?.let { uri ->
                             val bitmap = if (Build.VERSION.SDK_INT < 28) {
                                 MediaStore.Images.Media.getBitmap(
                                     requireActivity().contentResolver, uri
@@ -80,11 +90,15 @@ class SignUpProfileFragment :
                             } else {
                                 val source = ImageDecoder.createSource(
                                     requireActivity().contentResolver,
-                                    imageUri ?: return@registerForActivityResult
+                                    uri
                                 )
                                 ImageDecoder.decodeBitmap(source)
                             }
-                            binding.ivSignUpProfileUser.setImageBitmap(bitmap)
+                            val file = UriUtil.getFileFromUri(requireActivity(), uri)
+                            signViewModel.setProfileImage(file)
+                            binding.ivSignUpProfile.setImageBitmap(bitmap)
+                            binding.ivSignUpProfile.background = null
+                            binding.ivSignUpProfileUser.isVisible = false
                         }
                     }.onFailure {
                         Log.e("SignUpProfileFragment", "${it.message}")

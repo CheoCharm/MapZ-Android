@@ -5,15 +5,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cheocharm.domain.model.MapZSignUpRequest
 import com.cheocharm.domain.usecase.RequestCertNumberUseCase
+import com.cheocharm.domain.usecase.RequestMapZSignUpUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.io.File
 import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
 class SignViewModel @Inject constructor(
-    private val requestCertNumberUseCase: RequestCertNumberUseCase
+    private val requestCertNumberUseCase: RequestCertNumberUseCase,
+    private val requestMapZSignUpUseCase: RequestMapZSignUpUseCase
 ) : ViewModel() {
 
     // Agreement
@@ -77,6 +81,19 @@ class SignViewModel @Inject constructor(
     private val _isSignUpEnabled = MutableLiveData(false)
     val isSignUpEnabled: LiveData<Boolean>
         get() = _isSignUpEnabled
+
+    // Profile
+    private val _nickname = MutableLiveData<String>()
+    val nickname: LiveData<String>
+        get() = _nickname
+
+    private val _profileImage = MutableLiveData<File>()
+    val profileImage: LiveData<File>
+        get() = _profileImage
+
+    private val _isProfileEnabled = MutableLiveData<Boolean>()
+    val isProfileEnabled: LiveData<Boolean>
+        get() = _isProfileEnabled
 
     // Agreement
     fun onAgreementItem1Clicked() {
@@ -169,5 +186,38 @@ class SignViewModel @Inject constructor(
     fun checkSignUpEnabled() {
         _isSignUpEnabled.value =
             isEmailValid.value == true && isCertNumberVerified.value == true && isPwdVerified.value == true && isPwdSame.value == true
+    }
+
+    // Profile
+    fun setNickname(nickname: String) {
+        _nickname.value = nickname
+        checkProfileEnabled()
+    }
+
+    fun setProfileImage(profileImage: File) {
+        _profileImage.value = profileImage
+        checkProfileEnabled()
+    }
+
+    private fun checkProfileEnabled() {
+        _isProfileEnabled.value = nickname.value.isNullOrEmpty().not() && profileImage.value != null
+    }
+
+    fun requestMapZSignUp() {
+        val email = email.value ?: return
+        val pwd = pwd.value ?: return
+        val nickname = nickname.value ?: return
+        val profileImage = profileImage.value ?: return
+        val mapZSignUp = MapZSignUpRequest(email, pwd, nickname, profileImage)
+
+        viewModelScope.launch {
+            requestMapZSignUpUseCase.invoke(mapZSignUp)
+                .onSuccess {
+                    // TODO: 토큰 sharedpreference 저장
+                }
+                .onFailure {
+
+                }
+        }
     }
 }

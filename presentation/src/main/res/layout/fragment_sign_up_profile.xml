@@ -108,6 +108,7 @@
                     android:layout_marginTop="@dimen/space_xx_small"
                     android:layout_marginEnd="@dimen/space_xx_large"
                     android:inputType="text"
+                    android:maxLength="12"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_sign_up_profile_nickname"
                     app:layout_constraintTop_toBottomOf="@id/tv_sign_up_profile_nickname" />
@@ -141,7 +142,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/btn_sign_up_profile_next"
+                android:id="@+id/btn_sign_up_profile_complete"
                 style="@style/Theme.MapZ.Button.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
