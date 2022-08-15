@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.cheocharm.presentation.ui.login.SignViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.login.SignUpAgreeFragment">
+
+        <TextView
+            android:id="@+id/btn_sign_up_agree_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_small"
+            android:layout_marginTop="@dimen/space_large"
+            android:background="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_sign_up_agree_back">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/space_max_large">
+
+                <TextView
+                    android:id="@+id/tv_sign_up_agree_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_large"
+                    android:text="@string/app_name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_xx_large"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_sign_up_agree_title_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x_small"
+                    android:text="@string/sign_up_agree_title_description"
+                    android:textColor="@color/gray_extra_800"
+                    android:textSize="@dimen/text_s_large"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_agree_title" />
+
+                <TextView
+                    android:id="@+id/tv_sign_up_agree_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_large"
+                    android:gravity="center"
+                    android:text="@string/sign_up_agree_description"
+                    android:textColor="@color/gray_700"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_agree_title_description" />
+
+                <include
+                    android:id="@+id/container_sign_up_agree_item_1"
+                    layout="@layout/layout_sign_up_agree_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xxx_large"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sign_up_agree_description" />
+
+                <include
+                    android:id="@+id/container_sign_up_agree_item_2"
+                    layout="@layout/layout_sign_up_agree_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/container_sign_up_agree_item_1" />
+
+                <include
+                    android:id="@+id/container_sign_up_agree_item_3"
+                    layout="@layout/layout_sign_up_agree_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/container_sign_up_agree_item_2" />
+
+                <include
+                    android:id="@+id/container_sign_up_agree_all"
+                    layout="@layout/layout_sign_up_agree_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_median"
+                    android:layout_marginBottom="@dimen/space_max_large"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/container_sign_up_agree_item_3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_200"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/btn_sign_up_agree_next"
+                style="@style/Theme.MapZ.Button.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_xx_large"
+                android:layout_marginTop="@dimen/space_small"
+                android:layout_marginBottom="@dimen/space_xx_large"
+                android:background="@drawable/bg_rectangle_round_btn"
+                android:elevation="0dp"
+                android:text="@string/next"
+                android:textColor="@color/text_enabled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

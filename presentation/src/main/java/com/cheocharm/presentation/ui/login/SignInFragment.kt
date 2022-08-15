@@ -3,14 +3,17 @@ package com.cheocharm.presentation.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
-import com.cheocharm.base.BaseActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.BuildConfig
 import com.cheocharm.presentation.R
-import com.cheocharm.presentation.databinding.ActivitySignInBinding
+import com.cheocharm.presentation.databinding.FragmentSignInBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -20,9 +23,9 @@ import com.google.android.gms.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
+class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sign_in) {
 
-    private val loginViewModel by viewModels<LoginViewModel>()
+    private val signViewModel by viewModels<SignViewModel>()
 
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -36,34 +39,49 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             .requestEmail()
             .build()
 
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
+        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
         intentResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == RESULT_OK) {
+            if (it.resultCode == AppCompatActivity.RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
                 handleSignInResult(task)
             }
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         initButton()
     }
 
     override fun onStart() {
         super.onStart()
 
-        val account = GoogleSignIn.getLastSignedInAccount(this)
+        val account = GoogleSignIn.getLastSignedInAccount(requireActivity())
     }
 
     private fun initButton() {
-        binding.btnSignInGoogle.setOnClickListener {
+        binding.btnSignInGoogleSignUp.setOnClickListener {
             val intent = googleSignInClient.signInIntent
             intentResult.launch(intent)
         }
-
-        binding.btnSignOutGoogle.setOnClickListener {
-            googleSignInClient.signOut()
-                .addOnCompleteListener {
-                    Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
-                }
+        binding.btnSignInSignUp.setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_signUpAgreeFragment)
+        }
+        binding.cbSignInKeepLogin.setOnCheckedChangeListener { button, checked ->
+            if (checked) binding.tvSignInKeepLogin.setTextColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.map_z_red_500
+                )
+            )
+            else binding.tvSignInKeepLogin.setTextColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.gray_extra_500
+                )
+            )
         }
     }
 

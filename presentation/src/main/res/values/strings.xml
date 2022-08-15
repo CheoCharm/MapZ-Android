@@ -1,4 +1,12 @@
 <resources>
+    <string name="app_name">Map-Z</string>
+    <string name="email">이메일</string>
+    <string name="password">비밀번호</string>
+    <string name="nickname">닉네임</string>
+    <string name="next">다음</string>
+    <string name="complete">완료</string>
+    <string name="see_description">보기</string>
+
     <string name="main_menu_home_title">Home</string>
     <string name="main_menu_search_title">Search</string>
     <string name="main_menu_write_title">Write</string>
@@ -11,4 +19,35 @@
     <string name="format_write_number_of_group_members">+ %d</string>
     <string name="picture_desc">친구들과의 추억이 담긴 사진을 선택해주세요.</string>
     <string name="picture_button">사진 가져오기</string>
+
+    <string name="sign_in_title">Login</string>
+    <string name="sign_in_email">E-mail</string>
+    <string name="sign_in_pwd">Password</string>
+    <string name="sign_in_find_email">아이디 찾기</string>
+    <string name="sign_in_find_pwd">비밀번호 찾기</string>
+    <string name="sign_in_keep_login">자동 로그인</string>
+    <string name="sign_in_sign_in">로그인</string>
+    <string name="sign_in_sign_up">회원가입하기</string>
+    <string name="sign_in_google_sign_up">구글 계정으로 로그인하기</string>
+    <string name="sign_up_title">이메일/비밀번호 설정</string>
+
+    <string name="sign_up_pwd_check">비밀번호 확인</string>
+    <string name="sign_up_email_condition">영문, 숫자 조합 8자 이상</string>
+    <string name="sign_up_pwd_condition">영문, 숫자 조합 8자 이상</string>
+    <string name="sign_up_profile_title">프로필 설정</string>
+    <string name="sign_up_profile_nickname_condition">최대 12자</string>
+    <string name="sign_up_agree_title_description">Map-Z에 오신 것을 환영합니다.</string>
+    <string name="sign_up_agree_description">Map-Z의 기능을 사용하기 위해서\n새로운 약관 동의가 필요합니다.\n약관에 동의하시고 Map-Z로\n친구들과의 추억을 기록해보세요.</string>
+    <string name="sign_up_agree_item_1">개인정보 수집 및 이용 안내</string>
+    <string name="sign_up_agree_item_2">제 3자 제공 동의</string>
+    <string name="sign_up_agree_item_3">제 3자 제공 동의</string>
+    <string name="sign_up_agree_all"><b>전체동의</b></string>
+    <string name="sign_up_agree_all_description">(선택) 제 3자 제공 동의를 포함하여 모두 동의합니다.</string>
+    <string name="sign_up_agree_required">(필수)</string>
+    <string name="sign_up_agree_optional">(선택)</string>
+    <string name="sign_up_cert_request">인증번호 요청</string>
+    <string name="sign_up_cert_write">인증번호 입력</string>
+    <string name="sign_up_time_remain">남은 시간 %d</string>
+    <string name="sign_up_cert_wrong">인증번호가 잘못 입력되었습니다.</string>
+    <string name="sign_up_cert_complete">인증번호 확인 완료</string>
 </resources>
