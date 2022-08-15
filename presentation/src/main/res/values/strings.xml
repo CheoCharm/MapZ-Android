@@ -15,8 +15,11 @@
     <string name="format_search_count">Search %d</string>
     <string name="format_write_count">Write %d</string>
     <string name="format_my_page_count">My Page %d</string>
-    <string name="format_write_number_of_group_members">+ %d</string>
     <string name="write_title">일기 작성</string>
+    <string name="format_write_number_of_group_members">+ %d</string>
+    <string name="picture_desc">친구들과의 추억이 담긴 사진을 선택해주세요.</string>
+    <string name="picture_button">사진 가져오기</string>
+
     <string name="sign_in_title">Login</string>
     <string name="sign_in_email">E-mail</string>
     <string name="sign_in_pwd">Password</string>
@@ -27,6 +30,7 @@
     <string name="sign_in_sign_up">회원가입하기</string>
     <string name="sign_in_google_sign_up">구글 계정으로 로그인하기</string>
     <string name="sign_up_title">이메일/비밀번호 설정</string>
+
     <string name="sign_up_pwd_check">비밀번호 확인</string>
     <string name="sign_up_email_condition">영문, 숫자 조합 8자 이상</string>
     <string name="sign_up_pwd_condition">영문, 숫자 조합 8자 이상</string>

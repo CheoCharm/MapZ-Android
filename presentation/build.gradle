@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 Properties properties = new Properties()
@@ -42,8 +43,6 @@ android {
 }
 
 dependencies {
-    def navVersion = "2.5.0"
-
     implementation project(":domain")
     implementation project(":base")
 
