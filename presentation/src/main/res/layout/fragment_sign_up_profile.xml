@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_xx_large"
-                android:background="@drawable/bg_top_round"
+                android:background="@drawable/bg_top_radius_20dp"
                 android:backgroundTint="@color/white"
                 android:paddingBottom="@dimen/sign_up_profile_bottom">
 
