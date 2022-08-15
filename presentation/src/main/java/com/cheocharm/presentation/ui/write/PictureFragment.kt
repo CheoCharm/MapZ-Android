@@ -12,6 +12,7 @@ import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentPictureBinding
 import com.cheocharm.presentation.model.Picture
+import com.google.android.gms.maps.model.LatLng
 
 class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_picture) {
     private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
@@ -20,11 +21,11 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
         uri?.let {
             requireContext().contentResolver.openInputStream(uri)?.let { inputStream ->
                 val exif = ExifInterface(inputStream)
-                val location = exif.latLong?.let {
-                    "(${it[0]}, ${it[1]})"
+                val latLng = exif.latLong?.let {
+                    LatLng(it[0], it[1])
                 }
 
-                pictureViewModel.setPicture(Picture(uri, location))
+                pictureViewModel.setPicture(Picture(uri, latLng))
 
                 inputStream.close()
             }

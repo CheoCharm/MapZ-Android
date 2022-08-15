@@ -47,6 +47,6 @@ object PictureDiffCallback : DiffUtil.ItemCallback<Picture>() {
     }
 
     override fun areContentsTheSame(oldItem: Picture, newItem: Picture): Boolean {
-        return oldItem.uri == newItem.uri && oldItem.location == newItem.location
+        return oldItem.uri == newItem.uri && oldItem.address == newItem.address
     }
 }
