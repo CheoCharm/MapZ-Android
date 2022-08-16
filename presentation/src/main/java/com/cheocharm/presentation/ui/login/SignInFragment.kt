@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
@@ -26,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sign_in) {
 
     private val signViewModel by viewModels<SignViewModel>()
+    private val signInViewModel by viewModels<SignInViewModel>()
 
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -53,6 +56,8 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
         super.onViewCreated(view, savedInstanceState)
 
         initButton()
+        initEditText()
+        initObservers()
     }
 
     override fun onStart() {
@@ -82,6 +87,29 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
                     R.color.gray_extra_500
                 )
             )
+        }
+        binding.btnSignIn.setOnClickListener {
+            signInViewModel.requestMapZSignIn()
+        }
+    }
+
+    private fun initEditText() {
+        binding.etSignInEmail.doOnTextChanged { text, start, before, count ->
+            signInViewModel.setEmail(text.toString())
+            signInViewModel.checkSignInEnabled()
+        }
+        binding.etSignInPwd.doOnTextChanged { text, start, before, count ->
+            signInViewModel.setPwd(text.toString())
+            signInViewModel.checkSignInEnabled()
+        }
+    }
+
+    private fun initObservers() {
+        signInViewModel.isSignInEnabled.observe(viewLifecycleOwner) {
+            binding.btnSignIn.isEnabled = it
+        }
+        signInViewModel.toastMessage.observe(viewLifecycleOwner) {
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         }
     }
 

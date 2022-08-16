@@ -2,7 +2,8 @@ package com.cheocharm.remote.source
 
 import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.source.LoginRemoteDataSource
-import com.cheocharm.domain.model.MapZSignUp
+import com.cheocharm.domain.model.MapZSign
+import com.cheocharm.domain.model.MapZSignInRequest
 import com.cheocharm.domain.model.MapZSignUpRequest
 import com.cheocharm.remote.api.LoginApi
 import com.cheocharm.remote.mapper.toDomain
@@ -38,7 +39,7 @@ class LoginRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun requestMapZSignUp(mapZSignUpRequest: MapZSignUpRequest): Result<MapZSignUp> {
+    override suspend fun requestMapZSignUp(mapZSignUpRequest: MapZSignUpRequest): Result<MapZSign> {
         val mapZSignUpDto = mapZSignUpRequest.toDto()
         val fileRequestBody = MultipartBody.Part.createFormData(
             "file",
@@ -57,6 +58,23 @@ class LoginRemoteDataSourceImpl @Inject constructor(
                             NullPointerException()
                         )
                     )
+                )
+            }
+            is UnknownHostException -> Result.failure(ErrorData.NetworkUnavailable)
+            else -> Result.failure(exception)
+        }
+    }
+
+    override suspend fun requestMapZSignIn(mapZSignInRequest: MapZSignInRequest): Result<MapZSign> {
+        val result = runCatching { loginApi.signInMapZ(mapZSignInRequest.toDto()) }
+        println(result)
+        return when (val exception = result.exceptionOrNull()) {
+            null -> {
+                val response =
+                    result.getOrNull() ?: return Result.failure(Throwable(NullPointerException()))
+                Result.success(
+                    response.data?.toDomain()
+                        ?: return Result.failure(ErrorData.MapZSignInUnAvailable(response.message))
                 )
             }
             is UnknownHostException -> Result.failure(ErrorData.NetworkUnavailable)

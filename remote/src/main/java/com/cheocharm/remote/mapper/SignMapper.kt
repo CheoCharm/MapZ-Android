@@ -1,9 +1,10 @@
 package com.cheocharm.remote.mapper
 
-import com.cheocharm.data.model.MapZSignUpData
-import com.cheocharm.domain.model.MapZSignUp
+import com.cheocharm.domain.model.MapZSign
+import com.cheocharm.domain.model.MapZSignInRequest
 import com.cheocharm.domain.model.MapZSignUpRequest
-import com.cheocharm.remote.model.MapZSignUpResponse
+import com.cheocharm.remote.model.MapZSignResponse
+import com.cheocharm.remote.model.request.MapZSignInDto
 import com.cheocharm.remote.model.request.MapZSignUpDto
 
 // domain -> remote
@@ -12,6 +13,11 @@ internal fun MapZSignUpRequest.toDto(): MapZSignUpDto {
 }
 
 // remote -> domain
-internal fun MapZSignUpResponse.toDomain(): MapZSignUp {
-    return MapZSignUp(this.accessToken, this.refreshToken)
+internal fun MapZSignResponse.toDomain(): MapZSign {
+    return MapZSign(this.accessToken, this.refreshToken)
+}
+
+// domain -> remote
+internal fun MapZSignInRequest.toDto(): MapZSignInDto {
+    return MapZSignInDto(this.email, this.pwd)
 }

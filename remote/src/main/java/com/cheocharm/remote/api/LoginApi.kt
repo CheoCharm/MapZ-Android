@@ -3,7 +3,8 @@ package com.cheocharm.remote.api
 import com.cheocharm.remote.model.BaseResponse
 import com.cheocharm.remote.model.GoogleSignInResponse
 import com.cheocharm.remote.model.GoogleSignUpResponse
-import com.cheocharm.remote.model.MapZSignUpResponse
+import com.cheocharm.remote.model.MapZSignResponse
+import com.cheocharm.remote.model.request.MapZSignInDto
 import com.cheocharm.remote.model.request.MapZSignUpDto
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -19,7 +20,10 @@ interface LoginApi {
     suspend fun signUpMapZ(
         @Part("dto") dto: MapZSignUpDto,
         @Part file: MultipartBody.Part
-    ): BaseResponse<MapZSignUpResponse>
+    ): BaseResponse<MapZSignResponse>
+
+    @POST("users/signin")
+    suspend fun signInMapZ(@Body body: MapZSignInDto): BaseResponse<MapZSignResponse>
 
     @POST("users/login")
     suspend fun signInGoogleLogin(@Body body: RequestBody): BaseResponse<GoogleSignInResponse>
