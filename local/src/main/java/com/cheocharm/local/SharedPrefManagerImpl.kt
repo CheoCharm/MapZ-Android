@@ -30,6 +30,12 @@ class SharedPrefManagerImpl @Inject constructor(
         return prefs.getBoolean(key, true)
     }
 
+    override fun remove(key: String) {
+        prefs.edit()
+            .remove(key)
+            .apply()
+    }
+
     companion object {
         private const val FILE_NAME = "SharedPreferences"
     }

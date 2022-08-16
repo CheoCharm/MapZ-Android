@@ -13,4 +13,10 @@ interface AuthRepository {
     fun fetchRefreshToken(): String?
 
     fun fetchIsAutoSignIn(): Boolean
+
+    fun removeAccessToken()
+
+    fun removeRefreshToken()
+
+    fun removeIsAutoSignIn()
 }

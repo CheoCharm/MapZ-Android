@@ -30,6 +30,18 @@ class AuthLocalDataSourceImpl @Inject constructor(
         return sharedPrefManager.getBoolean(IS_AUTO_SIGN_IN)
     }
 
+    override fun removeAccessToken() {
+        sharedPrefManager.remove(ACCESS_TOKEN)
+    }
+
+    override fun removeRefreshToken() {
+        sharedPrefManager.remove(REFRESH_TOKEN)
+    }
+
+    override fun removeIsAutoSignIn() {
+        sharedPrefManager.remove(IS_AUTO_SIGN_IN)
+    }
+
     companion object {
         private const val ACCESS_TOKEN = "accessToken"
         private const val REFRESH_TOKEN = "refreshToken"
