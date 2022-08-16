@@ -14,8 +14,13 @@ class AuthLocalDataSourceImpl @Inject constructor(
         sharedPrefManager.setString(REFRESH_TOKEN, mapZSign.refreshToken)
     }
 
+    override fun saveIsAutoSignIn(isAutoSignIn: Boolean) {
+        sharedPrefManager.setBoolean(IS_AUTO_SIGN_IN, isAutoSignIn)
+    }
+
     companion object {
         private const val ACCESS_TOKEN = "accessToken"
         private const val REFRESH_TOKEN = "refreshToken"
+        private const val IS_AUTO_SIGN_IN = "isAutoSignIn"
     }
 }

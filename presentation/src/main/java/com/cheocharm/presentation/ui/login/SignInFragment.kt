@@ -77,6 +77,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
             findNavController().navigate(R.id.action_signInFragment_to_signUpAgreeFragment)
         }
         binding.cbSignInKeepLogin.setOnCheckedChangeListener { button, checked ->
+            signInViewModel.setIsAutoSignIn(checked)
             if (checked) binding.tvSignInKeepLogin.setTextColor(
                 ContextCompat.getColor(
                     requireActivity(),

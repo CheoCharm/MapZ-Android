@@ -20,7 +20,17 @@ class SharedPrefManagerImpl @Inject constructor(
         return prefs.getString(key, null)
     }
 
+    override fun setBoolean(key: String, value: Boolean) {
+        prefs.edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    override fun getBoolean(key: String): Boolean {
+        return prefs.getBoolean(key, true)
+    }
+
     companion object {
-        private const val FILE_NAME = "token"
+        private const val FILE_NAME = "SharedPreferences"
     }
 }

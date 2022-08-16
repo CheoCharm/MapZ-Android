@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.cheocharm.domain.model.Error
 import com.cheocharm.domain.model.MapZSignInRequest
 import com.cheocharm.domain.usecase.RequestMapZSignInUseCase
+import com.cheocharm.domain.usecase.SaveAutoSignInUseCase
 import com.cheocharm.domain.usecase.SaveTokenUseCase
 import com.cheocharm.presentation.common.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,10 +17,10 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val requestMapZSignInUseCase: RequestMapZSignInUseCase,
-    private val saveTokenUseCase: SaveTokenUseCase
+    private val saveTokenUseCase: SaveTokenUseCase,
+    private val saveAutoSignInUseCase: SaveAutoSignInUseCase
 ) : ViewModel() {
 
-    // SignIn
     private val _email = MutableLiveData<String>()
     val email: LiveData<String>
         get() = _email
@@ -27,6 +28,8 @@ class SignInViewModel @Inject constructor(
     private val _pwd = MutableLiveData<String>()
     val pwd: LiveData<String>
         get() = _pwd
+
+    private var isAutoSignIn = true
 
     private val _isSignInEnabled = MutableLiveData<Boolean>()
     val isSignInEnabled: LiveData<Boolean>
@@ -40,13 +43,16 @@ class SignInViewModel @Inject constructor(
     val toastMessage: LiveData<String>
         get() = _toastMessage
 
-    // SignIn
     fun setEmail(email: String) {
         _email.value = email
     }
 
     fun setPwd(pwd: String) {
         _pwd.value = pwd
+    }
+
+    fun setIsAutoSignIn(isAutoSignIn: Boolean) {
+        this.isAutoSignIn = isAutoSignIn
     }
 
     fun checkSignInEnabled() {
@@ -61,6 +67,7 @@ class SignInViewModel @Inject constructor(
             requestMapZSignInUseCase.invoke(MapZSignInRequest(emailValue, pwdValue))
                 .onSuccess {
                     saveTokenUseCase.invoke(it)
+                    saveAutoSignInUseCase.invoke(isAutoSignIn)
                     _goToMain.value = Event(Unit)
                 }
                 .onFailure {

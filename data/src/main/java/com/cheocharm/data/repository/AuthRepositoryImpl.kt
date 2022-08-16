@@ -12,4 +12,8 @@ class AuthRepositoryImpl @Inject constructor(
     override fun saveTokens(mapZSign: MapZSign) {
         authLocalDataSource.saveTokens(mapZSign)
     }
+
+    override fun saveIsAutoSignIn(isAutoSignIn: Boolean) {
+        authLocalDataSource.saveIsAutoSignIn(isAutoSignIn)
+    }
 }
