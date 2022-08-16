@@ -118,6 +118,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/sign_in_button_top"
                         android:background="@drawable/bg_rectangle_round_btn"
+                        android:enabled="false"
                         android:elevation="0dp"
                         android:text="@string/sign_in_sign_in"
                         android:textColor="@color/text_enabled"
