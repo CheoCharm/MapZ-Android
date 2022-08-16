@@ -7,13 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.cheocharm.domain.model.Error
 import com.cheocharm.domain.model.MapZSignInRequest
 import com.cheocharm.domain.usecase.RequestMapZSignInUseCase
+import com.cheocharm.domain.usecase.SaveTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val requestMapZSignInUseCase: RequestMapZSignInUseCase
+    private val requestMapZSignInUseCase: RequestMapZSignInUseCase,
+    private val saveTokenUseCase: SaveTokenUseCase
 ) : ViewModel() {
 
     // SignIn
@@ -53,12 +55,12 @@ class SignInViewModel @Inject constructor(
         viewModelScope.launch {
             requestMapZSignInUseCase.invoke(MapZSignInRequest(emailValue, pwdValue))
                 .onSuccess {
-                    // TODO sharedpreference 저장
-                    // 메인 화면으로 이동
+                    saveTokenUseCase.invoke(it)
+                    // TODO: 메인 화면으로 이동
                 }
                 .onFailure {
-                    when(it) {
-                        is Error.MapZSignInAvailable ->  _toastMessage.value = it.message
+                    when (it) {
+                        is Error.MapZSignInAvailable -> _toastMessage.value = it.message
                         else -> _toastMessage.value = "로그인에 실패하였습니다."
                     }
                 }
