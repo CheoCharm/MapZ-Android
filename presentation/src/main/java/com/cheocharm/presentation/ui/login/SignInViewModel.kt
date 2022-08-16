@@ -8,6 +8,7 @@ import com.cheocharm.domain.model.Error
 import com.cheocharm.domain.model.MapZSignInRequest
 import com.cheocharm.domain.usecase.RequestMapZSignInUseCase
 import com.cheocharm.domain.usecase.SaveTokenUseCase
+import com.cheocharm.presentation.common.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,6 +31,10 @@ class SignInViewModel @Inject constructor(
     private val _isSignInEnabled = MutableLiveData<Boolean>()
     val isSignInEnabled: LiveData<Boolean>
         get() = _isSignInEnabled
+
+    private val _goToMain = MutableLiveData<Event<Unit>>()
+    val goToMain: LiveData<Event<Unit>>
+        get() = _goToMain
 
     private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String>
@@ -56,14 +61,18 @@ class SignInViewModel @Inject constructor(
             requestMapZSignInUseCase.invoke(MapZSignInRequest(emailValue, pwdValue))
                 .onSuccess {
                     saveTokenUseCase.invoke(it)
-                    // TODO: 메인 화면으로 이동
+                    _goToMain.value = Event(Unit)
                 }
                 .onFailure {
                     when (it) {
-                        is Error.MapZSignInAvailable -> _toastMessage.value = it.message
-                        else -> _toastMessage.value = "로그인에 실패하였습니다."
+                        is Error.MapZSignInAvailable -> setToastMessage(it.message)
+                        else -> setToastMessage("로그인에 실패하였습니다.")
                     }
                 }
         }
+    }
+
+    private fun setToastMessage(message: String) {
+        _toastMessage.value = message
     }
 }

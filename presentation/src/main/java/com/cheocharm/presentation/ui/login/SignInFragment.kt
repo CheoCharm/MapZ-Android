@@ -15,7 +15,9 @@ import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.BuildConfig
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.common.EventObserver
 import com.cheocharm.presentation.databinding.FragmentSignInBinding
+import com.cheocharm.presentation.ui.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -111,6 +113,11 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
         signInViewModel.toastMessage.observe(viewLifecycleOwner) {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         }
+        signInViewModel.goToMain.observe(viewLifecycleOwner, EventObserver {
+            val intent = Intent(requireActivity(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        })
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
