@@ -12,27 +12,30 @@ import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentPictureBinding
 import com.cheocharm.presentation.model.Picture
+import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.model.LatLng
 
 class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_picture) {
     private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
 
-    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            requireContext().contentResolver.openInputStream(uri)?.let { inputStream ->
-                val exif = ExifInterface(inputStream)
-                val latLng = exif.latLong?.let {
-                    LatLng(it[0], it[1])
+    private val getContent =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                requireContext().contentResolver.openInputStream(uri)?.let { inputStream ->
+                    val exif = ExifInterface(inputStream)
+                    val latLng = exif.latLong?.let {
+                        LatLng(it[0], it[1])
+                    }
+                    val picture = Picture(uri, latLng)
+
+                    pictureViewModel.setPicture(picture)
+                    GeocodeUtil.execute(requireContext(), picture)
+                    inputStream.close()
                 }
 
-                pictureViewModel.setPicture(Picture(uri, latLng))
-
-                inputStream.close()
+                navigateToLocationFragment()
             }
-
-            navigateToLocationFragment()
         }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
