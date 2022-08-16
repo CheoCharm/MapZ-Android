@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
@@ -47,38 +48,21 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
         binding.btnSignUpCertRequest.setOnClickListener {
             signViewModel.requestEmailCertNumber()
         }
-        binding.etSignUpCertRequest.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                signViewModel.setEmailCertNumUserFilled(p0.toString())
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                if (p0?.length == 4) signViewModel.checkEmailCertNumber()
-            }
-        })
-        binding.etSignUpPwd.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                signViewModel.setPwd(p0.toString())
-                signViewModel.checkPwdVerified()
-                signViewModel.checkPwdSame()
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
-        binding.etSignUpPwdCheck.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                signViewModel.setPwdCheck(p0.toString())
-                signViewModel.checkPwdSame()
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
+        binding.etSignUpCertRequest.doOnTextChanged { text, start, before, count ->
+            signViewModel.setEmailCertNumUserFilled(text.toString())
+            if (text?.length == 4) signViewModel.checkEmailCertNumber()
+        }
+        binding.etSignUpPwd.doOnTextChanged { text, start, before, count ->
+            signViewModel.setPwd(text.toString())
+            signViewModel.checkPwdVerified()
+            signViewModel.checkPwdSame()
+            signViewModel.checkSignUpEnabled()
+        }
+        binding.etSignUpPwdCheck.doOnTextChanged { text, start, before, count ->
+            signViewModel.setPwdCheck(text.toString())
+            signViewModel.checkPwdSame()
+            signViewModel.checkSignUpEnabled()
+        }
     }
 
     private fun initObservers() {
@@ -127,7 +111,8 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
     }
 
     private fun hideEtCertNumber() {
-        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(binding.etSignUpCertRequest.windowToken, 0)
     }
 }

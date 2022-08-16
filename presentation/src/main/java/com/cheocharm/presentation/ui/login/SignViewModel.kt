@@ -180,7 +180,6 @@ class SignViewModel @Inject constructor(
 
     fun checkPwdSame() {
         _isPwdSame.value = pwd.value == pwdCheck.value
-        checkSignUpEnabled()
     }
 
     fun checkSignUpEnabled() {
@@ -191,7 +190,6 @@ class SignViewModel @Inject constructor(
     // Profile
     fun setNickname(nickname: String) {
         _nickname.value = nickname
-        checkProfileEnabled()
     }
 
     fun setProfileImage(profileImage: File) {
@@ -199,7 +197,7 @@ class SignViewModel @Inject constructor(
         checkProfileEnabled()
     }
 
-    private fun checkProfileEnabled() {
+    fun checkProfileEnabled() {
         _isProfileEnabled.value = nickname.value.isNullOrEmpty().not() && profileImage.value != null
     }
 
