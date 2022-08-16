@@ -29,6 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="181dp"
             android:background="@color/location_picture_list_bg_color"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
