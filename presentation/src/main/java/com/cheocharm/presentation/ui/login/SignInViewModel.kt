@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cheocharm.domain.model.Error
 import com.cheocharm.domain.model.MapZSignInRequest
+import com.cheocharm.domain.usecase.CheckAutoSignInUseCase
 import com.cheocharm.domain.usecase.RequestMapZSignInUseCase
 import com.cheocharm.domain.usecase.SaveAutoSignInUseCase
 import com.cheocharm.domain.usecase.SaveTokenUseCase
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val requestMapZSignInUseCase: RequestMapZSignInUseCase,
     private val saveTokenUseCase: SaveTokenUseCase,
-    private val saveAutoSignInUseCase: SaveAutoSignInUseCase
+    private val saveAutoSignInUseCase: SaveAutoSignInUseCase,
+    private val checkAutoSignInUseCase: CheckAutoSignInUseCase
 ) : ViewModel() {
 
     private val _email = MutableLiveData<String>()
@@ -77,6 +79,13 @@ class SignInViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    fun checkAutoSignIn() {
+        val signInCheck = checkAutoSignInUseCase.invoke()
+        if (signInCheck.accessToken.isNullOrEmpty() || signInCheck.refreshToken.isNullOrEmpty()) return
+
+        if (signInCheck.isAutoSignIn) _goToMain.value = Event(Unit)
     }
 
     private fun setToastMessage(message: String) {

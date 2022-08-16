@@ -16,4 +16,16 @@ class AuthRepositoryImpl @Inject constructor(
     override fun saveIsAutoSignIn(isAutoSignIn: Boolean) {
         authLocalDataSource.saveIsAutoSignIn(isAutoSignIn)
     }
+
+    override fun fetchAccessToken(): String? {
+        return authLocalDataSource.fetchAccessToken()
+    }
+
+    override fun fetchRefreshToken(): String? {
+        return authLocalDataSource.fetchRefreshToken()
+    }
+
+    override fun fetchIsAutoSignIn(): Boolean {
+        return authLocalDataSource.fetchIsAutoSignIn()
+    }
 }

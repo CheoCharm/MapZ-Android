@@ -18,6 +18,18 @@ class AuthLocalDataSourceImpl @Inject constructor(
         sharedPrefManager.setBoolean(IS_AUTO_SIGN_IN, isAutoSignIn)
     }
 
+    override fun fetchAccessToken(): String? {
+        return sharedPrefManager.getString(ACCESS_TOKEN)
+    }
+
+    override fun fetchRefreshToken(): String? {
+        return sharedPrefManager.getString(REFRESH_TOKEN)
+    }
+
+    override fun fetchIsAutoSignIn(): Boolean {
+        return sharedPrefManager.getBoolean(IS_AUTO_SIGN_IN)
+    }
+
     companion object {
         private const val ACCESS_TOKEN = "accessToken"
         private const val REFRESH_TOKEN = "refreshToken"

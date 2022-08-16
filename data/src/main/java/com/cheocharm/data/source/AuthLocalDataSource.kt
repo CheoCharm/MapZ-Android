@@ -7,4 +7,10 @@ interface AuthLocalDataSource {
     fun saveTokens(mapZSign: MapZSign)
 
     fun saveIsAutoSignIn(isAutoSignIn: Boolean)
+
+    fun fetchAccessToken(): String?
+
+    fun fetchRefreshToken(): String?
+
+    fun fetchIsAutoSignIn(): Boolean
 }

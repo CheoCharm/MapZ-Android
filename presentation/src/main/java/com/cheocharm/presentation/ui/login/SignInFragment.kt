@@ -60,6 +60,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
         initButton()
         initEditText()
         initObservers()
+        signInViewModel.checkAutoSignIn()
     }
 
     override fun onStart() {
