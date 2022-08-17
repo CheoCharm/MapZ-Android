@@ -68,7 +68,10 @@ class SignInViewModel @Inject constructor(
         viewModelScope.launch {
             requestMapZSignInUseCase.invoke(MapZSignInRequest(emailValue, pwdValue))
                 .onSuccess {
-                    saveTokenUseCase.invoke(it)
+                    saveTokenUseCase.invoke(
+                        it.accessToken ?: return@launch,
+                        it.refreshToken ?: return@launch
+                    )
                     saveAutoSignInUseCase.invoke(isAutoSignIn)
                     _goToMain.value = Event(Unit)
                 }

@@ -205,16 +205,17 @@ class SignViewModel @Inject constructor(
         val email = email.value ?: return
         val pwd = pwd.value ?: return
         val nickname = nickname.value ?: return
+        val pushAgreement = agreementItem3.value ?: return
         val profileImage = profileImage.value ?: return
-        val mapZSignUp = MapZSignUpRequest(email, pwd, nickname, profileImage)
+        val mapZSignUp = MapZSignUpRequest(email, pwd, nickname, pushAgreement, profileImage)
 
         viewModelScope.launch {
             requestMapZSignUpUseCase.invoke(mapZSignUp)
                 .onSuccess {
-                    // TODO: 토큰 sharedpreference 저장
+                    // TODO: 로그인 화면으로 이동, 회원가입 완료 토스트 메시지 띄우기
                 }
                 .onFailure {
-
+                    // TODO: 회원가입 오류에 대한 처리
                 }
         }
     }

@@ -1,10 +1,8 @@
 package com.cheocharm.domain.repository
 
-import com.cheocharm.domain.model.MapZSign
-
 interface AuthRepository {
 
-    fun saveTokens(mapZSign: MapZSign)
+    fun saveTokens(accessToken: String, refreshToken: String)
 
     fun saveIsAutoSignIn(isAutoSignIn: Boolean)
 

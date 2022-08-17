@@ -9,12 +9,12 @@ import com.cheocharm.remote.model.request.MapZSignUpDto
 
 // domain -> remote
 internal fun MapZSignUpRequest.toDto(): MapZSignUpDto {
-    return MapZSignUpDto(email, password, username)
+    return MapZSignUpDto(email, password, username, pushAgreement)
 }
 
 // remote -> domain
 internal fun MapZSignResponse.toDomain(): MapZSign {
-    return MapZSign(this.accessToken, this.refreshToken)
+    return MapZSign(accessToken, refreshToken)
 }
 
 // domain -> remote

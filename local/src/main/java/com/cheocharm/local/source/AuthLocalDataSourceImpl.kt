@@ -9,9 +9,9 @@ class AuthLocalDataSourceImpl @Inject constructor(
     private val sharedPrefManager: SharedPrefManager
 ) : AuthLocalDataSource {
 
-    override fun saveTokens(mapZSign: MapZSign) {
-        sharedPrefManager.setString(ACCESS_TOKEN, mapZSign.accessToken)
-        sharedPrefManager.setString(REFRESH_TOKEN, mapZSign.refreshToken)
+    override fun saveTokens(accessToken: String, refreshToken: String) {
+        sharedPrefManager.setString(ACCESS_TOKEN, accessToken)
+        sharedPrefManager.setString(REFRESH_TOKEN, refreshToken)
     }
 
     override fun saveIsAutoSignIn(isAutoSignIn: Boolean) {

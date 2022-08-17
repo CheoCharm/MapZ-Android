@@ -7,7 +7,7 @@ import javax.inject.Inject
 class SaveTokenUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    operator fun invoke(mapZSign: MapZSign) {
-        authRepository.saveTokens(mapZSign)
+    operator fun invoke(accessToken: String, refreshToken: String) {
+        authRepository.saveTokens(accessToken, refreshToken)
     }
 }
