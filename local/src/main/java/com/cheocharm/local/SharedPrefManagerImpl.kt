@@ -37,6 +37,6 @@ class SharedPrefManagerImpl @Inject constructor(
     }
 
     companion object {
-        private const val FILE_NAME = "SharedPreferences"
+        private const val FILE_NAME = "com.cheocharm.mapz.sharedpreference"
     }
 }
