@@ -50,4 +50,6 @@
     <string name="sign_up_time_remain">남은 시간 %d</string>
     <string name="sign_up_cert_wrong">인증번호가 잘못 입력되었습니다.</string>
     <string name="sign_up_cert_complete">인증번호 확인 완료</string>
+
+    <string name="my_page_sign_out">로그아웃</string>
 </resources>
