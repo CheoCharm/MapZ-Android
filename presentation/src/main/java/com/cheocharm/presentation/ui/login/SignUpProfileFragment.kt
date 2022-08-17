@@ -66,6 +66,11 @@ class SignUpProfileFragment :
         signViewModel.toastMessage.observe(viewLifecycleOwner) {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         }
+        signViewModel.goToSignIn.observe(viewLifecycleOwner) {
+            val intent = requireActivity().intent
+            requireActivity().finish()
+            startActivity(intent)
+        }
     }
 
     private fun initGalleryLauncher() {

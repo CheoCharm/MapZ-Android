@@ -9,6 +9,7 @@ import com.cheocharm.domain.model.Error
 import com.cheocharm.domain.model.MapZSignUpRequest
 import com.cheocharm.domain.usecase.RequestCertNumberUseCase
 import com.cheocharm.domain.usecase.RequestMapZSignUpUseCase
+import com.cheocharm.presentation.common.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -95,6 +96,10 @@ class SignViewModel @Inject constructor(
     private val _isProfileEnabled = MutableLiveData<Boolean>()
     val isProfileEnabled: LiveData<Boolean>
         get() = _isProfileEnabled
+
+    private val _goToSignIn = MutableLiveData<Event<Unit>>()
+    val goToSignIn: LiveData<Event<Unit>>
+        get() = _goToSignIn
 
     private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String>
@@ -217,7 +222,8 @@ class SignViewModel @Inject constructor(
         viewModelScope.launch {
             requestMapZSignUpUseCase.invoke(mapZSignUp)
                 .onSuccess {
-                    // TODO: 로그인 화면으로 이동, 회원가입 완료 토스트 메시지 띄우기
+                    setToastMessage("회원가입을 완료하였습니다.")
+                    _goToSignIn.value = Event(Unit)
                 }
                 .onFailure {
                     when (it) {
