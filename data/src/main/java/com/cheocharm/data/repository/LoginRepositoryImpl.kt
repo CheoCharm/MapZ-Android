@@ -14,7 +14,12 @@ class LoginRepositoryImpl @Inject constructor(
 ) : LoginRepository {
 
     override suspend fun requestEmailCertNumber(email: String): Result<String> {
-        return loginRemoteDataSource.requestEmailCertNumber(email)
+        val result = loginRemoteDataSource.requestEmailCertNumber(email)
+        return when (val exception = result.exceptionOrNull()) {
+            is ErrorData -> Result.failure(exception.toDomain())
+            null -> result
+            else -> Result.failure(exception)
+        }
     }
 
     override suspend fun requestMapZSignUp(mapZSignUpRequest: MapZSignUpRequest): Result<MapZSign> {

@@ -156,11 +156,15 @@ class SignViewModel @Inject constructor(
         viewModelScope.launch {
             email.value?.let {
                 requestCertNumberUseCase.invoke(it)
-                    .onSuccess {
-                        _emailCertNumber.value = it
+                    .onSuccess { string ->
+                        _emailCertNumber.value = string
                     }
-                    .onFailure {
+                    .onFailure { throwable ->
                         // TODO: 테스트하는 동안만 1234
+                        when (throwable) {
+                            is Error.MapZCertNumberUnavailable -> setToastMessage(throwable.message)
+                            else -> setToastMessage("이메일 인증번호 발급을 실패하였습니다.")
+                        }
                         _emailCertNumber.value = "1234"
                     }
             }

@@ -24,13 +24,11 @@ class LoginRemoteDataSourceImpl @Inject constructor(
 
         return when (val exception = result.exceptionOrNull()) {
             null -> {
-                val numString =
+                val response =
                     result.getOrNull() ?: return Result.failure(Throwable(NullPointerException()))
                 Result.success(
-                    numString.data ?: return Result.failure(
-                        Throwable(
-                            NullPointerException()
-                        )
+                    response.data ?: return Result.failure(
+                        ErrorData.MapZCertNumberUnavailable(response.message)
                     )
                 )
             }
