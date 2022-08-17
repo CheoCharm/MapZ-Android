@@ -64,7 +64,7 @@ class SignUpProfileFragment :
         signViewModel.isProfileEnabled.observe(viewLifecycleOwner) {
             binding.btnSignUpProfileComplete.isEnabled = it
         }
-        signViewModel.toastMessage.observe(viewLifecycleOwner) {
+        signViewModel.profileToastMessage.observe(viewLifecycleOwner) {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         }
         signViewModel.goToSignIn.observe(viewLifecycleOwner) {

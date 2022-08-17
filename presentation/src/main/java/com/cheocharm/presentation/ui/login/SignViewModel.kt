@@ -84,6 +84,10 @@ class SignViewModel @Inject constructor(
     val isSignUpEnabled: LiveData<Boolean>
         get() = _isSignUpEnabled
 
+    private val _signUpToastMessage = MutableLiveData<String>()
+    val signUpToastMessage: LiveData<String>
+        get() = _signUpToastMessage
+
     // Profile
     private val _nickname = MutableLiveData<String>()
     val nickname: LiveData<String>
@@ -103,9 +107,9 @@ class SignViewModel @Inject constructor(
     val goToSignIn: LiveData<Event<Unit>>
         get() = _goToSignIn
 
-    private val _toastMessage = MutableLiveData<String>()
-    val toastMessage: LiveData<String>
-        get() = _toastMessage
+    private val _profileToastMessage = MutableLiveData<String>()
+    val profileToastMessage: LiveData<String>
+        get() = _profileToastMessage
 
     // Agreement
     fun onAgreementItem1Clicked() {
@@ -164,8 +168,8 @@ class SignViewModel @Inject constructor(
                     .onFailure { throwable ->
                         // TODO: 테스트하는 동안만 1234
                         when (throwable) {
-                            is Error.MapZCertNumberUnavailable -> setToastMessage(throwable.message)
-                            else -> setToastMessage("이메일 인증번호 발급을 실패하였습니다.")
+                            is Error.MapZCertNumberUnavailable -> setSignUpToastMessage(throwable.message)
+                            else -> setSignUpToastMessage("이메일 인증번호 발급을 실패하였습니다.")
                         }
                         _emailCertNumber.value = "1234"
                     }
@@ -203,6 +207,10 @@ class SignViewModel @Inject constructor(
             isEmailValid.value == true && isCertNumberVerified.value == true && isPwdVerified.value == true && isPwdSame.value == true
     }
 
+    private fun setSignUpToastMessage(message: String) {
+        _signUpToastMessage.value = message
+    }
+
     // Profile
     fun setNickname(nickname: String) {
         _nickname.value = nickname
@@ -234,19 +242,19 @@ class SignViewModel @Inject constructor(
         viewModelScope.launch {
             requestMapZSignUpUseCase.invoke(mapZSignUp)
                 .onSuccess {
-                    setToastMessage("회원가입을 완료하였습니다.")
+                    setProfileToastMessage("회원가입을 완료하였습니다.")
                     _goToSignIn.value = Event(Unit)
                 }
                 .onFailure {
                     when (it) {
-                        is Error.MapZSignUpUnavailable -> setToastMessage(it.message)
-                        else -> setToastMessage("회원가입에 실패하였습니다.")
+                        is Error.MapZSignUpUnavailable -> setProfileToastMessage(it.message)
+                        else -> setProfileToastMessage("회원가입에 실패하였습니다.")
                     }
                 }
         }
     }
 
-    private fun setToastMessage(message: String) {
-        _toastMessage.value = message
+    private fun setProfileToastMessage(message: String) {
+        _profileToastMessage.value = message
     }
 }

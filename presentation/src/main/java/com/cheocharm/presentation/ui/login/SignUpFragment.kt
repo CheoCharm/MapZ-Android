@@ -109,7 +109,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
         signViewModel.isSignUpEnabled.observe(viewLifecycleOwner) {
             binding.btnSignUpNext.isEnabled = it
         }
-        signViewModel.toastMessage.observe(viewLifecycleOwner) {
+        signViewModel.signUpToastMessage.observe(viewLifecycleOwner) {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         }
     }
