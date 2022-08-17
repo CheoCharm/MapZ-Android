@@ -74,7 +74,7 @@ class LoginRemoteDataSourceImpl @Inject constructor(
                     result.getOrNull() ?: return Result.failure(Throwable(NullPointerException()))
                 Result.success(
                     response.data?.toDomain()
-                        ?: return Result.failure(ErrorData.MapZSignInUnAvailable(response.message))
+                        ?: return Result.failure(ErrorData.MapZSignInUnavailable(response.message))
                 )
             }
             is UnknownHostException -> Result.failure(ErrorData.NetworkUnavailable)

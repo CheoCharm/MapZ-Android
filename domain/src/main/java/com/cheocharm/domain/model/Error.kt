@@ -6,5 +6,5 @@ sealed class Error(
 ) : Exception(message, cause) {
 
     object NetworkUnavailable : Error()
-    data class MapZSignInAvailable(override val message: String) : Error()
+    data class MapZSignInUnavailable(override val message: String) : Error()
 }

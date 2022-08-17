@@ -74,7 +74,7 @@ class SignInViewModel @Inject constructor(
                 }
                 .onFailure {
                     when (it) {
-                        is Error.MapZSignInAvailable -> setToastMessage(it.message)
+                        is Error.MapZSignInUnavailable -> setToastMessage(it.message)
                         else -> setToastMessage("로그인에 실패하였습니다.")
                     }
                 }
