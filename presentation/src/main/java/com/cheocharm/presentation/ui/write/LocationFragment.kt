@@ -15,10 +15,13 @@ import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location) {
     private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
+
+    private var draggableMarker: Marker? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,10 +60,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
                         val selectedLocation = it.latLng
                         if (selectedLocation != null) {
-                            val draggableMarker = MarkerOptions()
+                            val markerOptions = MarkerOptions()
                                 .position(selectedLocation)
                                 .draggable(true)
-                            map.addMarker(draggableMarker)
+                            draggableMarker = map.addMarker(markerOptions)
                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 15F))
                         } else {
                             // TODO: 사진에 장소 정보가 없으면 기본 위치로 카메라 이동
@@ -87,5 +90,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        draggableMarker?.remove()
+        super.onDestroyView()
     }
 }
