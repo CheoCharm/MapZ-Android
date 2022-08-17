@@ -89,6 +89,8 @@ class SignViewModel @Inject constructor(
     val nickname: LiveData<String>
         get() = _nickname
 
+    private var isNicknameVerified = false
+
     private val _profileImage = MutableLiveData<File>()
     val profileImage: LiveData<File>
         get() = _profileImage
@@ -206,13 +208,19 @@ class SignViewModel @Inject constructor(
         _nickname.value = nickname
     }
 
+    fun checkNicknameVerified() {
+        val pattern = Pattern.compile("^[가-힣a-zA-Z0-9]{2,12}$")
+        isNicknameVerified = pattern.matcher(nickname.value ?: return).find() == true
+    }
+
     fun setProfileImage(profileImage: File) {
         _profileImage.value = profileImage
         checkProfileEnabled()
     }
 
     fun checkProfileEnabled() {
-        _isProfileEnabled.value = nickname.value.isNullOrEmpty().not() && profileImage.value != null
+        _isProfileEnabled.value = nickname.value.isNullOrEmpty()
+            .not() && profileImage.value != null && isNicknameVerified == true
     }
 
     fun requestMapZSignUp() {

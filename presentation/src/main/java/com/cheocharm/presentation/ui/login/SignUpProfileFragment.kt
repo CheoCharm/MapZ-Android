@@ -52,6 +52,7 @@ class SignUpProfileFragment :
         }
         binding.etSignUpProfileNickname.doOnTextChanged { text, start, before, count ->
             signViewModel.setNickname(text.toString())
+            signViewModel.checkNicknameVerified()
             signViewModel.checkProfileEnabled()
         }
         binding.btnSignUpProfileComplete.setOnClickListener {
@@ -93,6 +94,7 @@ class SignUpProfileFragment :
                             }
                             val file = UriUtil.getFileFromUri(requireActivity(), uri)
                             signViewModel.setProfileImage(file)
+                            signViewModel.checkProfileEnabled()
                             binding.ivSignUpProfile.setImageBitmap(bitmap)
                             binding.ivSignUpProfile.background = null
                             binding.ivSignUpProfileUser.isVisible = false
