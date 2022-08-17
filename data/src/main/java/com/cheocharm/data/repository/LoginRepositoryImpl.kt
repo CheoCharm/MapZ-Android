@@ -18,14 +18,18 @@ class LoginRepositoryImpl @Inject constructor(
     }
 
     override suspend fun requestMapZSignUp(mapZSignUpRequest: MapZSignUpRequest): Result<MapZSign> {
-        return loginRemoteDataSource.requestMapZSignUp(mapZSignUpRequest)
+        val result = loginRemoteDataSource.requestMapZSignUp(mapZSignUpRequest)
+        return when (val exception = result.exceptionOrNull()) {
+            is ErrorData -> Result.failure(exception.toDomain())
+            null -> result
+            else -> Result.failure(exception)
+        }
     }
 
     override suspend fun requestMapZSignIn(mapZSignInRequest: MapZSignInRequest): Result<MapZSign> {
         val result = loginRemoteDataSource.requestMapZSignIn(mapZSignInRequest)
-        val exception = result.exceptionOrNull()
 
-        return when(exception) {
+        return when (val exception = result.exceptionOrNull()) {
             is ErrorData -> Result.failure(exception.toDomain())
             null -> result
             else -> Result.failure(exception)

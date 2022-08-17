@@ -63,6 +63,9 @@ class SignUpProfileFragment :
         signViewModel.isProfileEnabled.observe(viewLifecycleOwner) {
             binding.btnSignUpProfileComplete.isEnabled = it
         }
+        signViewModel.toastMessage.observe(viewLifecycleOwner) {
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initGalleryLauncher() {

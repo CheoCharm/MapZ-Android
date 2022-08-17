@@ -54,9 +54,7 @@ class LoginRemoteDataSourceImpl @Inject constructor(
                     result.getOrNull() ?: return Result.failure(Throwable(NullPointerException()))
                 Result.success(
                     response.data?.toDomain() ?: return Result.failure(
-                        Throwable(
-                            NullPointerException()
-                        )
+                        ErrorData.MapZSignUpUnavailable(response.message)
                     )
                 )
             }

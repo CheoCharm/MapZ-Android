@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cheocharm.domain.model.Error
 import com.cheocharm.domain.model.MapZSignUpRequest
 import com.cheocharm.domain.usecase.RequestCertNumberUseCase
 import com.cheocharm.domain.usecase.RequestMapZSignUpUseCase
@@ -94,6 +95,10 @@ class SignViewModel @Inject constructor(
     private val _isProfileEnabled = MutableLiveData<Boolean>()
     val isProfileEnabled: LiveData<Boolean>
         get() = _isProfileEnabled
+
+    private val _toastMessage = MutableLiveData<String>()
+    val toastMessage: LiveData<String>
+        get() = _toastMessage
 
     // Agreement
     fun onAgreementItem1Clicked() {
@@ -215,8 +220,15 @@ class SignViewModel @Inject constructor(
                     // TODO: 로그인 화면으로 이동, 회원가입 완료 토스트 메시지 띄우기
                 }
                 .onFailure {
-                    // TODO: 회원가입 오류에 대한 처리
+                    when (it) {
+                        is Error.MapZSignUpUnavailable -> setToastMessage(it.message)
+                        else -> setToastMessage("회원가입에 실패하였습니다.")
+                    }
                 }
         }
+    }
+
+    private fun setToastMessage(message: String) {
+        _toastMessage.value = message
     }
 }
