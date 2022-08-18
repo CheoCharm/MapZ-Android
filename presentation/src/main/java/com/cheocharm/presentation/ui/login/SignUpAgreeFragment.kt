@@ -26,7 +26,7 @@ class SignUpAgreeFragment :
         val googleIdToken: String? = arguments?.get(GOOGLE_ID_TOKEN) as String?
         signViewModel.setSignUpType(signUpType)
         googleIdToken?.let {
-            signViewModel.setGoogleIdToken(googleIdToken)
+            signViewModel.setGoogleIdToken(it)
         }
 
         initView()
