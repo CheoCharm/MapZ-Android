@@ -7,6 +7,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.common.GOOGLE_ID_TOKEN
+import com.cheocharm.presentation.common.SIGN_UP_TYPE
 import com.cheocharm.presentation.databinding.FragmentSignUpAgreeBinding
 import com.cheocharm.presentation.model.SignType
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +21,11 @@ class SignUpAgreeFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val signUpType: SignType = (arguments?.get(SIGN_UP_TYPE) ?: SignType.MAPZ) as SignType
+        val googleIdToken: String? = arguments?.get(GOOGLE_ID_TOKEN) as String?
+        signViewModel.setSignUpType(signUpType)
+        signViewModel.setGoogleIdToken(googleIdToken ?: return)
 
         initView()
         initButton()

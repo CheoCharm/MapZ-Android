@@ -20,17 +20,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
     private val requestCertNumberUseCase: RequestCertNumberUseCase,
     private val requestMapZSignUpUseCase: RequestMapZSignUpUseCase,
     private val requestGoogleSignUpUseCase: RequestGoogleSignUpUseCase
 ) : ViewModel() {
 
-    var signUpType: SignType
+    lateinit var signUpType: SignType
         private set
 
-    var googleIdToken: String? = null
-        private set
+    private var googleIdToken: String? = null
 
     // Agreement
     private val _agreementItem1 = MutableLiveData(false)
@@ -121,9 +119,12 @@ class SignViewModel @Inject constructor(
     val profileToastMessage: LiveData<String>
         get() = _profileToastMessage
 
-    init {
-        signUpType = savedStateHandle[SIGN_UP_TYPE] ?: SignType.MAPZ
-        googleIdToken = savedStateHandle[GOOGLE_ID_TOKEN]
+    fun setSignUpType(signUpType: SignType) {
+        this.signUpType = signUpType
+    }
+
+    fun setGoogleIdToken(idToken: String) {
+        googleIdToken = idToken
     }
 
     // Agreement
