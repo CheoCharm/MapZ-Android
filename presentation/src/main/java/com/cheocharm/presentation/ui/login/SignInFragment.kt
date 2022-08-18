@@ -120,9 +120,13 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         }
         signInViewModel.goToMain.observe(viewLifecycleOwner, EventObserver {
-            val intent = Intent(requireActivity(), MainActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+            if (it) {
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            } else {
+                googleSignInClient.signOut()
+            }
         })
         signInViewModel.goToGoogleSignUpWithIdToken.observe(
             viewLifecycleOwner,

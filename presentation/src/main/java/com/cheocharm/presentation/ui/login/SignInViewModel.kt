@@ -41,8 +41,8 @@ class SignInViewModel @Inject constructor(
     val isSignInEnabled: LiveData<Boolean>
         get() = _isSignInEnabled
 
-    private val _goToMain = MutableLiveData<Event<Unit>>()
-    val goToMain: LiveData<Event<Unit>>
+    private val _goToMain = MutableLiveData<Event<Boolean>>()
+    val goToMain: LiveData<Event<Boolean>>
         get() = _goToMain
 
     private val _goToGoogleSignUpWithIdToken = MutableLiveData<Event<String>>()
@@ -82,7 +82,7 @@ class SignInViewModel @Inject constructor(
                     )
                     saveAutoSignInUseCase.invoke(isAutoSignIn)
                     saveSignInTypeUseCase.invoke(SignType.MAPZ.str)
-                    _goToMain.value = Event(Unit)
+                    _goToMain.value = Event(true)
                 }
                 .onFailure {
                     when (it) {
@@ -95,9 +95,12 @@ class SignInViewModel @Inject constructor(
 
     fun checkAutoSignIn() {
         val signInCheck = checkAutoSignInUseCase.invoke()
-        if (signInCheck.accessToken.isNullOrEmpty() || signInCheck.refreshToken.isNullOrEmpty()) return
+        if (signInCheck.accessToken.isNullOrEmpty() || signInCheck.refreshToken.isNullOrEmpty()) {
+            _goToMain.value = Event(false)
+            return
+        }
 
-        if (signInCheck.isAutoSignIn) _goToMain.value = Event(Unit)
+        if (signInCheck.isAutoSignIn) _goToMain.value = Event(true)
     }
 
     fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
@@ -116,7 +119,7 @@ class SignInViewModel @Inject constructor(
                                 )
                                 saveAutoSignInUseCase.invoke(isAutoSignIn)
                                 saveSignInTypeUseCase.invoke(SignType.GOOGLE.str)
-                                _goToMain.value = Event(Unit)
+                                _goToMain.value = Event(true)
                             }
                         }
                         .onFailure { throwable ->
