@@ -2,13 +2,13 @@ package com.cheocharm.presentation.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,14 +16,14 @@ import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.BuildConfig
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.common.EventObserver
+import com.cheocharm.presentation.common.GOOGLE_ID_TOKEN
+import com.cheocharm.presentation.common.SIGN_UP_TYPE
 import com.cheocharm.presentation.databinding.FragmentSignInBinding
+import com.cheocharm.presentation.model.SignType
 import com.cheocharm.presentation.ui.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,7 +49,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
         intentResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == AppCompatActivity.RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
-                handleSignInResult(task)
+                signInViewModel.handleSignInResult(task)
             }
         }
     }
@@ -75,7 +75,11 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
             intentResult.launch(intent)
         }
         binding.btnSignInSignUp.setOnClickListener {
-            findNavController().navigate(R.id.action_signInFragment_to_signUpAgreeFragment)
+            findNavController().navigate(
+                R.id.action_signInFragment_to_signUpAgreeFragment, bundleOf(
+                    SIGN_UP_TYPE to SignType.MAPZ
+                )
+            )
         }
         binding.cbSignInKeepLogin.setOnCheckedChangeListener { button, checked ->
             signInViewModel.setIsAutoSignIn(checked)
@@ -120,14 +124,15 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
             startActivity(intent)
             requireActivity().finish()
         })
-    }
-
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)
-
-        } catch (e: ApiException) {
-            Log.w("handleSignInResult", "${e.message}")
-        }
+        signInViewModel.goToGoogleSignUpWithIdToken.observe(
+            viewLifecycleOwner,
+            EventObserver { idToken ->
+                findNavController().navigate(
+                    R.id.action_signInFragment_to_signUpAgreeFragment, bundleOf(
+                        SIGN_UP_TYPE to SignType.GOOGLE,
+                        GOOGLE_ID_TOKEN to idToken
+                    )
+                )
+            })
     }
 }

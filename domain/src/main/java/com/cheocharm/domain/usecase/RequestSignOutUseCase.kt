@@ -11,5 +11,6 @@ class RequestSignOutUseCase @Inject constructor(
         authRepository.removeAccessToken()
         authRepository.removeRefreshToken()
         authRepository.removeIsAutoSignIn()
+        authRepository.removeSignInType()
     }
 }

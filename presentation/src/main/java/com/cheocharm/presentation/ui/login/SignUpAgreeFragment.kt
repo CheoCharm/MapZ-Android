@@ -1,6 +1,5 @@
 package com.cheocharm.presentation.ui.login
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -9,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentSignUpAgreeBinding
+import com.cheocharm.presentation.model.SignType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +30,10 @@ class SignUpAgreeFragment :
             findNavController().popBackStack()
         }
         binding.btnSignUpAgreeNext.setOnClickListener {
-            findNavController().navigate(R.id.action_signUpAgreeFragment_to_signUpFragment)
+            when (signViewModel.signUpType) {
+                SignType.MAPZ -> findNavController().navigate(R.id.action_signUpAgreeFragment_to_signUpFragment)
+                SignType.GOOGLE -> findNavController().navigate(R.id.action_signUpAgreeFragment_to_signUpProfileFragment)
+            }
         }
         binding.containerSignUpAgreeItem1.btnSignUpAgree.setOnClickListener {
             signViewModel.onAgreementItem1Clicked()
