@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cheocharm.domain.model.Error
 import com.cheocharm.domain.model.MapZSignUpRequest
 import com.cheocharm.domain.usecase.RequestCertNumberUseCase
 import com.cheocharm.domain.usecase.RequestMapZSignUpUseCase
+import com.cheocharm.presentation.common.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -82,10 +84,16 @@ class SignViewModel @Inject constructor(
     val isSignUpEnabled: LiveData<Boolean>
         get() = _isSignUpEnabled
 
+    private val _signUpToastMessage = MutableLiveData<String>()
+    val signUpToastMessage: LiveData<String>
+        get() = _signUpToastMessage
+
     // Profile
     private val _nickname = MutableLiveData<String>()
     val nickname: LiveData<String>
         get() = _nickname
+
+    private var isNicknameVerified = false
 
     private val _profileImage = MutableLiveData<File>()
     val profileImage: LiveData<File>
@@ -94,6 +102,14 @@ class SignViewModel @Inject constructor(
     private val _isProfileEnabled = MutableLiveData<Boolean>()
     val isProfileEnabled: LiveData<Boolean>
         get() = _isProfileEnabled
+
+    private val _goToSignIn = MutableLiveData<Event<Unit>>()
+    val goToSignIn: LiveData<Event<Unit>>
+        get() = _goToSignIn
+
+    private val _profileToastMessage = MutableLiveData<String>()
+    val profileToastMessage: LiveData<String>
+        get() = _profileToastMessage
 
     // Agreement
     fun onAgreementItem1Clicked() {
@@ -146,11 +162,15 @@ class SignViewModel @Inject constructor(
         viewModelScope.launch {
             email.value?.let {
                 requestCertNumberUseCase.invoke(it)
-                    .onSuccess {
-                        _emailCertNumber.value = it
+                    .onSuccess { string ->
+                        _emailCertNumber.value = string
                     }
-                    .onFailure {
+                    .onFailure { throwable ->
                         // TODO: 테스트하는 동안만 1234
+                        when (throwable) {
+                            is Error.MapZCertNumberUnavailable -> setSignUpToastMessage(throwable.message)
+                            else -> setSignUpToastMessage("이메일 인증번호 발급을 실패하였습니다.")
+                        }
                         _emailCertNumber.value = "1234"
                     }
             }
@@ -180,7 +200,6 @@ class SignViewModel @Inject constructor(
 
     fun checkPwdSame() {
         _isPwdSame.value = pwd.value == pwdCheck.value
-        checkSignUpEnabled()
     }
 
     fun checkSignUpEnabled() {
@@ -188,10 +207,18 @@ class SignViewModel @Inject constructor(
             isEmailValid.value == true && isCertNumberVerified.value == true && isPwdVerified.value == true && isPwdSame.value == true
     }
 
+    private fun setSignUpToastMessage(message: String) {
+        _signUpToastMessage.value = message
+    }
+
     // Profile
     fun setNickname(nickname: String) {
         _nickname.value = nickname
-        checkProfileEnabled()
+    }
+
+    fun checkNicknameVerified() {
+        val pattern = Pattern.compile("^[가-힣a-zA-Z0-9]{2,12}$")
+        isNicknameVerified = pattern.matcher(nickname.value ?: return).find() == true
     }
 
     fun setProfileImage(profileImage: File) {
@@ -199,25 +226,35 @@ class SignViewModel @Inject constructor(
         checkProfileEnabled()
     }
 
-    private fun checkProfileEnabled() {
-        _isProfileEnabled.value = nickname.value.isNullOrEmpty().not() && profileImage.value != null
+    fun checkProfileEnabled() {
+        _isProfileEnabled.value = nickname.value.isNullOrEmpty()
+            .not() && profileImage.value != null && isNicknameVerified == true
     }
 
     fun requestMapZSignUp() {
         val email = email.value ?: return
         val pwd = pwd.value ?: return
         val nickname = nickname.value ?: return
+        val pushAgreement = agreementItem3.value ?: return
         val profileImage = profileImage.value ?: return
-        val mapZSignUp = MapZSignUpRequest(email, pwd, nickname, profileImage)
+        val mapZSignUp = MapZSignUpRequest(email, pwd, nickname, pushAgreement, profileImage)
 
         viewModelScope.launch {
             requestMapZSignUpUseCase.invoke(mapZSignUp)
                 .onSuccess {
-                    // TODO: 토큰 sharedpreference 저장
+                    setProfileToastMessage("회원가입을 완료하였습니다.")
+                    _goToSignIn.value = Event(Unit)
                 }
                 .onFailure {
-
+                    when (it) {
+                        is Error.MapZSignUpUnavailable -> setProfileToastMessage(it.message)
+                        else -> setProfileToastMessage("회원가입에 실패하였습니다.")
+                    }
                 }
         }
+    }
+
+    private fun setProfileToastMessage(message: String) {
+        _profileToastMessage.value = message
     }
 }

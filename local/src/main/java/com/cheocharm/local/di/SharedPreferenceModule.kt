@@ -1,7 +1,7 @@
 package com.cheocharm.local.di
 
-import com.cheocharm.data.source.AuthLocalDataSource
-import com.cheocharm.local.source.AuthLocalDataSourceImpl
+import com.cheocharm.local.SharedPrefManager
+import com.cheocharm.local.SharedPrefManagerImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -10,9 +10,9 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class DataSourceModule {
+internal abstract class SharedPreferenceModule {
 
     @Binds
     @Singleton
-    abstract fun bindAuthLocalDataSource(dataSourceImpl: AuthLocalDataSourceImpl): AuthLocalDataSource
+    abstract fun bindSharedPrefManager(sharedPrefManagerImpl: SharedPrefManagerImpl): SharedPrefManager
 }

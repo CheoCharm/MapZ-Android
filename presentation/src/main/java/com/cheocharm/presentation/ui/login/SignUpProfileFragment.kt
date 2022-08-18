@@ -4,18 +4,16 @@ import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.ImageDecoder
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
@@ -23,7 +21,6 @@ import com.cheocharm.presentation.R
 import com.cheocharm.presentation.common.UriUtil
 import com.cheocharm.presentation.databinding.FragmentSignUpProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
 
 @AndroidEntryPoint
 class SignUpProfileFragment :
@@ -53,18 +50,11 @@ class SignUpProfileFragment :
         binding.btnSignUpProfileGallery.setOnClickListener {
             selectProfileImage()
         }
-        binding.etSignUpProfileNickname.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                signViewModel.setNickname(p0.toString())
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                signViewModel.setNickname(p0.toString())
-            }
-
-        })
+        binding.etSignUpProfileNickname.doOnTextChanged { text, start, before, count ->
+            signViewModel.setNickname(text.toString())
+            signViewModel.checkNicknameVerified()
+            signViewModel.checkProfileEnabled()
+        }
         binding.btnSignUpProfileComplete.setOnClickListener {
             signViewModel.requestMapZSignUp()
         }
@@ -73,6 +63,14 @@ class SignUpProfileFragment :
     private fun initObservers() {
         signViewModel.isProfileEnabled.observe(viewLifecycleOwner) {
             binding.btnSignUpProfileComplete.isEnabled = it
+        }
+        signViewModel.profileToastMessage.observe(viewLifecycleOwner) {
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+        }
+        signViewModel.goToSignIn.observe(viewLifecycleOwner) {
+            val intent = requireActivity().intent
+            requireActivity().finish()
+            startActivity(intent)
         }
     }
 
@@ -96,6 +94,7 @@ class SignUpProfileFragment :
                             }
                             val file = UriUtil.getFileFromUri(requireActivity(), uri)
                             signViewModel.setProfileImage(file)
+                            signViewModel.checkProfileEnabled()
                             binding.ivSignUpProfile.setImageBitmap(bitmap)
                             binding.ivSignUpProfile.background = null
                             binding.ivSignUpProfileUser.isVisible = false

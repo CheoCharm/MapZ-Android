@@ -6,5 +6,6 @@ data class MapZSignUpRequest(
     val email: String,
     val password: String,
     val username: String,
+    val pushAgreement: Boolean,
     val userImage: File
 )

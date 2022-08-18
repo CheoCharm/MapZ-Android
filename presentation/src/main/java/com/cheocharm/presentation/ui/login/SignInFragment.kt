@@ -4,16 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.BuildConfig
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.common.EventObserver
 import com.cheocharm.presentation.databinding.FragmentSignInBinding
+import com.cheocharm.presentation.ui.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -26,6 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sign_in) {
 
     private val signViewModel by viewModels<SignViewModel>()
+    private val signInViewModel by viewModels<SignInViewModel>()
 
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -53,6 +58,9 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
         super.onViewCreated(view, savedInstanceState)
 
         initButton()
+        initEditText()
+        initObservers()
+        signInViewModel.checkAutoSignIn()
     }
 
     override fun onStart() {
@@ -70,6 +78,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
             findNavController().navigate(R.id.action_signInFragment_to_signUpAgreeFragment)
         }
         binding.cbSignInKeepLogin.setOnCheckedChangeListener { button, checked ->
+            signInViewModel.setIsAutoSignIn(checked)
             if (checked) binding.tvSignInKeepLogin.setTextColor(
                 ContextCompat.getColor(
                     requireActivity(),
@@ -83,6 +92,34 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
                 )
             )
         }
+        binding.btnSignIn.setOnClickListener {
+            signInViewModel.requestMapZSignIn()
+        }
+    }
+
+    private fun initEditText() {
+        binding.etSignInEmail.doOnTextChanged { text, start, before, count ->
+            signInViewModel.setEmail(text.toString())
+            signInViewModel.checkSignInEnabled()
+        }
+        binding.etSignInPwd.doOnTextChanged { text, start, before, count ->
+            signInViewModel.setPwd(text.toString())
+            signInViewModel.checkSignInEnabled()
+        }
+    }
+
+    private fun initObservers() {
+        signInViewModel.isSignInEnabled.observe(viewLifecycleOwner) {
+            binding.btnSignIn.isEnabled = it
+        }
+        signInViewModel.toastMessage.observe(viewLifecycleOwner) {
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+        }
+        signInViewModel.goToMain.observe(viewLifecycleOwner, EventObserver {
+            val intent = Intent(requireActivity(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        })
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
