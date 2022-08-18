@@ -7,13 +7,19 @@ import com.cheocharm.remote.model.request.MapZSignInDto
 import com.cheocharm.remote.model.request.MapZSignUpDto
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.json.JSONObject
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface LoginApi {
 
+    @Multipart
     @POST("users")
-    suspend fun signUpGoogleLogin(@Body body: GoogleSignUpDto): BaseResponse<MapZSignResponse>
+    suspend fun signUpGoogleLogin(
+        @Part("dto") dto: GoogleSignUpDto,
+        @Part file: MultipartBody.Part
+    ): BaseResponse<MapZSignResponse>
 
     @Multipart
     @POST("users/signup")

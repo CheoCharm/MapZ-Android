@@ -1,7 +1,10 @@
 package com.cheocharm.presentation.ui.login
 
 import android.util.Patterns
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.cheocharm.domain.model.Error
 import com.cheocharm.domain.model.GoogleSignUpRequest
 import com.cheocharm.domain.model.MapZSignUpRequest
@@ -9,8 +12,6 @@ import com.cheocharm.domain.usecase.RequestCertNumberUseCase
 import com.cheocharm.domain.usecase.RequestGoogleSignUpUseCase
 import com.cheocharm.domain.usecase.RequestMapZSignUpUseCase
 import com.cheocharm.presentation.common.Event
-import com.cheocharm.presentation.common.GOOGLE_ID_TOKEN
-import com.cheocharm.presentation.common.SIGN_UP_TYPE
 import com.cheocharm.presentation.model.SignType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -281,9 +282,10 @@ class SignViewModel @Inject constructor(
         val nickname = nickname.value ?: return
         val idToken = googleIdToken ?: return
         val pushAgreement = agreementItem3.value ?: return
+        val image = profileImage.value ?: return
 
         viewModelScope.launch {
-            requestGoogleSignUpUseCase.invoke(GoogleSignUpRequest(nickname, idToken, pushAgreement))
+            requestGoogleSignUpUseCase.invoke(GoogleSignUpRequest(nickname, idToken, pushAgreement, image))
                 .onSuccess {
                     setProfileToastMessage("구글 회원가입을 완료하였습니다.")
                     _goToSignIn.value = Event(Unit)

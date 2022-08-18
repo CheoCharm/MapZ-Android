@@ -97,7 +97,14 @@ class LoginRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun requestGoogleSignUp(googleSignUpRequest: GoogleSignUpRequest): Result<MapZSign> {
-        val result = runCatching { loginApi.signUpGoogleLogin(googleSignUpRequest.toDto()) }
+        val fileRequestBody = MultipartBody.Part.createFormData(
+            "file",
+            googleSignUpRequest.userImage.name,
+            googleSignUpRequest.userImage.asRequestBody("image/*".toMediaType())
+        )
+
+        val result =
+            runCatching { loginApi.signUpGoogleLogin(googleSignUpRequest.toDto(), fileRequestBody) }
         return when (val exception = result.exceptionOrNull()) {
             null -> {
                 val response =
