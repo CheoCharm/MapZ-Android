@@ -2,6 +2,8 @@ package com.cheocharm.domain.repository
 
 interface AuthRepository {
 
+    suspend fun refreshAccessToken(refreshToken: String): Result<String>
+
     fun saveTokens(accessToken: String, refreshToken: String)
 
     fun saveIsAutoSignIn(isAutoSignIn: Boolean)

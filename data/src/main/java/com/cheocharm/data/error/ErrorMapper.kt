@@ -9,4 +9,5 @@ internal fun ErrorData.toDomain(): Error = when (this) {
     is ErrorData.MapZSignInUnavailable -> Error.MapZSignInUnavailable(message)
     is ErrorData.GoogleSignInUnavailable -> Error.GoogleSignInUnavailable(message)
     is ErrorData.GoogleSignUpUnavailable -> Error.GoogleSignUpUnavailable(message)
+    is ErrorData.RefreshAccessTokenUnavailable -> Error.RefreshAccessTokenUnavailable(message)
 }
