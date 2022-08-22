@@ -52,4 +52,7 @@
     <string name="sign_up_cert_complete">인증번호 확인 완료</string>
 
     <string name="my_page_sign_out">로그아웃</string>
+
+    <string name="search_title">친구들과 함께 할\n교환일기를 찾아봐요.</string>
+    <string name="search_recent">최근 검색</string>
 </resources>
