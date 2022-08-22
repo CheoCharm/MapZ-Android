@@ -9,6 +9,15 @@
         android:id="@+id/search_dest"
         android:name="com.cheocharm.presentation.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_search_dest_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.cheocharm.presentation.ui.search.SearchResultFragment"
+        android:label="SearchResultFragment"
+        tools:layout="@layout/fragment_search_result" />
 
 </navigation>
