@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.cheocharm.presentation.ui.write.WriteViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/root_layout_default"
+        android:background="@color/write_title_background_color"
+        tools:context=".ui.write.GroupsFragment">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_groups_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_median"
+            android:layout_marginTop="@dimen/space_xx_large"
+            android:text="@string/groups_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/write_title_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_groups_group_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_top_radius_20dp"
+            android:backgroundTint="@color/white"
+            android:layout_marginTop="@dimen/write_margin_top">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_groups_groups"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/space_median"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/item_write_group" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

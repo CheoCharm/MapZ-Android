@@ -8,8 +8,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/root_layout_default"
         tools:context=".ui.write.SelectPictureFragment">
 
         <androidx.appcompat.widget.AppCompatButton
@@ -39,14 +38,6 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar_picture"
             app:layout_constraintVertical_bias="0.4"
             app:layout_constraintVertical_chainStyle="packed" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_picture_selected"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_picture" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_picture_desc"

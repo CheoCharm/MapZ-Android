@@ -42,4 +42,7 @@
     <dimen name="write_group_members_margin">10dp</dimen>
     <dimen name="gallery_button_margin_top">100dp</dimen>
     <dimen name="default_elevation">4dp</dimen>
+    <dimen name="location_picture_size">120dp</dimen>
+    <dimen name="location_selected_location_margin_top">10dp</dimen>
+    <dimen name="location_selected_location_margin_horizontal">15dp</dimen>
 </resources>
