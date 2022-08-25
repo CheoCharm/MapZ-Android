@@ -1,5 +1,7 @@
 package com.cheocharm.presentation.ui.write
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -8,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
@@ -16,13 +19,22 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
+import com.cheocharm.presentation.common.DEFAULT_ZOOM_LEVEL
 import com.cheocharm.presentation.common.EventObserver
+import com.cheocharm.presentation.common.SOUTH_KOREA_LAT
+import com.cheocharm.presentation.common.SOUTH_KOREA_LNG
+import com.cheocharm.presentation.common.SOUTH_KOREA_ZOOM_LEVEL
+import com.cheocharm.presentation.common.toLatLng
 import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.util.UriUtil
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -32,6 +44,8 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     private val pictureViewModel by navGraphViewModels<PictureViewModel>(R.id.write)
     private val locationViewModel by navGraphViewModels<LocationViewModel>(R.id.write) { defaultViewModelProviderFactory }
     private val writeViewModel by navGraphViewModels<WriteViewModel>(R.id.write) { defaultViewModelProviderFactory }
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var draggableMarker: Marker? = null
     private var address: String? = null
@@ -74,19 +88,51 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
         val mapFragment =
             requireActivity().supportFragmentManager.findFragmentById(R.id.fragment_main_map) as? SupportMapFragment
-        mapFragment?.getMapAsync {
-            it.setOnMapLoadedCallback {
-                // TODO: 마커 생성
-//                val selectedLocation = pic.latLng
-//                if (selectedLocation != null) {
-//                    val markerOptions = MarkerOptions()
-//                        .position(selectedLocation)
-//                        .draggable(true)
-//                    draggableMarker = it.addMarker(markerOptions)
-//                    it.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 15F))
-//                } else {
-//                    // TODO: 사진에 장소 정보가 없으면 기본 위치로 카메라 이동
-//                }
+        mapFragment?.getMapAsync { map ->
+            map.setOnMapLoadedCallback {
+                pictureViewModel.picture.observe(viewLifecycleOwner) {
+                    picturesAdapter.submitList(listOf(it))
+
+                    var selectedLocation = it.latLng
+
+                    if (selectedLocation != null) {
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 15F))
+                    } else {
+                        if (ContextCompat.checkSelfPermission(
+                                requireContext(),
+                                Manifest.permission.ACCESS_FINE_LOCATION
+                            ) == PackageManager.PERMISSION_GRANTED
+                        ) {
+                            fusedLocationClient =
+                                LocationServices.getFusedLocationProviderClient(requireActivity())
+
+                            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                                selectedLocation = location.toLatLng()
+
+                                map.moveCamera(
+                                    CameraUpdateFactory.newLatLngZoom(
+                                        location.toLatLng(),
+                                        DEFAULT_ZOOM_LEVEL
+                                    )
+                                )
+                            }
+                        } else {
+                            selectedLocation = LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG)
+
+                            map.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    selectedLocation!!,
+                                    SOUTH_KOREA_ZOOM_LEVEL
+                                )
+                            )
+                        }
+                    }
+
+                    val markerOptions = MarkerOptions()
+                        .position(selectedLocation!!)
+                        .draggable(true)
+                    draggableMarker = map.addMarker(markerOptions)
+                }
             }
         }
 
