@@ -6,8 +6,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cheocharm.presentation.model.Group
-import com.cheocharm.presentation.model.GroupMember
+import com.cheocharm.domain.model.Group
+import com.cheocharm.domain.model.GroupMember
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.ItemWriteGroupBinding
 

@@ -1,5 +1,6 @@
 package com.cheocharm.remote.di
 
+import com.cheocharm.remote.api.GroupApi
 import com.cheocharm.remote.api.LoginApi
 import com.cheocharm.remote.network.AuthInterceptor
 import dagger.Module
@@ -52,5 +53,11 @@ internal object RemoteModule {
     @Singleton
     fun provideLoginApi(@WithoutAuthOkHttpClient okHttpClient: OkHttpClient): LoginApi {
         return MapZRetrofit.createService(LoginApi::class.java, okHttpClient)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGroupApi(@AuthOkHttpClient okHttpClient: OkHttpClient): GroupApi {
+        return MapZRetrofit.createService(GroupApi::class.java, okHttpClient)
     }
 }

@@ -1,4 +1,4 @@
-package com.cheocharm.presentation.model
+package com.cheocharm.domain.model
 
 data class Group(
     val name: String,

@@ -3,8 +3,8 @@ package com.cheocharm.presentation.ui.write
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cheocharm.presentation.model.Group
-import com.cheocharm.presentation.model.GroupMember
+import com.cheocharm.domain.model.Group
+import com.cheocharm.domain.model.GroupMember
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

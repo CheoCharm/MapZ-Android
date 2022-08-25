@@ -1,6 +1,8 @@
 package com.cheocharm.remote.di
 
+import com.cheocharm.data.source.GroupRemoteDataSource
 import com.cheocharm.data.source.LoginRemoteDataSource
+import com.cheocharm.remote.source.GroupRemoteDataSourceImpl
 import com.cheocharm.remote.source.LoginRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
@@ -15,4 +17,8 @@ internal abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindLoginRemoteDataSource(dataSource: LoginRemoteDataSourceImpl): LoginRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindGroupRemoteDataSource(dataSource: GroupRemoteDataSourceImpl): GroupRemoteDataSource
 }

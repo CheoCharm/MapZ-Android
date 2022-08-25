@@ -62,7 +62,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_small"
                 android:layout_marginTop="@dimen/space_large"
-                android:drawableStart="@drawable/ic_search" />
+                android:imeOptions="actionDone"
+                android:inputType="text" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_search_recent"
