@@ -3,11 +3,13 @@ package com.cheocharm.presentation.ui.mypage
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.BuildConfig
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentMyPageBinding
+import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.ui.login.SignActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -35,6 +37,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewmodel = myPageViewModel
+
+        val mainActivityBinding = (activity as MainActivity).getBinding()
+        mainActivityBinding.fragmentMainMap.isVisible = false
 
         initButton()
         myPageViewModel.countUp()
