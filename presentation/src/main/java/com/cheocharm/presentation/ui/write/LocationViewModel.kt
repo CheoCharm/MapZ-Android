@@ -10,6 +10,10 @@ import com.cheocharm.domain.usecase.write.RequestWriteImagesUseCase
 import com.cheocharm.presentation.common.Event
 import com.cheocharm.presentation.common.TestValues
 import com.cheocharm.presentation.model.Sticker
+import com.cheocharm.presentation.common.toCoordString
+import com.cheocharm.presentation.enum.SelectedLatLngType
+import com.cheocharm.presentation.model.Picture
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -27,6 +31,29 @@ class LocationViewModel @Inject constructor(
 
     var stickers: List<Sticker> = TestValues.testStickers
         private set
+
+    private val _picture = MutableLiveData<Picture>()
+    val picture: LiveData<Picture> = _picture
+
+    private val _selectedLatLng = MutableLiveData<LatLng>()
+    val selectedLocation: LiveData<LatLng> = _selectedLatLng
+
+    private val _latLngString = MutableLiveData<String>()
+    val latLngString: LiveData<String> = _latLngString
+
+    fun setPicture(picture: Picture) {
+        _picture.value = picture
+    }
+
+    fun setSelectedLatLng(latLng: LatLng, type: SelectedLatLngType, address: String? = null) {
+        _selectedLatLng.value = latLng
+        _latLngString.value =
+            if (type == SelectedLatLngType.DEFAULT || type == SelectedLatLngType.CURRENT) {
+                type.str
+            } else {
+                address ?: latLng.toCoordString()
+            }
+    }
 
     fun uploadImages(
         groupId: Long,

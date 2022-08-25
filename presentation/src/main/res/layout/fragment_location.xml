@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.cheocharm.presentation.ui.write.PictureViewModel" />
+            type="com.cheocharm.presentation.ui.write.LocationViewModel" />
 
     </data>
 

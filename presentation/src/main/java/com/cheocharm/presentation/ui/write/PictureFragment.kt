@@ -16,7 +16,7 @@ import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.model.LatLng
 
 class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_picture) {
-    private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
+    private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.write)
 
     private val requestPermissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -36,7 +36,7 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
                     }
                     val picture = Picture(uri, latLng)
 
-                    pictureViewModel.setPicture(picture)
+                    locationViewModel.setPicture(picture)
                     GeocodeUtil.execute(requireContext(), picture)
                     inputStream.close()
                 }
