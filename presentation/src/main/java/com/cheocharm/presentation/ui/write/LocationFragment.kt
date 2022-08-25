@@ -26,8 +26,9 @@ import com.cheocharm.presentation.common.SOUTH_KOREA_LNG
 import com.cheocharm.presentation.common.SOUTH_KOREA_ZOOM_LEVEL
 import com.cheocharm.presentation.common.toLatLng
 import com.cheocharm.presentation.databinding.FragmentLocationBinding
+import com.cheocharm.presentation.enum.SelectedLatLngType
 import com.cheocharm.presentation.ui.MainActivity
-import com.cheocharm.presentation.util.UriUtil
+import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -93,10 +94,24 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 pictureViewModel.picture.observe(viewLifecycleOwner) {
                     picturesAdapter.submitList(listOf(it))
 
-                    var selectedLocation = it.latLng
+                    val defaultLatLng = LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG)
+                    var selectedLatLng = it.latLng
 
-                    if (selectedLocation != null) {
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 15F))
+                    if (selectedLatLng != null) {
+                        val address = GeocodeUtil.execute(requireContext(), selectedLatLng)
+
+                        pictureViewModel.setSelectedLatLng(
+                            selectedLatLng,
+                            SelectedLatLngType.CUSTOM,
+                            address
+                        )
+
+                        val markerOptions = MarkerOptions()
+                            .position(selectedLatLng)
+                            .draggable(true)
+                        draggableMarker = map.addMarker(markerOptions)
+
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLatLng, 15F))
                     } else {
                         if (ContextCompat.checkSelfPermission(
                                 requireContext(),
@@ -107,7 +122,17 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                                 LocationServices.getFusedLocationProviderClient(requireActivity())
 
                             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                                selectedLocation = location.toLatLng()
+                                selectedLatLng = location.toLatLng()
+
+                                pictureViewModel.setSelectedLatLng(
+                                    selectedLatLng ?: defaultLatLng,
+                                    SelectedLatLngType.CURRENT
+                                )
+
+                                val markerOptions = MarkerOptions()
+                                    .position(selectedLatLng ?: defaultLatLng)
+                                    .draggable(true)
+                                draggableMarker = map.addMarker(markerOptions)
 
                                 map.moveCamera(
                                     CameraUpdateFactory.newLatLngZoom(
@@ -117,34 +142,26 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                                 )
                             }
                         } else {
-                            selectedLocation = LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG)
+                            selectedLatLng = LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG)
+
+                            pictureViewModel.setSelectedLatLng(
+                                selectedLatLng ?: defaultLatLng,
+                                SelectedLatLngType.DEFAULT
+                            )
+
+                            val markerOptions = MarkerOptions()
+                                .position(selectedLatLng ?: defaultLatLng)
+                                .draggable(true)
+                            draggableMarker = map.addMarker(markerOptions)
 
                             map.moveCamera(
                                 CameraUpdateFactory.newLatLngZoom(
-                                    selectedLocation!!,
+                                    selectedLatLng ?: defaultLatLng,
                                     SOUTH_KOREA_ZOOM_LEVEL
                                 )
                             )
                         }
                     }
-
-                    val markerOptions = MarkerOptions()
-                        .position(selectedLocation!!)
-                        .draggable(true)
-                    draggableMarker = map.addMarker(markerOptions)
-                }
-            }
-        }
-
-        pictureViewModel.picture.observe(viewLifecycleOwner) { picture ->
-            picture?.let { pic ->
-                picturesAdapter.submitList(listOf(pic))
-
-                address = pic.address
-                location = pic.latLng
-
-                activity?.applicationContext?.let { context ->
-                    file = UriUtil.getFileFromUri(context, pic.uri)
                 }
             }
         }

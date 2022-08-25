@@ -3,6 +3,7 @@ package com.cheocharm.presentation.util
 import android.content.Context
 import android.location.Geocoder
 import com.cheocharm.presentation.model.Picture
+import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 object GeocodeUtil {
@@ -24,5 +25,21 @@ object GeocodeUtil {
                 e.printStackTrace()
             }
         }
+    }
+
+    fun execute(context: Context, latLng: LatLng): String? {
+        try {
+            val geocoder = Geocoder(context, Locale.KOREAN)
+            val addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+
+            if (addresses != null && addresses.isEmpty().not()) {
+                val fetchedAddress = addresses.first()
+                return fetchedAddress.getAddressLine(0)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return null
     }
 }
