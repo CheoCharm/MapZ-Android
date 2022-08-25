@@ -64,7 +64,7 @@ class LoginRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun requestMapZSignIn(mapZSignInRequest: MapZSignInRequest): Result<MapZSign> {
         val result = runCatching { loginApi.signInMapZ(mapZSignInRequest.toDto()) }
-        println(result)
+
         return when (val exception = result.exceptionOrNull()) {
             null -> {
                 val response =
