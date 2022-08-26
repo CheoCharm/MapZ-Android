@@ -37,7 +37,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.7" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/bg_search_group"
@@ -47,7 +47,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_search_group_image"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:imageLoad="@{group.groupImageUrl}"
             app:layout_constraintBottom_toTopOf="@id/divider_search_group"
             app:layout_constraintEnd_toEndOf="parent"
@@ -113,7 +113,6 @@
             android:layout_marginBottom="@dimen/space_large"
             android:background="@drawable/bg_radius_100dp_enabled"
             android:elevation="0dp"
-            android:enabled="false"
             android:text="@string/search_group_join"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/rv_search_group" />
