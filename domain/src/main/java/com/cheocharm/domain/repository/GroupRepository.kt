@@ -5,4 +5,6 @@ import com.cheocharm.domain.model.GroupSearch
 interface GroupRepository {
 
     suspend fun searchGroup(page: Int, searchGroupName: String): Result<GroupSearch>
+
+    suspend fun joinGroup(groupName: String): Result<Unit>
 }

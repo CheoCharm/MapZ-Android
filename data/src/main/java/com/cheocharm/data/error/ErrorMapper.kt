@@ -10,4 +10,5 @@ internal fun ErrorData.toDomain(): Error = when (this) {
     is ErrorData.GoogleSignInUnavailable -> Error.GoogleSignInUnavailable(message)
     is ErrorData.GoogleSignUpUnavailable -> Error.GoogleSignUpUnavailable(message)
     is ErrorData.SearchGroupUnavailable -> Error.SearchGroupUnavailable(message)
+    is ErrorData.JoinGroupUnavailable -> Error.JoinGroupUnavailable(message)
 }

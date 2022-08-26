@@ -10,11 +10,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import com.cheocharm.domain.model.Group
 import com.cheocharm.domain.model.GroupMember
+import com.cheocharm.domain.usecase.group.JoinGroupUseCase
+import com.cheocharm.presentation.common.Event
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val searchGroupUseCase: SearchGroupUseCase
+    private val searchGroupUseCase: SearchGroupUseCase,
+    private val joinGroupUseCase: JoinGroupUseCase
 ) : ViewModel() {
 
     private val _searchGroupName = MutableLiveData<String>()
@@ -35,8 +38,8 @@ class SearchViewModel @Inject constructor(
     val selectedGroup: LiveData<Group>
         get() = _selectedGroup
 
-    private val _toastMessage = MutableLiveData<String>()
-    val toastMessage: LiveData<String>
+    private val _toastMessage = MutableLiveData<Event<String>>()
+    val toastMessage: LiveData<Event<String>>
         get() = _toastMessage
 
     fun setSearchGroupName(groupName: String) {
@@ -94,7 +97,23 @@ class SearchViewModel @Inject constructor(
         }
     }
 
+    fun joinGroup() {
+        viewModelScope.launch {
+            selectedGroup.value?.name?.let {
+                joinGroupUseCase.invoke(it)
+                    .onSuccess {
+                        // TODO: 바텀 팝업 띄우기
+                    }.onFailure { throwable ->
+                        when (throwable) {
+                            is Error.JoinGroupUnavailable -> setToastMessage(throwable.message)
+                            else -> setToastMessage("그룹 가입 요청을 실패하였습니다.")
+                        }
+                    }
+            }
+        }
+    }
+
     private fun setToastMessage(message: String) {
-        _toastMessage.value = message
+        _toastMessage.value = Event(message)
     }
 }

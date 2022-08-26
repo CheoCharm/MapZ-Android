@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.domain.model.Group
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.common.EventObserver
 import com.cheocharm.presentation.databinding.FragmentSearchResultBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.ui.write.GroupsAdapter
@@ -46,9 +47,9 @@ class SearchResultFragment :
     }
 
     private fun initObservers() {
-        searchViewModel.toastMessage.observe(viewLifecycleOwner) {
+        searchViewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
-        }
+        })
         searchViewModel.groupSearchResultList.observe(viewLifecycleOwner) {
             groupResultListAdapter.submitList(it)
         }

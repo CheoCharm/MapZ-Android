@@ -19,4 +19,13 @@ class GroupRepositoryImpl @Inject constructor(
             else -> Result.failure(exception)
         }
     }
+
+    override suspend fun joinGroup(groupName: String): Result<Unit> {
+        val result = groupRemoteDataSource.joinGroup(groupName)
+        return when (val exception = result.exceptionOrNull()) {
+            is ErrorData -> Result.failure(exception.toDomain())
+            null -> result
+            else -> Result.failure(exception)
+        }
+    }
 }

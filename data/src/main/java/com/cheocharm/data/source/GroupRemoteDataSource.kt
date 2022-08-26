@@ -5,4 +5,6 @@ import com.cheocharm.domain.model.GroupSearch
 interface GroupRemoteDataSource {
 
     suspend fun fetchGroupSearchList(page: Int, searchGroupName: String): Result<GroupSearch>
+
+    suspend fun joinGroup(groupName: String): Result<Unit>
 }

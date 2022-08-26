@@ -2,10 +2,12 @@ package com.cheocharm.presentation.ui.search
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.common.EventObserver
 import com.cheocharm.presentation.databinding.FragmentSearchGroupBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.ui.write.MembersAdapter
@@ -25,6 +27,7 @@ class SearchGroupFragment :
         initView()
         initRecyclerView()
         initObservers()
+        initButtons()
     }
 
     private fun initView() {
@@ -47,6 +50,15 @@ class SearchGroupFragment :
         searchViewModel.selectedGroup.observe(viewLifecycleOwner) {
             binding.group = it
             memberAdapter.submitList(it.members)
+        }
+        searchViewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    private fun initButtons() {
+        binding.btnSearchGroupJoin.setOnClickListener {
+            searchViewModel.joinGroup()
         }
     }
 }

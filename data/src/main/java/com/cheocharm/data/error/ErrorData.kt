@@ -12,4 +12,5 @@ sealed class ErrorData(
     data class GoogleSignInUnavailable(override val message: String) : ErrorData(message)
     data class GoogleSignUpUnavailable(override val message: String) : ErrorData(message)
     data class SearchGroupUnavailable(override val message: String) : ErrorData(message)
+    data class JoinGroupUnavailable(override val message: String) : ErrorData(message)
 }

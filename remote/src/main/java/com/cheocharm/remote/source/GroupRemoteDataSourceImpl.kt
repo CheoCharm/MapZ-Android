@@ -32,4 +32,22 @@ class GroupRemoteDataSourceImpl @Inject constructor(
             else -> Result.failure(exception)
         }
     }
+
+    override suspend fun joinGroup(groupName: String): Result<Unit> {
+        val result = runCatching { groupApi.joinGroup(hashMapOf("groupName" to groupName)) }
+
+        return when (val exception = result.exceptionOrNull()) {
+            null -> {
+                val response =
+                    result.getOrNull() ?: return Result.failure(Throwable(NullPointerException()))
+                Result.success(
+                    response.data ?: return Result.failure(
+                        ErrorData.JoinGroupUnavailable(response.message)
+                    )
+                )
+            }
+            is UnknownHostException -> Result.failure(ErrorData.NetworkUnavailable)
+            else -> Result.failure(exception)
+        }
+    }
 }
