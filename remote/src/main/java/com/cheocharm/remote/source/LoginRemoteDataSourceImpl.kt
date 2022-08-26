@@ -81,7 +81,7 @@ class LoginRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun requestGoogleSignIn(idToken: String): Result<MapZSign> {
         val result = runCatching { loginApi.signInGoogleLogin(hashMapOf("idToken" to idToken)) }
-        println(result)
+
         return when (val exception = result.exceptionOrNull()) {
             null -> {
                 val response =
