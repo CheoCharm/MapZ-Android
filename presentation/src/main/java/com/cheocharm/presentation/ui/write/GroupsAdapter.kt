@@ -16,22 +16,19 @@ class GroupsAdapter(private val onClick: (Group) -> Unit) :
 
     class ViewHolder(private val binding: ItemWriteGroupBinding, val onClick: (Group) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
-        private var currentGroup: Group? = null
 
         init {
             itemView.setOnClickListener {
-                currentGroup?.let {
-                    onClick(it)
+                binding.group?.let { group ->
+                    onClick(group)
                 }
             }
         }
 
         fun bind(group: Group) {
-            currentGroup = group
+            binding.group = group
 
             with(binding) {
-                // TODO: 그룹 이미지 설정
-                tvWriteGroupName.text = group.name
 
                 val numberOfMembersExceedingFour = group.numberOfMembers
                 val members: List<GroupMember>
@@ -53,6 +50,7 @@ class GroupsAdapter(private val onClick: (Group) -> Unit) :
                     submitList(members)
                 }
             }
+            binding.executePendingBindings()
         }
     }
 

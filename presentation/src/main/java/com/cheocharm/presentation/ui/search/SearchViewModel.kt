@@ -55,10 +55,13 @@ class SearchViewModel @Inject constructor(
 
                     _groupSearchResultList.value = listOf(
                         Group(
-                            "그룹1", listOf(
+                            "그룹1",
+                            listOf(
                                 GroupMember(),
                                 GroupMember()
-                            ), 0
+                            ),
+                            0,
+                            "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
                         ),
                         Group(
                             "그룹2", listOf(
