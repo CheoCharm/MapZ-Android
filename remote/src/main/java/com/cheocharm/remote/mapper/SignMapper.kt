@@ -1,9 +1,11 @@
 package com.cheocharm.remote.mapper
 
+import com.cheocharm.domain.model.GoogleSignUpRequest
 import com.cheocharm.domain.model.MapZSign
 import com.cheocharm.domain.model.MapZSignInRequest
 import com.cheocharm.domain.model.MapZSignUpRequest
 import com.cheocharm.remote.model.MapZSignResponse
+import com.cheocharm.remote.model.request.GoogleSignUpDto
 import com.cheocharm.remote.model.request.MapZSignInDto
 import com.cheocharm.remote.model.request.MapZSignUpDto
 
@@ -19,5 +21,10 @@ internal fun MapZSignResponse.toDomain(): MapZSign {
 
 // domain -> remote
 internal fun MapZSignInRequest.toDto(): MapZSignInDto {
-    return MapZSignInDto(this.email, this.pwd)
+    return MapZSignInDto(email, pwd)
+}
+
+// domain -> remote
+internal fun GoogleSignUpRequest.toDto(): GoogleSignUpDto {
+    return GoogleSignUpDto(username, idToken, pushAgreement)
 }

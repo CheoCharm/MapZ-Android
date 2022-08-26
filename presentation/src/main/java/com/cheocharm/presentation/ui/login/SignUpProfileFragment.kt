@@ -56,7 +56,7 @@ class SignUpProfileFragment :
             signViewModel.checkProfileEnabled()
         }
         binding.btnSignUpProfileComplete.setOnClickListener {
-            signViewModel.requestMapZSignUp()
+            signViewModel.requestSignUp()
         }
     }
 

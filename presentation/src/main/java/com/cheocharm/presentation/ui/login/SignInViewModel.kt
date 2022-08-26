@@ -1,16 +1,18 @@
 package com.cheocharm.presentation.ui.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cheocharm.domain.model.Error
 import com.cheocharm.domain.model.MapZSignInRequest
-import com.cheocharm.domain.usecase.CheckAutoSignInUseCase
-import com.cheocharm.domain.usecase.RequestMapZSignInUseCase
-import com.cheocharm.domain.usecase.SaveAutoSignInUseCase
-import com.cheocharm.domain.usecase.SaveTokenUseCase
+import com.cheocharm.domain.usecase.*
 import com.cheocharm.presentation.common.Event
+import com.cheocharm.presentation.model.SignType
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,7 +22,9 @@ class SignInViewModel @Inject constructor(
     private val requestMapZSignInUseCase: RequestMapZSignInUseCase,
     private val saveTokenUseCase: SaveTokenUseCase,
     private val saveAutoSignInUseCase: SaveAutoSignInUseCase,
-    private val checkAutoSignInUseCase: CheckAutoSignInUseCase
+    private val checkAutoSignInUseCase: CheckAutoSignInUseCase,
+    private val requestGoogleSignInUseCase: RequestGoogleSignInUseCase,
+    private val saveSignInTypeUseCase: SaveSignInTypeUseCase
 ) : ViewModel() {
 
     private val _email = MutableLiveData<String>()
@@ -37,9 +41,13 @@ class SignInViewModel @Inject constructor(
     val isSignInEnabled: LiveData<Boolean>
         get() = _isSignInEnabled
 
-    private val _goToMain = MutableLiveData<Event<Unit>>()
-    val goToMain: LiveData<Event<Unit>>
+    private val _goToMain = MutableLiveData<Event<Boolean>>()
+    val goToMain: LiveData<Event<Boolean>>
         get() = _goToMain
+
+    private val _goToGoogleSignUpWithIdToken = MutableLiveData<Event<String>>()
+    val goToGoogleSignUpWithIdToken: LiveData<Event<String>>
+        get() = _goToGoogleSignUpWithIdToken
 
     private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String>
@@ -73,7 +81,8 @@ class SignInViewModel @Inject constructor(
                         it.refreshToken ?: return@launch
                     )
                     saveAutoSignInUseCase.invoke(isAutoSignIn)
-                    _goToMain.value = Event(Unit)
+                    saveSignInTypeUseCase.invoke(SignType.MAPZ.str)
+                    _goToMain.value = Event(true)
                 }
                 .onFailure {
                     when (it) {
@@ -86,9 +95,44 @@ class SignInViewModel @Inject constructor(
 
     fun checkAutoSignIn() {
         val signInCheck = checkAutoSignInUseCase.invoke()
-        if (signInCheck.accessToken.isNullOrEmpty() || signInCheck.refreshToken.isNullOrEmpty()) return
+        if (signInCheck.accessToken.isNullOrEmpty() || signInCheck.refreshToken.isNullOrEmpty()) {
+            _goToMain.value = Event(false)
+            return
+        }
 
-        if (signInCheck.isAutoSignIn) _goToMain.value = Event(Unit)
+        if (signInCheck.isAutoSignIn) _goToMain.value = Event(true)
+    }
+
+    fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        runCatching {
+            val account = completedTask.getResult(ApiException::class.java)
+            viewModelScope.launch {
+                account.idToken?.let { idToken ->
+                    requestGoogleSignInUseCase.invoke(idToken)
+                        .onSuccess { mapZSign ->
+                            if (mapZSign.accessToken == null) {
+                                _goToGoogleSignUpWithIdToken.value = Event(idToken)
+                            } else {
+                                saveTokenUseCase.invoke(
+                                    mapZSign.accessToken ?: return@launch,
+                                    mapZSign.refreshToken ?: return@launch
+                                )
+                                saveAutoSignInUseCase.invoke(isAutoSignIn)
+                                saveSignInTypeUseCase.invoke(SignType.GOOGLE.str)
+                                _goToMain.value = Event(true)
+                            }
+                        }
+                        .onFailure { throwable ->
+                            when (throwable) {
+                                is Error.GoogleSignInUnavailable -> setToastMessage(throwable.message)
+                                else -> setToastMessage("구글 로그인에 실패하였습니다.")
+                            }
+                        }
+                }
+            }
+        }.onFailure {
+            Log.w("handleSignInResult", "${it.message}")
+        }
     }
 
     private fun setToastMessage(message: String) {

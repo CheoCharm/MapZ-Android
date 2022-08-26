@@ -12,8 +12,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/root_layout_default"
         tools:context=".ui.search.SearchFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -9,5 +9,7 @@ sealed class ErrorData(
     data class MapZCertNumberUnavailable(override val message: String) : ErrorData(message)
     data class MapZSignUpUnavailable(override val message: String) : ErrorData(message)
     data class MapZSignInUnavailable(override val message: String) : ErrorData(message)
+    data class GoogleSignInUnavailable(override val message: String) : ErrorData(message)
+    data class GoogleSignUpUnavailable(override val message: String) : ErrorData(message)
     data class SearchGroupUnavailable(override val message: String) : ErrorData(message)
 }

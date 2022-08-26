@@ -7,5 +7,7 @@ internal fun ErrorData.toDomain(): Error = when (this) {
     is ErrorData.MapZCertNumberUnavailable -> Error.MapZCertNumberUnavailable(message)
     is ErrorData.MapZSignUpUnavailable -> Error.MapZSignUpUnavailable(message)
     is ErrorData.MapZSignInUnavailable -> Error.MapZSignInUnavailable(message)
+    is ErrorData.GoogleSignInUnavailable -> Error.GoogleSignInUnavailable(message)
+    is ErrorData.GoogleSignUpUnavailable -> Error.GoogleSignUpUnavailable(message)
     is ErrorData.SearchGroupUnavailable -> Error.SearchGroupUnavailable(message)
 }

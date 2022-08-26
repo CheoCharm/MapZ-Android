@@ -6,10 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cheocharm.domain.model.Error
+import com.cheocharm.domain.model.GoogleSignUpRequest
 import com.cheocharm.domain.model.MapZSignUpRequest
 import com.cheocharm.domain.usecase.RequestCertNumberUseCase
+import com.cheocharm.domain.usecase.RequestGoogleSignUpUseCase
 import com.cheocharm.domain.usecase.RequestMapZSignUpUseCase
 import com.cheocharm.presentation.common.Event
+import com.cheocharm.presentation.model.SignType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -19,8 +22,14 @@ import javax.inject.Inject
 @HiltViewModel
 class SignViewModel @Inject constructor(
     private val requestCertNumberUseCase: RequestCertNumberUseCase,
-    private val requestMapZSignUpUseCase: RequestMapZSignUpUseCase
+    private val requestMapZSignUpUseCase: RequestMapZSignUpUseCase,
+    private val requestGoogleSignUpUseCase: RequestGoogleSignUpUseCase
 ) : ViewModel() {
+
+    lateinit var signUpType: SignType
+        private set
+
+    private var googleIdToken: String? = null
 
     // Agreement
     private val _agreementItem1 = MutableLiveData(false)
@@ -110,6 +119,14 @@ class SignViewModel @Inject constructor(
     private val _profileToastMessage = MutableLiveData<String>()
     val profileToastMessage: LiveData<String>
         get() = _profileToastMessage
+
+    fun setSignUpType(signUpType: SignType) {
+        this.signUpType = signUpType
+    }
+
+    fun setGoogleIdToken(idToken: String) {
+        googleIdToken = idToken
+    }
 
     // Agreement
     fun onAgreementItem1Clicked() {
@@ -231,7 +248,14 @@ class SignViewModel @Inject constructor(
             .not() && profileImage.value != null && isNicknameVerified == true
     }
 
-    fun requestMapZSignUp() {
+    fun requestSignUp() {
+        when (signUpType) {
+            SignType.MAPZ -> requestMapZSignUp()
+            SignType.GOOGLE -> requestGoogleSignUp()
+        }
+    }
+
+    private fun requestMapZSignUp() {
         val email = email.value ?: return
         val pwd = pwd.value ?: return
         val nickname = nickname.value ?: return
@@ -249,6 +273,27 @@ class SignViewModel @Inject constructor(
                     when (it) {
                         is Error.MapZSignUpUnavailable -> setProfileToastMessage(it.message)
                         else -> setProfileToastMessage("회원가입에 실패하였습니다.")
+                    }
+                }
+        }
+    }
+
+    private fun requestGoogleSignUp() {
+        val nickname = nickname.value ?: return
+        val idToken = googleIdToken ?: return
+        val pushAgreement = agreementItem3.value ?: return
+        val image = profileImage.value ?: return
+
+        viewModelScope.launch {
+            requestGoogleSignUpUseCase.invoke(GoogleSignUpRequest(nickname, idToken, pushAgreement, image))
+                .onSuccess {
+                    setProfileToastMessage("구글 회원가입을 완료하였습니다.")
+                    _goToSignIn.value = Event(Unit)
+                }
+                .onFailure {
+                    when (it) {
+                        is Error.GoogleSignInUnavailable -> setProfileToastMessage(it.message)
+                        else -> setProfileToastMessage("구글 회원가입에 실패하였습니다.")
                     }
                 }
         }

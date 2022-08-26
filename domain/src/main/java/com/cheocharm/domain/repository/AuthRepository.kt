@@ -17,4 +17,8 @@ interface AuthRepository {
     fun removeRefreshToken()
 
     fun removeIsAutoSignIn()
+
+    fun saveSignInType(signInType: String)
+
+    fun removeSignInType()
 }
