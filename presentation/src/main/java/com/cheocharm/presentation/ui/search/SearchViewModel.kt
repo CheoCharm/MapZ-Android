@@ -16,6 +16,10 @@ class SearchViewModel @Inject constructor(
     private val searchGroupUseCase: SearchGroupUseCase
 ) : ViewModel() {
 
+    private val _searchGroupName = MutableLiveData<String>()
+    val searchGroupName: LiveData<String>
+        get() = _searchGroupName
+
     private val _searchGroupHasNextPage = MutableLiveData<Boolean>()
     val searchGroupHasNextPage: LiveData<Boolean>
         get() = _searchGroupHasNextPage
@@ -29,6 +33,10 @@ class SearchViewModel @Inject constructor(
     private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String>
         get() = _toastMessage
+
+    fun setSearchGroupName(groupName: String) {
+        _searchGroupName.value = groupName
+    }
 
     fun searchGroup(searchGroupName: String) {
         viewModelScope.launch {
