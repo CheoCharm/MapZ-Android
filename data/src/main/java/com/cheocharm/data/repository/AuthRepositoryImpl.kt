@@ -39,4 +39,12 @@ class AuthRepositoryImpl @Inject constructor(
     override fun removeIsAutoSignIn() {
         authLocalDataSource.removeIsAutoSignIn()
     }
+
+    override fun saveSignInType(signInType: String) {
+        authLocalDataSource.saveSignInType(signInType)
+    }
+
+    override fun removeSignInType() {
+        authLocalDataSource.removeSignInType()
+    }
 }

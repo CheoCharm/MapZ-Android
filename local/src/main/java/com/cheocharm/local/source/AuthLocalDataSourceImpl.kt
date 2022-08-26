@@ -42,9 +42,18 @@ class AuthLocalDataSourceImpl @Inject constructor(
         sharedPrefManager.remove(IS_AUTO_SIGN_IN)
     }
 
+    override fun saveSignInType(signInType: String) {
+        sharedPrefManager.setString(SIGN_IN_TYPE, signInType)
+    }
+
+    override fun removeSignInType() {
+        sharedPrefManager.remove(SIGN_IN_TYPE)
+    }
+
     companion object {
         private const val ACCESS_TOKEN = "accessToken"
         private const val REFRESH_TOKEN = "refreshToken"
         private const val IS_AUTO_SIGN_IN = "isAutoSignIn"
+        private const val SIGN_IN_TYPE = "signInType"
     }
 }

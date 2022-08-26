@@ -17,4 +17,8 @@ interface AuthLocalDataSource {
     fun removeRefreshToken()
 
     fun removeIsAutoSignIn()
+
+    fun saveSignInType(signInType: String)
+
+    fun removeSignInType()
 }
