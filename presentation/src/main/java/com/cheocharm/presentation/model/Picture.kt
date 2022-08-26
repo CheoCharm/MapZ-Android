@@ -1,4 +1,4 @@
-package com.cheocharm.domain.model
+package com.cheocharm.presentation.model
 
 import android.net.Uri
 import com.cheocharm.presentation.util.toCoordString

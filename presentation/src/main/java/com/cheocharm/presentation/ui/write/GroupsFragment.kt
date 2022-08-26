@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentGroupsBinding
-import com.cheocharm.presentation.model.Group
+import com.cheocharm.domain.model.Group
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
