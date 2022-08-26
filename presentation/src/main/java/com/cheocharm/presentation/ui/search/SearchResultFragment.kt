@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.domain.model.Group
@@ -39,6 +40,9 @@ class SearchResultFragment :
                 findNavController().popBackStack()
             }
         }
+
+        val mainActivityBinding = (activity as MainActivity).getBinding()
+        mainActivityBinding.bottomNavMain.visibility = View.GONE
     }
 
     private fun initObservers() {
@@ -52,7 +56,7 @@ class SearchResultFragment :
 
     private fun initRecyclerView() {
         val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        groupResultListAdapter = GroupsAdapter { group -> onGroupClicked(group)}
+        groupResultListAdapter = GroupsAdapter { group -> onGroupClicked(group) }
 
         binding.rvSearchResult.apply {
             addItemDecoration(decoration)
@@ -61,6 +65,7 @@ class SearchResultFragment :
     }
 
     private fun onGroupClicked(group: Group) {
-
+        searchViewModel.setSelectedGroup(group)
+        findNavController().navigate(R.id.action_searchResultFragment_to_searchGroupFragment)
     }
 }

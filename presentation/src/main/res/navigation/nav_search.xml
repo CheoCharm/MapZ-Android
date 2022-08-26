@@ -18,6 +18,15 @@
         android:id="@+id/searchResultFragment"
         android:name="com.cheocharm.presentation.ui.search.SearchResultFragment"
         android:label="SearchResultFragment"
-        tools:layout="@layout/fragment_search_result" />
+        tools:layout="@layout/fragment_search_result">
+        <action
+            android:id="@+id/action_searchResultFragment_to_searchGroupFragment"
+            app:destination="@id/searchGroupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchGroupFragment"
+        android:name="com.cheocharm.presentation.ui.search.SearchGroupFragment"
+        android:label="SearchGroupFragment"
+        tools:layout="@layout/fragment_search_group" />
 
 </navigation>

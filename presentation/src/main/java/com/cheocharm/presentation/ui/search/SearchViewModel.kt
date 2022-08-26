@@ -31,12 +31,20 @@ class SearchViewModel @Inject constructor(
     val groupSearchResultList: LiveData<List<Group>>
         get() = _groupSearchResultList
 
+    private val _selectedGroup = MutableLiveData<Group>()
+    val selectedGroup: LiveData<Group>
+        get() = _selectedGroup
+
     private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String>
         get() = _toastMessage
 
     fun setSearchGroupName(groupName: String) {
         _searchGroupName.value = groupName
+    }
+
+    fun setSelectedGroup(group: Group) {
+        _selectedGroup.value = group
     }
 
     fun searchGroup(searchGroupName: String) {

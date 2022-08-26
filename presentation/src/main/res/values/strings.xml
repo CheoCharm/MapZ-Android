@@ -58,4 +58,5 @@
 
     <string name="search_title">친구들과 함께 할\n교환일기를 찾아봐요.</string>
     <string name="search_recent">최근 검색</string>
+    <string name="search_group_join">그룹 가입하기</string>
 </resources>

@@ -36,4 +36,6 @@
     <color name="picture_gallery_desc_text_color">#FF6D6D6D</color>
     <color name="location_picture_list_bg_color">#BF525252</color>
     <color name="sign_up_profile_icon">#292D32</color>
+
+    <color name="search_group_background">#8A8A8A</color>
 </resources>
