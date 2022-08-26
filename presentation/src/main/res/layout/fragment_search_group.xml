@@ -17,11 +17,32 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_search_group_close"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider_search_group_half"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="" />
+            app:layout_constraintVertical_bias="0.5" />
+
+        <View
+            android:id="@+id/divider_search_group"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_search_group"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_search_group_half" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_search_group_image"
@@ -33,14 +54,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_search_group_close" />
 
-        <View
-            android:id="@+id/divider_search_group"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.7" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_search_group_name"
             android:layout_width="0dp"
@@ -48,6 +61,7 @@
             android:layout_marginHorizontal="@dimen/space_small"
             android:layout_marginTop="@dimen/space_x_small"
             android:text="@{group.name}"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_x_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +74,7 @@
             android:layout_marginTop="@dimen/space_x_small"
             android:layout_marginEnd="@dimen/space_small"
             android:text="개설일 2022.01.01"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_median"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_search_group_name" />
@@ -71,6 +86,7 @@
             android:layout_marginTop="@dimen/space_x_small"
             android:layout_marginEnd="@dimen/space_small"
             android:text="안녕"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_median"
             app:layout_constraintEnd_toEndOf="@id/tv_search_group_name"
             app:layout_constraintStart_toStartOf="@id/tv_search_group_name"
@@ -93,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_xx_large"
-            android:layout_marginTop="@dimen/space_small"
+            android:layout_marginTop="@dimen/space_large"
             android:layout_marginBottom="@dimen/space_large"
             android:background="@drawable/bg_radius_100dp_enabled"
             android:elevation="0dp"

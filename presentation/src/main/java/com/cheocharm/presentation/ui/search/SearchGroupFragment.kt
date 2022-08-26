@@ -30,6 +30,7 @@ class SearchGroupFragment :
     private fun initView() {
         binding.toolbarSearchGroupClose.apply {
             (activity as MainActivity).setSupportActionBar(this)
+            (activity as MainActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
             setNavigationIcon(R.drawable.ic_close_square)
             setNavigationOnClickListener {
                 findNavController().popBackStack()
