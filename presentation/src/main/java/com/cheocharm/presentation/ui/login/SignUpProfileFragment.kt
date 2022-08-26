@@ -18,7 +18,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
-import com.cheocharm.presentation.common.UriUtil
+import com.cheocharm.presentation.util.UriUtil
 import com.cheocharm.presentation.databinding.FragmentSignUpProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 
