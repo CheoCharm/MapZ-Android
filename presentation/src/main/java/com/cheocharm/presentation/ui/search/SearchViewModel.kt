@@ -9,6 +9,7 @@ import com.cheocharm.domain.usecase.group.SearchGroupUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import com.cheocharm.domain.model.Group
+import com.cheocharm.domain.model.GroupMember
 import javax.inject.Inject
 
 @HiltViewModel
@@ -51,6 +52,33 @@ class SearchViewModel @Inject constructor(
                         is Error.SearchGroupUnavailable -> setToastMessage(throwable.message)
                         else -> setToastMessage("그룹 검색에 실패하였습니다.")
                     }
+
+                    _groupSearchResultList.value = listOf(
+                        Group(
+                            "그룹1", listOf(
+                                GroupMember(),
+                                GroupMember()
+                            ), 0
+                        ),
+                        Group(
+                            "그룹2", listOf(
+                                GroupMember("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYW5nZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
+                                GroupMember("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYW5nZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
+                                GroupMember("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYW5nZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
+                                GroupMember("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYW5nZXxlbnwwfHwwfHw%3D&w=1000&q=80")
+                            ), 3
+                        ),
+                        Group(
+                            "그룹3", listOf(
+                                GroupMember(),
+                                GroupMember(),
+                                GroupMember(),
+                                GroupMember(),
+                                GroupMember(),
+                                GroupMember()
+                            ), 10
+                        )
+                    )
                 }
         }
     }

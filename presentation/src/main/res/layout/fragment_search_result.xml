@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -13,6 +14,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.search.SearchResultFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{viewmodel.searchGroupName}"
+            tools:title="안녕" />
+
+        <View
+            android:id="@+id/divider_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_small"
+            android:background="@color/grey_01"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_search_result" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/space_small"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/divider_search_result" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

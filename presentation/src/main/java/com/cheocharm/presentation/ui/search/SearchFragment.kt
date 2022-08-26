@@ -3,9 +3,9 @@ package com.cheocharm.presentation.ui.search
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.fragment.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentSearchBinding
@@ -14,7 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
-    private val searchViewModel: SearchViewModel by viewModels()
+
+    private val searchViewModel: SearchViewModel by hiltNavGraphViewModels(R.id.search)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,15 +32,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private fun initEditTexts() {
         binding.etSearchSearch.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                searchViewModel.setSearchGroupName(textView.text.toString())
                 searchViewModel.searchGroup(textView.text.toString())
+                findNavController().navigate(R.id.action_searchFragment_to_searchResultFragment)
             }
             false
         }
     }
 
     private fun initObservers() {
-        searchViewModel.toastMessage.observe(viewLifecycleOwner) {
-            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
-        }
+
     }
 }
