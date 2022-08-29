@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.common.EventObserver
+import com.cheocharm.presentation.databinding.ActivityMainBinding
 import com.cheocharm.presentation.databinding.FragmentSearchGroupBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.ui.write.MembersAdapter
@@ -18,16 +19,25 @@ class SearchGroupFragment :
     BaseFragment<FragmentSearchGroupBinding>(R.layout.fragment_search_group) {
 
     private val searchViewModel: SearchViewModel by hiltNavGraphViewModels(R.id.search)
+    private lateinit var mainActivityBinding: ActivityMainBinding
 
     private lateinit var memberAdapter: MembersAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mainActivityBinding = (activity as MainActivity).getBinding()
+
         initView()
         initRecyclerView()
         initObservers()
         initButtons()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        mainActivityBinding.bottomNavMain.visibility = View.GONE
     }
 
     private fun initView() {

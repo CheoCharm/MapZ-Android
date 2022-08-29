@@ -11,6 +11,7 @@ import com.cheocharm.base.BaseFragment
 import com.cheocharm.domain.model.Group
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.common.EventObserver
+import com.cheocharm.presentation.databinding.ActivityMainBinding
 import com.cheocharm.presentation.databinding.FragmentSearchResultBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.ui.write.GroupsAdapter
@@ -21,6 +22,7 @@ class SearchResultFragment :
     BaseFragment<FragmentSearchResultBinding>(R.layout.fragment_search_result) {
 
     private val searchViewModel: SearchViewModel by hiltNavGraphViewModels(R.id.search)
+    private lateinit var mainActivityBinding: ActivityMainBinding
     private lateinit var groupResultListAdapter: GroupsAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,9 +30,17 @@ class SearchResultFragment :
 
         binding.viewmodel = searchViewModel
 
+        mainActivityBinding = (activity as MainActivity).getBinding()
+
         initView()
         initRecyclerView()
         initObservers()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        mainActivityBinding.bottomNavMain.visibility = View.VISIBLE
     }
 
     private fun initView() {
@@ -41,9 +51,6 @@ class SearchResultFragment :
                 findNavController().popBackStack()
             }
         }
-
-        val mainActivityBinding = (activity as MainActivity).getBinding()
-        mainActivityBinding.bottomNavMain.visibility = View.GONE
     }
 
     private fun initObservers() {
