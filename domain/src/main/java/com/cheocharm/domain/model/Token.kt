@@ -1,6 +1,6 @@
 package com.cheocharm.domain.model
 
-data class MapZSign(
+data class Token(
     val accessToken: String?,
     val refreshToken: String?
 )

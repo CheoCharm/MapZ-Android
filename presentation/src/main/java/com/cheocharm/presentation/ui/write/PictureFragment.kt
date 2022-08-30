@@ -6,9 +6,9 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.exifinterface.media.ExifInterface
 import androidx.navigation.findNavController
+import com.cheocharm.presentation.base.BaseFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
-import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentPictureBinding
 import com.cheocharm.presentation.model.Picture

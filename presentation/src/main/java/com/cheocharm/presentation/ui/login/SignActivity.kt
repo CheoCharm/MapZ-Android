@@ -7,7 +7,7 @@ import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.navigation.fragment.NavHostFragment
-import com.cheocharm.base.BaseActivity
+import com.cheocharm.presentation.base.BaseActivity
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.ActivitySignInBinding
 import dagger.hilt.android.AndroidEntryPoint

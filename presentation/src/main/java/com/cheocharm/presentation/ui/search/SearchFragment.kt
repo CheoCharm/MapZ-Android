@@ -6,7 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
-import com.cheocharm.base.BaseFragment
+import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.ActivityMainBinding
 import com.cheocharm.presentation.databinding.FragmentSearchBinding

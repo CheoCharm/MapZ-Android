@@ -11,6 +11,7 @@ sealed class ErrorData(
     data class MapZSignInUnavailable(override val message: String) : ErrorData(message)
     data class GoogleSignInUnavailable(override val message: String) : ErrorData(message)
     data class GoogleSignUpUnavailable(override val message: String) : ErrorData(message)
+    data class RefreshAccessTokenUnavailable(override val message: String) : ErrorData(message)
     data class SearchGroupUnavailable(override val message: String) : ErrorData(message)
     data class JoinGroupUnavailable(override val message: String) : ErrorData(message)
 }

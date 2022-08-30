@@ -1,7 +1,6 @@
 package com.cheocharm.local.source
 
 import com.cheocharm.data.source.AuthLocalDataSource
-import com.cheocharm.domain.model.MapZSign
 import com.cheocharm.local.SharedPrefManager
 import javax.inject.Inject
 
