@@ -6,6 +6,7 @@
     <string name="next">다음</string>
     <string name="complete">완료</string>
     <string name="see_description">보기</string>
+    <string name="confirm">확인</string>
 
     <string name="main_menu_home_title">Home</string>
     <string name="main_menu_search_title">Search</string>
@@ -59,4 +60,6 @@
     <string name="search_title">친구들과 함께 할\n교환일기를 찾아봐요.</string>
     <string name="search_recent">최근 검색</string>
     <string name="search_group_join">그룹 가입하기</string>
+    <string name="search_group_join_request">%s의 그룹장에게\n가입요청이 전달되었습니다.</string>
+    <string name="search_group_join_request_description">가입이 승인되면 홈에서\n가입된 그룹을 볼 수 있어요!</string>
 </resources>

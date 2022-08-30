@@ -38,6 +38,10 @@ class SearchViewModel @Inject constructor(
     val selectedGroup: LiveData<Group>
         get() = _selectedGroup
 
+    private val _searchGroupJoinBottom = MutableLiveData<Event<Unit>>()
+    val searchGroupJoinBottom: LiveData<Event<Unit>>
+        get() = _searchGroupJoinBottom
+
     private val _toastMessage = MutableLiveData<Event<String>>()
     val toastMessage: LiveData<Event<String>>
         get() = _toastMessage
@@ -102,7 +106,7 @@ class SearchViewModel @Inject constructor(
             selectedGroup.value?.name?.let {
                 joinGroupUseCase.invoke(it)
                     .onSuccess {
-                        // TODO: 바텀 팝업 띄우기
+                        _searchGroupJoinBottom.value = Event(Unit)
                     }.onFailure { throwable ->
                         when (throwable) {
                             is Error.JoinGroupUnavailable -> setToastMessage(throwable.message)

@@ -3,11 +3,13 @@ package com.cheocharm.presentation.ui.search
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.common.EventObserver
+import com.cheocharm.presentation.common.GROUP_JOIN_REQUEST_BOTTOM
 import com.cheocharm.presentation.databinding.ActivityMainBinding
 import com.cheocharm.presentation.databinding.FragmentSearchGroupBinding
 import com.cheocharm.presentation.ui.MainActivity
@@ -63,6 +65,10 @@ class SearchGroupFragment :
         }
         searchViewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+        })
+        searchViewModel.searchGroupJoinBottom.observe(viewLifecycleOwner, EventObserver {
+            SearchGroupBottomSheetFragment.newInstance(bundleOf(GROUP_JOIN_REQUEST_BOTTOM to searchViewModel.searchGroupName.value))
+                .show(requireActivity().supportFragmentManager, null)
         })
     }
 
