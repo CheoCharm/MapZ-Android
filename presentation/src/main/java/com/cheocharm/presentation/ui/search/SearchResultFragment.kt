@@ -7,9 +7,9 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.cheocharm.base.BaseFragment
 import com.cheocharm.domain.model.Group
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.common.EventObserver
 import com.cheocharm.presentation.databinding.ActivityMainBinding
 import com.cheocharm.presentation.databinding.FragmentSearchResultBinding

@@ -32,6 +32,9 @@ class AuthInterceptor @Inject constructor(
                     authRepository.saveTokens(newAccessToken, newRefreshToken)
                     response.close()
 
+                    Log.d(TAG, "intercept: newAccessToken: $newAccessToken")
+                    Log.d(TAG, "intercept: newRefreshToken: $newRefreshToken")
+
                     val request = chain.request().newBuilder()
                         .addHeader(ACCESS_TOKEN, newAccessToken)
                         .build()

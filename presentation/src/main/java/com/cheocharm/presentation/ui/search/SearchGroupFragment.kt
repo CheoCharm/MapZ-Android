@@ -6,8 +6,8 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
-import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.common.EventObserver
 import com.cheocharm.presentation.common.GROUP_JOIN_REQUEST_BOTTOM
 import com.cheocharm.presentation.databinding.ActivityMainBinding
