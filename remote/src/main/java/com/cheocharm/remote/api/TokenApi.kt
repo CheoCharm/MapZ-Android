@@ -1,11 +1,12 @@
 package com.cheocharm.remote.api
 
 import com.cheocharm.remote.model.BaseResponse
-import retrofit2.http.Body
-import retrofit2.http.POST
+import com.cheocharm.remote.model.TokenResponse
+import retrofit2.http.GET
+import retrofit2.http.Header
 
 interface TokenApi {
 
-    @POST()
-    suspend fun refreshAccessToken(@Body body: HashMap<String, String>): BaseResponse<String>
+    @GET("users/refresh")
+    suspend fun refreshAccessToken(@Header("refreshToken") token: String): BaseResponse<TokenResponse>
 }

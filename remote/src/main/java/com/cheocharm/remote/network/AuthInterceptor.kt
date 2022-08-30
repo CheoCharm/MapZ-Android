@@ -1,12 +1,15 @@
 package com.cheocharm.remote.network
 
 import android.util.Log
+import com.cheocharm.domain.event_bus.EventBus
+import com.cheocharm.domain.event_bus.MapZEvent
 import com.cheocharm.domain.repository.AuthRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
-class AuthInterceptor(
+class AuthInterceptor @Inject constructor(
     private val authRepository: AuthRepository
 ) : Interceptor {
 
@@ -23,19 +26,21 @@ class AuthInterceptor(
 
                 runBlocking {
                     authRepository.refreshAccessToken(refreshToken)
-                }.onSuccess { newAccessToken ->
-                    if (newAccessToken.isEmpty().not()) {
-                        authRepository.saveTokens(newAccessToken, refreshToken)
-                        // TODO: 만약에 서버에서 accessToken 재발급할 때 refreshToken도 재발급하면 그것도 저장해야 함
-                        response.close()
+                }.onSuccess { token ->
+                    val newAccessToken = token.accessToken ?: return@runCatching
+                    val newRefreshToken = token.refreshToken ?: return@runCatching
+                    authRepository.saveTokens(newAccessToken, newRefreshToken)
+                    response.close()
 
-                        val request = chain.request().newBuilder()
-                            .addHeader(ACCESS_TOKEN, newAccessToken)
-                            .build()
-                        return chain.proceed(request)
-                    }
+                    val request = chain.request().newBuilder()
+                        .addHeader(ACCESS_TOKEN, newAccessToken)
+                        .build()
+                    return chain.proceed(request)
+
                 }.onFailure {
-                    // TODO: 로그아웃?
+                    runBlocking {
+                        EventBus.invokeEvent(MapZEvent.SIGN_OUT)
+                    }
                 }
             }
         }.onFailure {

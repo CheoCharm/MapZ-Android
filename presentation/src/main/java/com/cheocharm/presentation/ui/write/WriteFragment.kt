@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.cheocharm.base.BaseFragment
+import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
 import com.cheocharm.presentation.model.Group

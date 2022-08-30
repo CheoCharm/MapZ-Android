@@ -3,7 +3,7 @@ package com.cheocharm.remote.source
 import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.source.LoginRemoteDataSource
 import com.cheocharm.domain.model.GoogleSignUpRequest
-import com.cheocharm.domain.model.MapZSign
+import com.cheocharm.domain.model.Token
 import com.cheocharm.domain.model.MapZSignInRequest
 import com.cheocharm.domain.model.MapZSignUpRequest
 import com.cheocharm.remote.api.LoginApi
@@ -38,7 +38,7 @@ class LoginRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun requestMapZSignUp(mapZSignUpRequest: MapZSignUpRequest): Result<MapZSign> {
+    override suspend fun requestMapZSignUp(mapZSignUpRequest: MapZSignUpRequest): Result<Token> {
         val mapZSignUpDto = mapZSignUpRequest.toDto()
         val fileRequestBody = MultipartBody.Part.createFormData(
             "file",
@@ -62,7 +62,7 @@ class LoginRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun requestMapZSignIn(mapZSignInRequest: MapZSignInRequest): Result<MapZSign> {
+    override suspend fun requestMapZSignIn(mapZSignInRequest: MapZSignInRequest): Result<Token> {
         val result = runCatching { loginApi.signInMapZ(mapZSignInRequest.toDto()) }
         println(result)
         return when (val exception = result.exceptionOrNull()) {
@@ -79,7 +79,7 @@ class LoginRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun requestGoogleSignIn(idToken: String): Result<MapZSign> {
+    override suspend fun requestGoogleSignIn(idToken: String): Result<Token> {
         val result = runCatching { loginApi.signInGoogleLogin(hashMapOf("idToken" to idToken)) }
         println(result)
         return when (val exception = result.exceptionOrNull()) {
@@ -96,7 +96,7 @@ class LoginRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun requestGoogleSignUp(googleSignUpRequest: GoogleSignUpRequest): Result<MapZSign> {
+    override suspend fun requestGoogleSignUp(googleSignUpRequest: GoogleSignUpRequest): Result<Token> {
         val fileRequestBody = MultipartBody.Part.createFormData(
             "file",
             googleSignUpRequest.userImage.name,

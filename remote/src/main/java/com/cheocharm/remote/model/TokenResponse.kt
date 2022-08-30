@@ -1,6 +1,6 @@
 package com.cheocharm.remote.model
 
-data class MapZSignResponse(
+data class TokenResponse(
     val accessToken: String?,
     val refreshToken: String?
 )
