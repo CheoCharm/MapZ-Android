@@ -76,12 +76,12 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_location, menu)
+        inflater.inflate(R.menu.menu_base, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.location_confirm -> {
+            R.id.menu_base_confirm -> {
                 val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
                 findNavController().navigate(action)
                 true

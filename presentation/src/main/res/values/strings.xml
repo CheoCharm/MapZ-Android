@@ -20,9 +20,10 @@
     <string name="format_write_number_of_group_members">+ %d</string>
     <string name="picture_desc">친구들과의 추억이 담긴 사진을 선택해주세요.</string>
     <string name="picture_button">사진 가져오기</string>
+    <string name="menu_item_confirm">완료</string>
     <string name="location_title">위치 확인하기</string>
-    <string name="location_confirm">위치 확인하기 완료</string>
     <string name="write_title">일기 작성하기</string>
+    <string name="write_editor_placeholder">사진과 장소에 맞는 재미있는 일기를 작성해주세요.</string>
 
     <string name="sign_in_title">Login</string>
     <string name="sign_in_email">E-mail</string>
