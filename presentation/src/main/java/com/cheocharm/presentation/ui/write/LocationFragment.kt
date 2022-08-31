@@ -54,6 +54,11 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     private var location: LatLng? = null
     private var file: File? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -151,6 +156,17 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                         }
                     }
                 }
+            }
+
+            googleMap.setOnCameraMoveListener {
+                val latLng = map.cameraPosition.target
+                locationViewModel.setSelectedLatLng(latLng, SelectedLatLngType.CUSTOM)
+            }
+
+            googleMap.setOnCameraIdleListener {
+                val latLng = map.cameraPosition.target
+                val address = GeocodeUtil.execute(requireContext(), latLng)
+                locationViewModel.setSelectedLatLng(latLng, SelectedLatLngType.CUSTOM, address)
             }
         }
 

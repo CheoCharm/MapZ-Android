@@ -25,6 +25,26 @@
             app:title="@string/location_title"
             app:menu="@menu/menu_base" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_location_marker_around"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_marker_around"
+            app:layout_constraintBottom_toTopOf="@+id/container_location_pictures"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_location" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_location_marker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/location_marker_margin_bottom"
+            android:src="@drawable/ic_marker"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_location_marker_around"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_location_pictures"
             android:layout_width="match_parent"
