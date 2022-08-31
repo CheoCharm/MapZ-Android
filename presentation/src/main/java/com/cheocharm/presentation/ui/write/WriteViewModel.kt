@@ -13,7 +13,10 @@ class WriteViewModel @Inject constructor() : ViewModel() {
     private val _groups = MutableLiveData(
         listOf(
             Group(
-                "그룹제목 1", listOf(
+                "그룹제목 1",
+                "맵지 고등학교 추억 교환일기!",
+                "2022.02.23",
+                listOf(
                     GroupMember(),
                     GroupMember(),
                     GroupMember(),
@@ -25,12 +28,16 @@ class WriteViewModel @Inject constructor() : ViewModel() {
                 ), 4
             ),
             Group(
-                "그룹제목 2", listOf(
+                "그룹제목 2", "맵지 고등학교 추억 교환일기!",
+                "2022.02.23",
+                listOf(
                     GroupMember(), GroupMember(), GroupMember()
                 ), 0
             ),
             Group(
-                "그룹제목 3", listOf(
+                "그룹제목 3", "맵지 고등학교 추억 교환일기!",
+                "2022.02.23",
+                listOf(
                     GroupMember(), GroupMember(), GroupMember()
                 ), 0
             ),

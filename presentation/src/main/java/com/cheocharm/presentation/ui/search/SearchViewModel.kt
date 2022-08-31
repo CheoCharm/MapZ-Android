@@ -71,6 +71,8 @@ class SearchViewModel @Inject constructor(
                     _groupSearchResultList.value = listOf(
                         Group(
                             "그룹1",
+                            "맵지 고등학교 추억 교환일기!",
+                            "2022.02.23",
                             listOf(
                                 GroupMember(),
                                 GroupMember()
@@ -79,7 +81,8 @@ class SearchViewModel @Inject constructor(
                             "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
                         ),
                         Group(
-                            "그룹2", listOf(
+                            "그룹2", "맵지 고등학교 추억 교환일기!", "2022.02.23",
+                            listOf(
                                 GroupMember("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYW5nZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
                                 GroupMember("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYW5nZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
                                 GroupMember("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYW5nZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
@@ -87,7 +90,8 @@ class SearchViewModel @Inject constructor(
                             ), 3
                         ),
                         Group(
-                            "그룹3", listOf(
+                            "그룹3", "맵지 고등학교 추억 교환일기!", "2022.02.23",
+                            listOf(
                                 GroupMember(),
                                 GroupMember(),
                                 GroupMember(),

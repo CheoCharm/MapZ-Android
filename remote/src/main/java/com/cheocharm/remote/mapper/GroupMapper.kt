@@ -11,7 +11,7 @@ internal fun GroupSearchResponse.toDomain(): GroupSearch {
         val groupMemberList = it.userImageUrlList.map { url ->
             GroupMember(url)
         }
-        Group(it.groupName, groupMemberList, it.count, it.groupImageUrl)
+        Group(it.groupName, it.bio, it.createdAt, groupMemberList, it.count, it.groupImageUrl)
     }
     return GroupSearch(hasNextPage, groupResultList)
 }
