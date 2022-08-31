@@ -90,6 +90,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             requireActivity().supportFragmentManager.findFragmentById(R.id.fragment_main_map) as? SupportMapFragment
         mapFragment?.getMapAsync { map ->
             map.setOnMapLoadedCallback {
+                val top = binding.toolbarLocation.height
+                val bottom = binding.containerLocationPictures.height
+                map.setPadding(0, top, 0, bottom)
+
                 locationViewModel.picture.observe(viewLifecycleOwner) { picture ->
                     picture?.let {
                         picturesAdapter.submitList(listOf(it))
