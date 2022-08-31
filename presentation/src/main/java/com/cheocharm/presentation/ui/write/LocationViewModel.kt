@@ -11,7 +11,7 @@ import com.cheocharm.presentation.common.Event
 import com.cheocharm.presentation.common.TestValues
 import com.cheocharm.presentation.model.Sticker
 import com.cheocharm.presentation.common.toCoordString
-import com.cheocharm.presentation.enum.SelectedLatLngType
+import com.cheocharm.presentation.enum.LatLngSelectionType
 import com.cheocharm.presentation.model.Picture
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -45,14 +45,16 @@ class LocationViewModel @Inject constructor(
         _picture.value = picture
     }
 
-    fun setSelectedLatLng(latLng: LatLng, type: SelectedLatLngType, address: String? = null) {
-        _selectedLatLng.value = latLng
-        _latLngString.value =
-            if (type == SelectedLatLngType.DEFAULT || type == SelectedLatLngType.CURRENT) {
-                type.str
-            } else {
-                address ?: latLng.toCoordString()
-            }
+    fun setSelectedLatLng(latLng: LatLng, type: LatLngSelectionType, address: String? = null) {
+        val locationString = if (type == LatLngSelectionType.DEFAULT || type == LatLngSelectionType.CURRENT) {
+            type.locationString
+        } else {
+            // TODO: null 처리
+            address ?: latLng.toCoordString() ?: ""
+        }
+
+        _selectedLatLng.postValue(latLng)
+        _latLngString.postValue(locationString)
     }
 
     fun uploadImages(

@@ -26,7 +26,7 @@ import com.cheocharm.presentation.common.SOUTH_KOREA_LNG
 import com.cheocharm.presentation.common.SOUTH_KOREA_ZOOM_LEVEL
 import com.cheocharm.presentation.common.toLatLng
 import com.cheocharm.presentation.databinding.FragmentLocationBinding
-import com.cheocharm.presentation.enum.SelectedLatLngType
+import com.cheocharm.presentation.enum.LatLngSelectionType
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -39,6 +39,9 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location),
@@ -111,13 +114,14 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                         var selectedLatLng = it.latLng
 
                         if (selectedLatLng != null) {
-                            val address = GeocodeUtil.execute(requireContext(), selectedLatLng)
-
-                            locationViewModel.setSelectedLatLng(
-                                selectedLatLng,
-                                SelectedLatLngType.CUSTOM,
-                                address
-                            )
+                            CoroutineScope(Dispatchers.Main).launch {
+                                GeocodeUtil.execute(
+                                    requireContext(),
+                                    selectedLatLng ?: defaultLatLng,
+                                    LatLngSelectionType.CUSTOM,
+                                    ::onGeocoded
+                                )
+                            }
 
                             createMarkerAndMoveCamera(selectedLatLng, DEFAULT_ZOOM_LEVEL)
                         } else if (ContextCompat.checkSelfPermission(
@@ -133,7 +137,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
                                 locationViewModel.setSelectedLatLng(
                                     selectedLatLng ?: defaultLatLng,
-                                    SelectedLatLngType.CURRENT
+                                    LatLngSelectionType.CURRENT
                                 )
 
                                 createMarkerAndMoveCamera(
@@ -146,7 +150,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
                             locationViewModel.setSelectedLatLng(
                                 selectedLatLng ?: defaultLatLng,
-                                SelectedLatLngType.DEFAULT
+                                LatLngSelectionType.DEFAULT
                             )
 
                             createMarkerAndMoveCamera(
@@ -160,13 +164,19 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
             googleMap.setOnCameraMoveListener {
                 val latLng = map.cameraPosition.target
-                locationViewModel.setSelectedLatLng(latLng, SelectedLatLngType.CUSTOM)
+                locationViewModel.setSelectedLatLng(latLng, LatLngSelectionType.CUSTOM)
             }
 
             googleMap.setOnCameraIdleListener {
-                val latLng = map.cameraPosition.target
-                val address = GeocodeUtil.execute(requireContext(), latLng)
-                locationViewModel.setSelectedLatLng(latLng, SelectedLatLngType.CUSTOM, address)
+                CoroutineScope(Dispatchers.Main).launch {
+                    val latLng = map.cameraPosition.target
+                    GeocodeUtil.execute(
+                        requireContext(),
+                        latLng,
+                        LatLngSelectionType.CUSTOM,
+                        ::onGeocoded
+                    )
+                }
             }
         }
 
@@ -197,6 +207,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
             findNavController().navigate(action)
         })
+    }
+
+    private fun onGeocoded(latLng: LatLng, type: LatLngSelectionType, address: String?) {
+        locationViewModel.setSelectedLatLng(latLng, type, address)
     }
 
     override fun onDestroyView() {
