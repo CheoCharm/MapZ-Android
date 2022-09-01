@@ -3,6 +3,7 @@ package com.cheocharm.presentation.ui.write
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -28,6 +29,7 @@ import com.cheocharm.presentation.common.SOUTH_KOREA_ZOOM_LEVEL
 import com.cheocharm.presentation.common.toLatLng
 import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.enum.LatLngSelectionType
+import com.cheocharm.presentation.model.Picture
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -51,8 +53,8 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var initialLatLng: LatLng
-    private lateinit var initialType: LatLngSelectionType
+    private var initialLatLng: LatLng? = null
+    private var initialType: LatLngSelectionType? = null
 
     private var draggableMarker: Marker? = null
     private var address: String? = null
@@ -180,8 +182,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             googleMap.setOnCameraIdleListener {
                 CoroutineScope(dispatchersMain).launch {
                     val latLng = map.cameraPosition.target
-                    val type = if (distanceBetween(initialLatLng, latLng) <= 1) {
-                        initialType
+                    val type = if (initialLatLng != null &&
+                        distanceBetween(initialLatLng!!, latLng) <= 1
+                    ) {
+                        initialType ?: LatLngSelectionType.CUSTOM
                     } else {
                         LatLngSelectionType.CUSTOM
                     }
@@ -192,6 +196,17 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                         locationViewModel.setSelectedLatLng(latLng, type)
                     }
                 }
+            }
+        }
+
+        if (savedInstanceState != null) {
+            val uri = savedInstanceState.getString(KEY_URI)
+            val lat = savedInstanceState.getString(KEY_LAT)?.toDoubleOrNull()
+            val lng = savedInstanceState.getString(KEY_LNG)?.toDoubleOrNull()
+
+            if (uri != null) {
+                val latLng = if (lat != null && lng != null) LatLng(lat, lng) else null
+                picturesAdapter.submitList(listOf(Picture(Uri.parse(uri), latLng)))
             }
         }
 
@@ -230,7 +245,13 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
     private fun distanceBetween(latLng1: LatLng, latLng2: LatLng): Float {
         val result = FloatArray(1)
-        Location.distanceBetween(latLng1.latitude, latLng1.longitude, latLng2.latitude, latLng2.longitude, result)
+        Location.distanceBetween(
+            latLng1.latitude,
+            latLng1.longitude,
+            latLng2.latitude,
+            latLng2.longitude,
+            result
+        )
 
         return result.first()
     }
@@ -264,7 +285,27 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        val picture = locationViewModel.picture.value
+
+        if (picture != null) {
+            with(outState) {
+                putString(KEY_URI, picture.uri.toString())
+
+                if (picture.latLng != null) {
+                    putString(KEY_LAT, picture.latLng.latitude.toString())
+                    putString(KEY_LNG, picture.latLng.longitude.toString())
+                }
+            }
+        }
+
+        super.onSaveInstanceState(outState)
+    }
+
     companion object {
+        private const val KEY_URI = "uri"
+        private const val KEY_LAT = "lat"
+        private const val KEY_LNG = "lng"
         private const val TEST_GROUP_ID = 1L
     }
 }
