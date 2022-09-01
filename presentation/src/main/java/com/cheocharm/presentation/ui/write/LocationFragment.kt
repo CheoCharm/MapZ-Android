@@ -87,6 +87,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             adapter = picturesAdapter
         }
 
+        val mainActivityBinding = (activity as MainActivity).getBinding()
+        mainActivityBinding.fragmentMainMap.isVisible = true
+
         with(binding.toolbarLocation) {
             val mainActivity = activity as MainActivity
 
@@ -97,8 +100,16 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             }
         }
 
-        val mainActivityBinding = (activity as MainActivity).getBinding()
-        mainActivityBinding.fragmentMainMap.isVisible = true
+        if (savedInstanceState != null) {
+            val uri = savedInstanceState.getString(KEY_URI)
+            val lat = savedInstanceState.getString(KEY_LAT)?.toDoubleOrNull()
+            val lng = savedInstanceState.getString(KEY_LNG)?.toDoubleOrNull()
+
+            if (uri != null) {
+                val latLng = if (lat != null && lng != null) LatLng(lat, lng) else null
+                picturesAdapter.submitList(listOf(Picture(Uri.parse(uri), latLng)))
+            }
+        }
 
         val mapFragment = (activity as MainActivity).getMap()
         val dispatchersMain = Dispatchers.Main
@@ -115,23 +126,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                     picture?.let {
                         picturesAdapter.submitList(listOf(it))
 
-                        val defaultLatLng = LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG)
-                        var selectedLatLng = it.latLng
+                        val selectedLatLng = it.latLng
 
                         if (selectedLatLng != null) {
-                            CoroutineScope(dispatchersMain).launch {
-                                GeocodeUtil.execute(
-                                    requireContext(),
-                                    selectedLatLng ?: defaultLatLng,
-                                    LatLngSelectionType.CUSTOM,
-                                    ::onGeocoded
-                                )
-                            }
-
-                            initialLatLng = selectedLatLng
-                            initialType = LatLngSelectionType.CUSTOM
-
-                            createMarkerAndMoveCamera(selectedLatLng, DEFAULT_ZOOM_LEVEL)
+                            initTypeToSpecified(selectedLatLng)
                         } else if (ContextCompat.checkSelfPermission(
                                 requireContext(),
                                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -141,34 +139,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                                 LocationServices.getFusedLocationProviderClient(requireActivity())
 
                             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                                selectedLatLng = location.toLatLng()
-
-                                locationViewModel.setSelectedLatLng(
-                                    selectedLatLng ?: defaultLatLng,
-                                    LatLngSelectionType.CURRENT
-                                )
-
-                                initialLatLng = selectedLatLng ?: location.toLatLng()
-                                initialType = LatLngSelectionType.CURRENT
-
-                                createMarkerAndMoveCamera(
-                                    selectedLatLng ?: defaultLatLng,
-                                    DEFAULT_ZOOM_LEVEL
-                                )
+                                initTypeToCurrent(location.toLatLng())
                             }
                         } else {
-                            locationViewModel.setSelectedLatLng(
-                                defaultLatLng,
-                                LatLngSelectionType.DEFAULT
-                            )
-
-                            initialLatLng = defaultLatLng
-                            initialType = LatLngSelectionType.DEFAULT
-
-                            createMarkerAndMoveCamera(
-                                selectedLatLng ?: defaultLatLng,
-                                SOUTH_KOREA_ZOOM_LEVEL
-                            )
+                            initTypeToDefault()
                         }
                     }
                 }
@@ -176,7 +150,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
             googleMap.setOnCameraMoveListener {
                 val latLng = map.cameraPosition.target
-                locationViewModel.setSelectedLatLng(latLng, LatLngSelectionType.CUSTOM)
+                locationViewModel.setSelectedLatLng(latLng, LatLngSelectionType.SPECIFIED)
             }
 
             googleMap.setOnCameraIdleListener {
@@ -185,12 +159,12 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                     val type = if (initialLatLng != null &&
                         distanceBetween(initialLatLng!!, latLng) <= 1
                     ) {
-                        initialType ?: LatLngSelectionType.CUSTOM
+                        initialType ?: LatLngSelectionType.SPECIFIED
                     } else {
-                        LatLngSelectionType.CUSTOM
+                        LatLngSelectionType.SPECIFIED
                     }
 
-                    if (type == LatLngSelectionType.CUSTOM) {
+                    if (type == LatLngSelectionType.SPECIFIED) {
                         GeocodeUtil.execute(requireContext(), latLng, type, ::onGeocoded)
                     } else {
                         locationViewModel.setSelectedLatLng(latLng, type)
@@ -199,25 +173,45 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             }
         }
 
-        if (savedInstanceState != null) {
-            val uri = savedInstanceState.getString(KEY_URI)
-            val lat = savedInstanceState.getString(KEY_LAT)?.toDoubleOrNull()
-            val lng = savedInstanceState.getString(KEY_LNG)?.toDoubleOrNull()
-
-            if (uri != null) {
-                val latLng = if (lat != null && lng != null) LatLng(lat, lng) else null
-                picturesAdapter.submitList(listOf(Picture(Uri.parse(uri), latLng)))
-            }
-        }
-
         setupToast()
         setupNavigation()
+    }
+
+    private fun initTypeToSpecified(latLng: LatLng) {
+        CoroutineScope(Dispatchers.Main).launch {
+            GeocodeUtil.execute(
+                requireContext(),
+                latLng,
+                LatLngSelectionType.SPECIFIED,
+                ::onGeocoded
+            )
+        }
     }
 
     private fun setupToast() {
         locationViewModel.toastText.observe(viewLifecycleOwner, EventObserver {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
+    }
+
+    private fun initTypeToCurrent(latLng: LatLng) {
+        locationViewModel.setSelectedLatLng(latLng, LatLngSelectionType.CURRENT)
+
+        initialLatLng = latLng
+        initialType = LatLngSelectionType.CURRENT
+
+        createMarkerAndMoveCamera(latLng, DEFAULT_ZOOM_LEVEL)
+    }
+
+    private fun initTypeToDefault() {
+        val defaultLatLng = LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG)
+
+        locationViewModel.setSelectedLatLng(defaultLatLng, LatLngSelectionType.DEFAULT)
+
+        initialLatLng = defaultLatLng
+        initialType = LatLngSelectionType.DEFAULT
+
+        createMarkerAndMoveCamera(defaultLatLng, SOUTH_KOREA_ZOOM_LEVEL)
     }
 
     private fun createMarkerAndMoveCamera(latLng: LatLng, zoomLevel: Float) {
