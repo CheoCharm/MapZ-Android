@@ -100,13 +100,22 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         }
 
         if (savedInstanceState != null) {
-            val uri = savedInstanceState.getString(KEY_URI)
-            val lat = savedInstanceState.getString(KEY_LAT)?.toDoubleOrNull()
-            val lng = savedInstanceState.getString(KEY_LNG)?.toDoubleOrNull()
+            with(savedInstanceState) {
+                val uri = getString(KEY_URI)
+                val lat = getString(KEY_LAT)?.toDoubleOrNull()
+                val lng = getString(KEY_LNG)?.toDoubleOrNull()
+                val isDefaultLocation = getBoolean(KEY_IS_DEFAULT_LOCATION)
 
-            if (uri != null) {
-                val latLng = if (lat != null && lng != null) LatLng(lat, lng) else null
-                locationViewModel.setPicture(Picture(Uri.parse(uri), latLng))
+                if (uri != null) {
+                    val latLng = if (lat != null && lng != null) LatLng(lat, lng) else null
+                    locationViewModel.setPicture(Picture(Uri.parse(uri), latLng))
+                }
+
+                if (isDefaultLocation) {
+                    val typeDefault = LatLngSelectionType.DEFAULT
+                    initialType = typeDefault
+                    locationViewModel.setSelectedLatLng(defaultLatLng, typeDefault)
+                }
             }
         }
 
@@ -198,8 +207,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     private fun initTypeToDefault() {
-        val defaultLatLng = LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG)
-
         locationViewModel.setSelectedLatLng(defaultLatLng, LatLngSelectionType.DEFAULT)
 
         initialLatLng = defaultLatLng
@@ -284,6 +291,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                     putString(KEY_LAT, picture.latLng.latitude.toString())
                     putString(KEY_LNG, picture.latLng.longitude.toString())
                 }
+
+                val latLng = map.cameraPosition.target
+                val isDefaultLocation = distanceBetween(defaultLatLng, latLng) <= 1
+                putBoolean(KEY_IS_DEFAULT_LOCATION, isDefaultLocation)
             }
         }
 
@@ -300,9 +311,12 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     companion object {
+        private val defaultLatLng = LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG)
+
         private const val KEY_URI = "uri"
         private const val KEY_LAT = "lat"
         private const val KEY_LNG = "lng"
+        private const val KEY_IS_DEFAULT_LOCATION = "isDefaultLocation"
         private const val TEST_GROUP_ID = 1L
     }
 }
