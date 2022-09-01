@@ -41,7 +41,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         Manifest.permission.ACCESS_FINE_LOCATION
                     ) == PackageManager.PERMISSION_GRANTED
                 ) {
-                    mainActivity.getLocationClient().lastLocation.addOnSuccessListener { location ->
+                    val locationClient = mainActivity.getLocationClient()
+                    locationClient?.lastLocation?.addOnSuccessListener { location ->
                         map.moveCamera(
                             CameraUpdateFactory.newLatLngZoom(
                                 location.toLatLng(),

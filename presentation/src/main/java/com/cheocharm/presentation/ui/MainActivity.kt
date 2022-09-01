@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private var mapFragment: SupportMapFragment? = null
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var fusedLocationClient: FusedLocationProviderClient? = null
 
     @RequiresApi(Build.VERSION_CODES.N)
     private val locationPermissionRequest = registerForActivityResult(
@@ -45,8 +45,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         }
     }
-
-    @RequiresApi(Build.VERSION_CODES.N)
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -67,15 +66,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         }
 
+        mapFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_main_map) as? SupportMapFragment
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun onStart() {
+        super.onStart()
+
         locationPermissionRequest.launch(
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
         )
-
-        mapFragment =
-            supportFragmentManager.findFragmentById(R.id.fragment_main_map) as? SupportMapFragment
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -106,5 +110,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     fun getMap(): SupportMapFragment? = mapFragment
 
-    fun getLocationClient(): FusedLocationProviderClient = fusedLocationClient
+    fun getLocationClient(): FusedLocationProviderClient? = fusedLocationClient
 }
