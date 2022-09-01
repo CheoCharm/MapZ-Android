@@ -66,5 +66,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     fun getBinding(): ActivityMainBinding = binding
 
+    fun setMapVisible(boolean: Boolean) {
+        binding.fragmentMainMap.isVisible = boolean
+    }
+
     fun getMap(): SupportMapFragment? = mapFragment
 }

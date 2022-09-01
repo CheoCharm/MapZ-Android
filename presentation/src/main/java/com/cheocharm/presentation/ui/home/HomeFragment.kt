@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
@@ -52,8 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         binding.viewmodel = homeViewModel
 
-        val mainActivityBinding = (activity as MainActivity).getBinding()
-        mainActivityBinding.fragmentMainMap.isVisible = true
+        (activity as MainActivity).setMapVisible(true)
 
         locationPermissionRequest.launch(
             arrayOf(

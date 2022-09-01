@@ -3,7 +3,6 @@ package com.cheocharm.presentation.ui.search
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.core.view.isVisible
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import com.cheocharm.presentation.R
@@ -24,6 +23,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
         binding.viewmodel = searchViewModel
 
+        (activity as MainActivity).setMapVisible(false)
         mainActivityBinding = (activity as MainActivity).getBinding()
 
         initEditTexts()
@@ -32,8 +32,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     override fun onResume() {
         super.onResume()
-
-        mainActivityBinding.fragmentMainMap.isVisible = false
         mainActivityBinding.bottomNavMain.visibility = View.VISIBLE
     }
 

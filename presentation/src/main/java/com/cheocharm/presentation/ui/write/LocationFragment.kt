@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -40,10 +39,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
 
 @AndroidEntryPoint
 class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location),
@@ -87,8 +86,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             adapter = picturesAdapter
         }
 
-        val mainActivityBinding = (activity as MainActivity).getBinding()
-        mainActivityBinding.fragmentMainMap.isVisible = true
+        (activity as MainActivity).setMapVisible(true)
 
         with(binding.toolbarLocation) {
             val mainActivity = activity as MainActivity
