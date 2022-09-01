@@ -31,8 +31,6 @@ import com.cheocharm.presentation.enum.LatLngSelectionType
 import com.cheocharm.presentation.model.Picture
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.util.GeocodeUtil
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -50,8 +48,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     private val locationViewModel by navGraphViewModels<LocationViewModel>(R.id.write) { defaultViewModelProviderFactory }
     private val writeViewModel by navGraphViewModels<WriteViewModel>(R.id.write) { defaultViewModelProviderFactory }
 
+    private lateinit var mainActivity: MainActivity
+
     private lateinit var map: GoogleMap
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
     private var initialLatLng: LatLng? = null
     private var initialType: LatLngSelectionType? = null
 
@@ -86,7 +86,8 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             adapter = picturesAdapter
         }
 
-        (activity as MainActivity).setMapVisible(true)
+        mainActivity = activity as MainActivity
+        mainActivity.setMapVisible(true)
 
         with(binding.toolbarLocation) {
             val mainActivity = activity as MainActivity
@@ -109,9 +110,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             }
         }
 
-        val mapFragment = (activity as MainActivity).getMap()
-        val dispatchersMain = Dispatchers.Main
-
+        val mapFragment = mainActivity.getMap()
         mapFragment?.getMapAsync { googleMap ->
             map = googleMap
 
@@ -133,10 +132,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                                 Manifest.permission.ACCESS_FINE_LOCATION
                             ) == PackageManager.PERMISSION_GRANTED
                         ) {
-                            fusedLocationClient =
-                                LocationServices.getFusedLocationProviderClient(requireActivity())
-
-                            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                            mainActivity.getLocationClient().lastLocation.addOnSuccessListener { location ->
                                 initTypeToCurrent(location.toLatLng())
                             }
                         } else {
@@ -152,7 +148,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             }
 
             googleMap.setOnCameraIdleListener {
-                CoroutineScope(dispatchersMain).launch {
+                CoroutineScope(Dispatchers.Main).launch {
                     val latLng = map.cameraPosition.target
                     val type = if (initialLatLng != null &&
                         distanceBetween(initialLatLng!!, latLng) <= 1
@@ -292,6 +288,16 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         }
 
         super.onSaveInstanceState(outState)
+    }
+
+    override fun onDestroy() {
+        with(map) {
+            setOnMapLoadedCallback(null)
+            setOnCameraMoveListener(null)
+            setOnCameraIdleListener(null)
+        }
+
+        super.onDestroy()
     }
 
     companion object {
