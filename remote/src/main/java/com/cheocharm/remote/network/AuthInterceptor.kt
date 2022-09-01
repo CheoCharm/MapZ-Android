@@ -20,6 +20,7 @@ class AuthInterceptor @Inject constructor(
             .build()
         val response = chain.proceed(tokenHeaderRequest)
 
+        Log.d(TAG, "intercept: response.code: ${response.code}")
         runCatching {
             if (response.code == 401) {
                 val refreshToken = authRepository.fetchRefreshToken() ?: ""
