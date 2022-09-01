@@ -292,7 +292,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
     override fun onDestroy() {
         with(map) {
-            setOnMapLoadedCallback(null)
             setOnCameraMoveListener(null)
             setOnCameraIdleListener(null)
         }
