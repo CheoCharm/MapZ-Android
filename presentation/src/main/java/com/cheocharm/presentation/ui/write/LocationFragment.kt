@@ -2,6 +2,7 @@ package com.cheocharm.presentation.ui.write
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -33,7 +34,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -51,6 +51,8 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var initialLatLng: LatLng
+    private lateinit var initialType: LatLngSelectionType
 
     private var draggableMarker: Marker? = null
     private var address: String? = null
@@ -96,8 +98,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         val mainActivityBinding = (activity as MainActivity).getBinding()
         mainActivityBinding.fragmentMainMap.isVisible = true
 
-        val mapFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.fragment_main_map) as? SupportMapFragment
+        val mapFragment = (activity as MainActivity).getMap()
+        val dispatchersMain = Dispatchers.Main
+
         mapFragment?.getMapAsync { googleMap ->
             map = googleMap
 
@@ -114,7 +117,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                         var selectedLatLng = it.latLng
 
                         if (selectedLatLng != null) {
-                            CoroutineScope(Dispatchers.Main).launch {
+                            CoroutineScope(dispatchersMain).launch {
                                 GeocodeUtil.execute(
                                     requireContext(),
                                     selectedLatLng ?: defaultLatLng,
@@ -122,6 +125,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                                     ::onGeocoded
                                 )
                             }
+
+                            initialLatLng = selectedLatLng
+                            initialType = LatLngSelectionType.CUSTOM
 
                             createMarkerAndMoveCamera(selectedLatLng, DEFAULT_ZOOM_LEVEL)
                         } else if (ContextCompat.checkSelfPermission(
@@ -140,18 +146,22 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                                     LatLngSelectionType.CURRENT
                                 )
 
+                                initialLatLng = selectedLatLng ?: location.toLatLng()
+                                initialType = LatLngSelectionType.CURRENT
+
                                 createMarkerAndMoveCamera(
                                     selectedLatLng ?: defaultLatLng,
                                     DEFAULT_ZOOM_LEVEL
                                 )
                             }
                         } else {
-                            selectedLatLng = LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG)
-
                             locationViewModel.setSelectedLatLng(
-                                selectedLatLng ?: defaultLatLng,
+                                defaultLatLng,
                                 LatLngSelectionType.DEFAULT
                             )
+
+                            initialLatLng = defaultLatLng
+                            initialType = LatLngSelectionType.DEFAULT
 
                             createMarkerAndMoveCamera(
                                 selectedLatLng ?: defaultLatLng,
@@ -168,14 +178,19 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             }
 
             googleMap.setOnCameraIdleListener {
-                CoroutineScope(Dispatchers.Main).launch {
+                CoroutineScope(dispatchersMain).launch {
                     val latLng = map.cameraPosition.target
-                    GeocodeUtil.execute(
-                        requireContext(),
-                        latLng,
-                        LatLngSelectionType.CUSTOM,
-                        ::onGeocoded
-                    )
+                    val type = if (distanceBetween(initialLatLng, latLng) <= 1) {
+                        initialType
+                    } else {
+                        LatLngSelectionType.CUSTOM
+                    }
+
+                    if (type == LatLngSelectionType.CUSTOM) {
+                        GeocodeUtil.execute(requireContext(), latLng, type, ::onGeocoded)
+                    } else {
+                        locationViewModel.setSelectedLatLng(latLng, type)
+                    }
                 }
             }
         }
@@ -211,6 +226,13 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
     private fun onGeocoded(latLng: LatLng, type: LatLngSelectionType, address: String?) {
         locationViewModel.setSelectedLatLng(latLng, type, address)
+    }
+
+    private fun distanceBetween(latLng1: LatLng, latLng2: LatLng): Float {
+        val result = FloatArray(1)
+        Location.distanceBetween(latLng1.latitude, latLng1.longitude, latLng2.latitude, latLng2.longitude, result)
+
+        return result.first()
     }
 
     override fun onDestroyView() {

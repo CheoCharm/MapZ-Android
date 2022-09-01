@@ -13,10 +13,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseActivity
 import com.cheocharm.presentation.databinding.ActivityMainBinding
+import com.google.android.gms.maps.SupportMapFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+    private var mapFragment: SupportMapFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 binding.bottomNavMain.visibility = View.VISIBLE
             }
         }
+
+        mapFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_main_map) as? SupportMapFragment
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -60,4 +65,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     fun getBinding(): ActivityMainBinding = binding
+
+    fun getMap(): SupportMapFragment? = mapFragment
 }

@@ -20,7 +20,6 @@ import com.cheocharm.presentation.ui.MainActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -63,8 +62,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             )
         )
 
-        val mapFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.fragment_main_map) as? SupportMapFragment
+        val mapFragment = (activity as MainActivity).getMap()
         mapFragment?.getMapAsync { map ->
             map.setOnMapLoadedCallback {
                 if (ContextCompat.checkSelfPermission(
