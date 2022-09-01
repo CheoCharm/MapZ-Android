@@ -106,7 +106,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
             if (uri != null) {
                 val latLng = if (lat != null && lng != null) LatLng(lat, lng) else null
-                picturesAdapter.submitList(listOf(Picture(Uri.parse(uri), latLng)))
+                locationViewModel.setPicture(Picture(Uri.parse(uri), latLng))
             }
         }
 
