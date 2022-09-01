@@ -41,7 +41,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         binding.etSearchSearch.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 searchViewModel.setSearchGroupName(textView.text.toString())
-                searchViewModel.searchGroup(textView.text.toString())
+                // TODO: searchViewModel.searchGroup(textView.text.toString())
                 findNavController().navigate(R.id.action_searchFragment_to_searchResultFragment)
             }
             false

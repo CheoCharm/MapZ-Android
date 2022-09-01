@@ -1,14 +1,16 @@
 package com.cheocharm.domain.usecase.group
 
-import com.cheocharm.domain.model.GroupSearch
+import androidx.paging.PagingData
+import com.cheocharm.domain.model.Group
 import com.cheocharm.domain.repository.GroupRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SearchGroupUseCase @Inject constructor(
     private val groupRepository: GroupRepository
 ) {
 
-    suspend operator fun invoke(page: Int, searchGroupName: String): Result<GroupSearch> {
+    operator fun invoke(page: Int, searchGroupName: String): Flow<PagingData<Group>> {
         return groupRepository.searchGroup(page, searchGroupName)
     }
 }

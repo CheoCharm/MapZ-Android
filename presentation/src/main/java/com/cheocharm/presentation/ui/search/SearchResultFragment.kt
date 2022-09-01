@@ -58,7 +58,7 @@ class SearchResultFragment :
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         })
         searchViewModel.groupSearchResultList.observe(viewLifecycleOwner) {
-            groupResultListAdapter.submitList(it)
+
         }
     }
 

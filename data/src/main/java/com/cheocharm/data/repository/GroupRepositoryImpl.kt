@@ -1,23 +1,21 @@
 package com.cheocharm.data.repository
 
+import androidx.paging.PagingData
 import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.error.toDomain
 import com.cheocharm.data.source.GroupRemoteDataSource
+import com.cheocharm.domain.model.Group
 import com.cheocharm.domain.model.GroupSearch
 import com.cheocharm.domain.repository.GroupRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GroupRepositoryImpl @Inject constructor(
     private val groupRemoteDataSource: GroupRemoteDataSource
 ) : GroupRepository {
 
-    override suspend fun searchGroup(page: Int, searchGroupName: String): Result<GroupSearch> {
-        val result = groupRemoteDataSource.fetchGroupSearchList(page, searchGroupName)
-        return when (val exception = result.exceptionOrNull()) {
-            is ErrorData -> Result.failure(exception.toDomain())
-            null -> result
-            else -> Result.failure(exception)
-        }
+    override fun searchGroup(page: Int, searchGroupName: String): Flow<PagingData<Group>> {
+        return groupRemoteDataSource.fetchGroupSearchList(page, searchGroupName)
     }
 
     override suspend fun joinGroup(groupName: String): Result<Unit> {

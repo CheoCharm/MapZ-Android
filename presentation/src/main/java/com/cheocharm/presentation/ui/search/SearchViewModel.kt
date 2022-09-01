@@ -1,17 +1,14 @@
 package com.cheocharm.presentation.ui.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.paging.cachedIn
 import com.cheocharm.domain.model.Error
+import com.cheocharm.domain.model.Group
+import com.cheocharm.domain.usecase.group.JoinGroupUseCase
 import com.cheocharm.domain.usecase.group.SearchGroupUseCase
+import com.cheocharm.presentation.common.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import com.cheocharm.domain.model.Group
-import com.cheocharm.domain.model.GroupMember
-import com.cheocharm.domain.usecase.group.JoinGroupUseCase
-import com.cheocharm.presentation.common.Event
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,9 +27,7 @@ class SearchViewModel @Inject constructor(
 
     private var page = 0
 
-    private val _groupSearchResultList = MutableLiveData<List<Group>>()
-    val groupSearchResultList: LiveData<List<Group>>
-        get() = _groupSearchResultList
+    val groupSearchResultList = searchGroupUseCase.invoke(0, "").cachedIn(viewModelScope).asLiveData()
 
     private val _selectedGroup = MutableLiveData<Group>()
     val selectedGroup: LiveData<Group>
@@ -52,57 +47,6 @@ class SearchViewModel @Inject constructor(
 
     fun setSelectedGroup(group: Group) {
         _selectedGroup.value = group
-    }
-
-    fun searchGroup(searchGroupName: String) {
-        viewModelScope.launch {
-            searchGroupUseCase.invoke(page, searchGroupName)
-                .onSuccess { groupSearch ->
-                    _searchGroupHasNextPage.value = groupSearch.hasNextPage
-                    if (groupSearch.hasNextPage) page += 1
-                    _groupSearchResultList.value = groupSearch.groupList
-                }
-                .onFailure { throwable ->
-                    when (throwable) {
-                        is Error.SearchGroupUnavailable -> setToastMessage(throwable.message)
-                        else -> setToastMessage("그룹 검색에 실패하였습니다.")
-                    }
-
-                    _groupSearchResultList.value = listOf(
-                        Group(
-                            "그룹1",
-                            "맵지 고등학교 추억 교환일기!",
-                            "2022.02.23",
-                            listOf(
-                                GroupMember(),
-                                GroupMember()
-                            ),
-                            0,
-                            "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                        ),
-                        Group(
-                            "그룹2", "맵지 고등학교 추억 교환일기!", "2022.02.23",
-                            listOf(
-                                GroupMember("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYW5nZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
-                                GroupMember("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYW5nZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
-                                GroupMember("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYW5nZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
-                                GroupMember("https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYW5nZXxlbnwwfHwwfHw%3D&w=1000&q=80")
-                            ), 3
-                        ),
-                        Group(
-                            "그룹3", "맵지 고등학교 추억 교환일기!", "2022.02.23",
-                            listOf(
-                                GroupMember(),
-                                GroupMember(),
-                                GroupMember(),
-                                GroupMember(),
-                                GroupMember(),
-                                GroupMember()
-                            ), 10
-                        )
-                    )
-                }
-        }
     }
 
     fun joinGroup() {
