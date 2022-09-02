@@ -9,8 +9,8 @@ import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
-import com.cheocharm.base.BaseFragment
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.google.android.gms.maps.CameraUpdateFactory

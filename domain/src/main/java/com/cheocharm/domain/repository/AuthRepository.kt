@@ -1,6 +1,10 @@
 package com.cheocharm.domain.repository
 
+import com.cheocharm.domain.model.Token
+
 interface AuthRepository {
+
+    suspend fun refreshAccessToken(refreshToken: String): Result<Token>
 
     fun saveTokens(accessToken: String, refreshToken: String)
 

@@ -1,4 +1,4 @@
-package com.cheocharm.base
+package com.cheocharm.presentation.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

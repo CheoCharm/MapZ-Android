@@ -57,4 +57,7 @@ dependencies {
 
     // kotlin coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
+
+    // paging
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
 }

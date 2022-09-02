@@ -1,4 +1,4 @@
-package com.cheocharm.presentation.util
+package com.cheocharm.presentation.common
 
 import com.google.android.gms.maps.model.LatLng
 

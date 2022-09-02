@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_search_group_join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_large"
+            android:src="@drawable/img_join_group"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_search_group_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_median"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_s_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_search_group_join"
+            tools:text="dfafdasfas" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_search_group_request_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x_small"
+            android:gravity="center"
+            android:text="@string/search_group_join_request_description"
+            android:textColor="@color/grey_04"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_search_group_request" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_search_group_confirm"
+            style="@style/Theme.MapZ.Button.Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_xx_large"
+            android:layout_marginTop="@dimen/space_x_large"
+            android:layout_marginBottom="@dimen/space_large"
+            android:background="@drawable/bg_radius_100dp_enabled"
+            android:elevation="0dp"
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_search_group_request_description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

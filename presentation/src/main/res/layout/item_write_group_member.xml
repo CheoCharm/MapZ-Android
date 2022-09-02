@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="member"
+            type="com.cheocharm.domain.model.GroupMember" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +20,7 @@
             android:layout_height="@dimen/write_group_member_image_size"
             android:background="@drawable/bg_round"
             android:backgroundTint="@color/write_group_image_empty_color"
+            app:imageCircledLoad="@{member.imageUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

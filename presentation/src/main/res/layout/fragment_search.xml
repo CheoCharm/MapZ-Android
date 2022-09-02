@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -14,10 +15,75 @@
         style="@style/root_layout_default"
         tools:context=".ui.search.SearchFragment">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_search_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@{@string/format_search_count(viewmodel.count)}" />
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:backgroundTint="@color/map_z_red_500"
+            android:paddingBottom="@dimen/space_small"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btn_search_group_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_x_large"
+                android:layout_marginEnd="@dimen/space_small"
+                android:background="@drawable/ic_group_create"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_search_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_small"
+                android:layout_marginTop="@dimen/space_small"
+                android:text="@string/search_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_x_large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_search_group_create" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/container_search_title">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_search_search"
+                style="@style/Theme.MapZ.EditText.Search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_small"
+                android:layout_marginTop="@dimen/space_large"
+                android:imeOptions="actionDone"
+                android:inputType="text" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_search_recent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_small"
+                android:layout_marginTop="@dimen/space_median"
+                android:text="@string/search_recent"
+                android:textColor="@color/grey_dark"
+                android:textSize="@dimen/text_s_large" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search_recent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/space_small"
+                tools:listitem="@layout/item_write_group" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

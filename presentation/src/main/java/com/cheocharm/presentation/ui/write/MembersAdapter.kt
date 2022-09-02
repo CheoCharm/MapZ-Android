@@ -5,19 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cheocharm.presentation.model.GroupMember
+import com.cheocharm.domain.model.GroupMember
 import com.cheocharm.presentation.databinding.ItemWriteGroupMemberBinding
 
 class MembersAdapter : ListAdapter<GroupMember, MembersAdapter.ViewHolder>(MemberDiffCallback) {
 
-    class ViewHolder(binding: ItemWriteGroupMemberBinding) :
+    class ViewHolder(private val binding: ItemWriteGroupMemberBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private var currentMember: GroupMember? = null
 
         fun bind(member: GroupMember) {
-            currentMember = member
-
-            // TODO: 프로필 이미지 설정
+            binding.member = member
+            binding.executePendingBindings()
         }
     }
 

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="group"
+            type="com.cheocharm.domain.model.Group" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/search_group_background">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_search_group_close"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider_search_group_half"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <View
+            android:id="@+id/divider_search_group"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_search_group"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_search_group_half" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_search_group_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:imageLoad="@{group.groupImageUrl}"
+            app:layout_constraintBottom_toTopOf="@id/divider_search_group"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_search_group_close" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_search_group_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_small"
+            android:layout_marginTop="@dimen/space_x_small"
+            android:text="@{group.name}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_x_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_search_group" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_search_group_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x_small"
+            android:layout_marginEnd="@dimen/space_small"
+            android:text="@{@string/search_group_join_created_at(group.createdAt)}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_median"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_search_group_name" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_search_group_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x_small"
+            android:layout_marginEnd="@dimen/space_small"
+            android:text="@{group.bio}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_median"
+            app:layout_constraintEnd_toEndOf="@id/tv_search_group_name"
+            app:layout_constraintStart_toStartOf="@id/tv_search_group_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_search_group_date" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x_small"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/space_small"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tv_search_group_description"
+            tools:listitem="@layout/item_write_group_member" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_search_group_join"
+            style="@style/Theme.MapZ.Button.Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_xx_large"
+            android:layout_marginTop="@dimen/space_large"
+            android:layout_marginBottom="@dimen/space_large"
+            android:background="@drawable/bg_radius_100dp_enabled"
+            android:elevation="0dp"
+            android:text="@string/search_group_join"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/rv_search_group" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -3,8 +3,8 @@ package com.cheocharm.presentation.ui.write
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cheocharm.presentation.model.Group
-import com.cheocharm.presentation.model.GroupMember
+import com.cheocharm.domain.model.Group
+import com.cheocharm.domain.model.GroupMember
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -13,7 +13,10 @@ class WriteViewModel @Inject constructor() : ViewModel() {
     private val _groups = MutableLiveData(
         listOf(
             Group(
-                "그룹제목 1", listOf(
+                "그룹제목 1",
+                "맵지 고등학교 추억 교환일기!",
+                "2022.02.23",
+                listOf(
                     GroupMember(),
                     GroupMember(),
                     GroupMember(),
@@ -25,12 +28,16 @@ class WriteViewModel @Inject constructor() : ViewModel() {
                 ), 4
             ),
             Group(
-                "그룹제목 2", listOf(
+                "그룹제목 2", "맵지 고등학교 추억 교환일기!",
+                "2022.02.23",
+                listOf(
                     GroupMember(), GroupMember(), GroupMember()
                 ), 0
             ),
             Group(
-                "그룹제목 3", listOf(
+                "그룹제목 3", "맵지 고등학교 추억 교환일기!",
+                "2022.02.23",
+                listOf(
                     GroupMember(), GroupMember(), GroupMember()
                 ), 0
             ),

@@ -1,6 +1,5 @@
 package com.cheocharm.domain.usecase
 
-import com.cheocharm.domain.model.MapZSign
 import com.cheocharm.domain.repository.AuthRepository
 import javax.inject.Inject
 

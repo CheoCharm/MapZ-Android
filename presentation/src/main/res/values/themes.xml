@@ -11,7 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialog.MapZ</item>
     </style>
 
     <style name="Theme.MapZ.Button.Default" parent="Widget.AppCompat.TextView">
@@ -28,5 +28,12 @@
         <item name="android:backgroundTint">@color/gray_extra_300</item>
         <item name="android:padding">@dimen/space_median</item>
         <item name="android:textColorHint">@color/gray_extra_600</item>
+    </style>
+
+    <style name="Theme.MapZ.EditText.Search" parent="Widget.AppCompat.EditText">
+        <item name="android:drawableStart">@drawable/ic_search</item>
+        <item name="android:backgroundTint">@color/grey_dark</item>
+        <item name="android:drawableTint">@color/grey_dark</item>
+        <item name="android:textCursorDrawable">@drawable/bg_cursor</item>
     </style>
 </resources>

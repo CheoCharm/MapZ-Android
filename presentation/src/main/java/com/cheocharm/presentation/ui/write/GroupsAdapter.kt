@@ -6,8 +6,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cheocharm.presentation.model.Group
-import com.cheocharm.presentation.model.GroupMember
+import com.cheocharm.domain.model.Group
+import com.cheocharm.domain.model.GroupMember
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.ItemWriteGroupBinding
 
@@ -16,22 +16,19 @@ class GroupsAdapter(private val onClick: (Group) -> Unit) :
 
     class ViewHolder(private val binding: ItemWriteGroupBinding, val onClick: (Group) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
-        private var currentGroup: Group? = null
 
         init {
             itemView.setOnClickListener {
-                currentGroup?.let {
-                    onClick(it)
+                binding.group?.let { group ->
+                    onClick(group)
                 }
             }
         }
 
         fun bind(group: Group) {
-            currentGroup = group
+            binding.group = group
 
             with(binding) {
-                // TODO: 그룹 이미지 설정
-                tvWriteGroupName.text = group.name
 
                 val numberOfMembersExceedingFour = group.numberOfMembers
                 val members: List<GroupMember>
@@ -53,6 +50,7 @@ class GroupsAdapter(private val onClick: (Group) -> Unit) :
                     submitList(members)
                 }
             }
+            binding.executePendingBindings()
         }
     }
 
