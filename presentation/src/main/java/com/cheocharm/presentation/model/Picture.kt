@@ -1,7 +1,7 @@
 package com.cheocharm.presentation.model
 
 import android.net.Uri
-import com.cheocharm.presentation.util.toCoordString
+import com.cheocharm.presentation.common.toCoordString
 import com.google.android.gms.maps.model.LatLng
 
 data class Picture(val uri: Uri, val latLng: LatLng?) {
