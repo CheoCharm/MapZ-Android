@@ -19,6 +19,6 @@ dependencies {
     // kotlin coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
 
-    // paging - without Android dependencies for tests
+    // paging - without Android dependencies
     implementation "androidx.paging:paging-common-ktx:$pagingVersion"
 }

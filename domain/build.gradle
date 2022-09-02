@@ -16,6 +16,6 @@ dependencies {
     // di
     implementation 'javax.inject:javax.inject:1'
 
-    // paging - without Android dependencies for tests
+    // paging - without Android dependencies
     implementation "androidx.paging:paging-common-ktx:$pagingVersion"
 }
