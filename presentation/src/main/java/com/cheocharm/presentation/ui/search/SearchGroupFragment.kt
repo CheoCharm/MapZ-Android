@@ -21,6 +21,7 @@ class SearchGroupFragment :
     BaseFragment<FragmentSearchGroupBinding>(R.layout.fragment_search_group) {
 
     private val searchViewModel: SearchViewModel by hiltNavGraphViewModels(R.id.search)
+    private lateinit var mainActivity: MainActivity
     private lateinit var mainActivityBinding: ActivityMainBinding
 
     private lateinit var memberAdapter: MembersAdapter
@@ -28,7 +29,8 @@ class SearchGroupFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainActivityBinding = (activity as MainActivity).getBinding()
+        mainActivity = activity as MainActivity
+        mainActivityBinding = mainActivity.getBinding()
 
         initView()
         initRecyclerView()
@@ -44,7 +46,6 @@ class SearchGroupFragment :
 
     private fun initView() {
         binding.toolbarSearchGroupClose.apply {
-            val mainActivity = activity as MainActivity
             mainActivity.setSupportActionBar(this)
             mainActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
             setNavigationIcon(R.drawable.ic_close_square)
