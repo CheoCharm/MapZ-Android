@@ -28,11 +28,8 @@ class GroupRemoteDataSourceImpl @Inject constructor(
             null -> {
                 val response =
                     result.getOrNull() ?: return Result.failure(Throwable(NullPointerException()))
-                Result.success(
-                    response.data ?: return Result.failure(
-                        ErrorData.JoinGroupUnavailable(response.message)
-                    )
-                )
+                if (response.statusCode == 200) Result.success(Unit)
+                else Result.failure(ErrorData.JoinGroupUnavailable(response.message))
             }
             is UnknownHostException -> Result.failure(ErrorData.NetworkUnavailable)
             else -> Result.failure(exception)
