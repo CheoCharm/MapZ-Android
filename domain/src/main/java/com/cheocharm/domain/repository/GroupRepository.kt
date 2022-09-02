@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface GroupRepository {
 
-    fun searchGroup(page: Int, searchGroupName: String): Flow<PagingData<Group>>
+    fun searchGroup(searchGroupName: String): Flow<PagingData<Group>>
 
     suspend fun joinGroup(groupName: String): Result<Unit>
 }

@@ -10,7 +10,7 @@ class SearchGroupUseCase @Inject constructor(
     private val groupRepository: GroupRepository
 ) {
 
-    operator fun invoke(page: Int, searchGroupName: String): Flow<PagingData<Group>> {
-        return groupRepository.searchGroup(page, searchGroupName)
+    operator fun invoke(searchGroupName: String): Flow<PagingData<Group>> {
+        return groupRepository.searchGroup(searchGroupName)
     }
 }

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface GroupRemoteDataSource {
 
-    fun fetchGroupSearchList(page: Int, searchGroupName: String): Flow<PagingData<Group>>
+    fun fetchGroupSearchList(searchGroupName: String): Flow<PagingData<Group>>
 
     suspend fun joinGroup(groupName: String): Result<Unit>
 }

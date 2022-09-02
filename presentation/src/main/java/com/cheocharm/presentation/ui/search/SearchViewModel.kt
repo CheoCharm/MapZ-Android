@@ -1,6 +1,7 @@
 package com.cheocharm.presentation.ui.search
 
 import androidx.lifecycle.*
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.cheocharm.domain.model.Error
 import com.cheocharm.domain.model.Group
@@ -8,6 +9,7 @@ import com.cheocharm.domain.usecase.group.JoinGroupUseCase
 import com.cheocharm.domain.usecase.group.SearchGroupUseCase
 import com.cheocharm.presentation.common.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,13 +23,9 @@ class SearchViewModel @Inject constructor(
     val searchGroupName: LiveData<String>
         get() = _searchGroupName
 
-    private val _searchGroupHasNextPage = MutableLiveData<Boolean>()
-    val searchGroupHasNextPage: LiveData<Boolean>
-        get() = _searchGroupHasNextPage
-
-    private var page = 0
-
-    val groupSearchResultList = searchGroupUseCase.invoke(0, "").cachedIn(viewModelScope).asLiveData()
+    val groupSearchResultList = searchGroupName.switchMap { groupName ->
+        searchGroupUseCase.invoke(groupName).cachedIn(viewModelScope).asLiveData()
+    }
 
     private val _selectedGroup = MutableLiveData<Group>()
     val selectedGroup: LiveData<Group>

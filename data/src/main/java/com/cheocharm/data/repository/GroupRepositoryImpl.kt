@@ -5,7 +5,6 @@ import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.error.toDomain
 import com.cheocharm.data.source.GroupRemoteDataSource
 import com.cheocharm.domain.model.Group
-import com.cheocharm.domain.model.GroupSearch
 import com.cheocharm.domain.repository.GroupRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -14,8 +13,8 @@ class GroupRepositoryImpl @Inject constructor(
     private val groupRemoteDataSource: GroupRemoteDataSource
 ) : GroupRepository {
 
-    override fun searchGroup(page: Int, searchGroupName: String): Flow<PagingData<Group>> {
-        return groupRemoteDataSource.fetchGroupSearchList(page, searchGroupName)
+    override fun searchGroup(searchGroupName: String): Flow<PagingData<Group>> {
+        return groupRemoteDataSource.fetchGroupSearchList(searchGroupName)
     }
 
     override suspend fun joinGroup(groupName: String): Result<Unit> {
