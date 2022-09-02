@@ -68,7 +68,7 @@ class SearchGroupFragment :
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         })
         searchViewModel.searchGroupJoinBottom.observe(viewLifecycleOwner, EventObserver {
-            SearchGroupBottomSheetFragment.newInstance(bundleOf(GROUP_JOIN_REQUEST_BOTTOM to searchViewModel.searchGroupName.value))
+            SearchGroupBottomSheetFragment.newInstance(bundleOf(GROUP_JOIN_REQUEST_BOTTOM to searchViewModel.selectedGroup.value?.name))
                 .show(requireActivity().supportFragmentManager, null)
         })
     }
