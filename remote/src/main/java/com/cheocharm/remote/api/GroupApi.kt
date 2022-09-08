@@ -13,7 +13,7 @@ interface GroupApi {
     @GET("group")
     suspend fun fetchGroupSearchList(
         @Query("page") page: Int,
-        @Query("searchName") searchName: String
+        @Query("groupName") searchName: String
     ): BaseResponse<GroupSearchResponse>
 
     @POST("group/join")
