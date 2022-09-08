@@ -51,8 +51,9 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             selectedGroup.value?.name?.let {
                 joinGroupUseCase.invoke(it)
-                    .onSuccess {
-                        _searchGroupJoinBottom.value = Event(Unit)
+                    .onSuccess { groupJoin ->
+                        if (groupJoin.alreadyJoin.not()) _searchGroupJoinBottom.value = Event(Unit)
+                        else setToastMessage("그룹 가입 요청 대기중입니다.")
                     }.onFailure { throwable ->
                         when (throwable) {
                             is Error.JoinGroupUnavailable -> setToastMessage(throwable.message)
