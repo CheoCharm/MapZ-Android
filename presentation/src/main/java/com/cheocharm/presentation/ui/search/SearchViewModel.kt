@@ -53,7 +53,7 @@ class SearchViewModel @Inject constructor(
                 joinGroupUseCase.invoke(it)
                     .onSuccess { groupJoin ->
                         if (groupJoin.alreadyJoin.not()) _searchGroupJoinBottom.value = Event(Unit)
-                        else setToastMessage("그룹 가입 요청 대기중입니다.")
+                        else setToastMessage(groupJoin.status)
                     }.onFailure { throwable ->
                         when (throwable) {
                             is Error.JoinGroupUnavailable -> setToastMessage(throwable.message)
