@@ -1,5 +1,6 @@
 package com.cheocharm.presentation.ui.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -11,6 +12,7 @@ import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.ActivityMainBinding
 import com.cheocharm.presentation.databinding.FragmentSearchBinding
 import com.cheocharm.presentation.ui.MainActivity
+import com.cheocharm.presentation.ui.group.GroupCreateActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +29,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         mainActivityBinding = (activity as MainActivity).getBinding()
 
         initEditTexts()
+        initButtons()
         initObservers()
     }
 
@@ -46,6 +49,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 }
             }
             false
+        }
+    }
+
+    private fun initButtons() {
+        binding.btnSearchGroupCreate.setOnClickListener {
+            val intent = Intent(requireActivity(), GroupCreateActivity::class.java)
+            startActivity(intent)
         }
     }
 

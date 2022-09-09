@@ -32,6 +32,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.cheocharm.presentation.ui.group.GroupCreateActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>
