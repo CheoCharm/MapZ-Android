@@ -22,4 +22,4 @@
 
 ## 📏 Rule
 - [Coding Convention](https://github.com/CheoCharm/MapZ-Android/wiki/Coding-Convention)
-- [github 관리](https://github.com/CheoCharm/MapZ-Android/wiki/Github-관리)
+- [Github 관리](https://github.com/CheoCharm/MapZ-Android/wiki/Github-관리)
