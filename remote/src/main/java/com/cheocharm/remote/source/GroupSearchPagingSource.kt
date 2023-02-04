@@ -22,7 +22,7 @@ class GroupSearchPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Group> {
         val start = params.key ?: 0
-        val result = runCatching { groupApi.fetchGroupSearchList(start, groupSearchName) }
+        val result = runCatching { groupApi.fetchGroupSearchList(start, groupSearchName, 0) }
 
         return when (val exception = result.exceptionOrNull()) {
             null -> {
