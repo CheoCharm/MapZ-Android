@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
-import com.cheocharm.presentation.common.AWSUtil
-import com.cheocharm.presentation.common.UriUtil
+import com.cheocharm.presentation.util.AWSUtil
+import com.cheocharm.presentation.util.UriUtil
 import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.google.android.gms.maps.CameraUpdateFactory

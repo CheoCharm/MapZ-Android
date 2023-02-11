@@ -13,7 +13,7 @@ object UriUtil {
         return File(file.absolutePath)
     }
 
-    fun getFileName(context: Context, uri: Uri): String {
+    private fun getFileName(context: Context, uri: Uri): String {
         val name = uri.toString().split("/").last()
         val ext = context.contentResolver.getType(uri)?.split("/")?.last() ?: return ""
 
