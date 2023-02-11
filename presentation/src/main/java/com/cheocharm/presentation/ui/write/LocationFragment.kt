@@ -11,17 +11,23 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
+import com.cheocharm.presentation.common.AWSUtil
+import com.cheocharm.presentation.common.UriUtil
 import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import java.io.File
+import java.util.*
 
 class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location) {
     private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
 
     private var draggableMarker: Marker? = null
+    private var fileName: String? = null
+    private var file: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +64,11 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                     picture?.let {
                         picturesAdapter.submitList(listOf(it))
 
+                        activity?.applicationContext?.let { context ->
+                            fileName = UUID.randomUUID().toString()
+                            file = UriUtil.getFileFromUri(context, it.uri)
+                        }
+
                         val selectedLocation = it.latLng
                         if (selectedLocation != null) {
                             val markerOptions = MarkerOptions()
@@ -84,6 +95,15 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             R.id.menu_base_confirm -> {
                 val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
                 findNavController().navigate(action)
+
+                activity?.applicationContext?.let { context ->
+                    fileName?.let { fn ->
+                        file?.let { f ->
+                            AWSUtil.uploadWithTransferUtility(context, fn, f)
+                        }
+                    }
+                }
+
                 true
             }
             else -> {
