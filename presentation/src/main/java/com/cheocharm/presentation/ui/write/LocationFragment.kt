@@ -1,11 +1,16 @@
 package com.cheocharm.presentation.ui.write
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -22,16 +27,22 @@ import com.google.android.gms.maps.model.MarkerOptions
 import java.io.File
 import java.util.*
 
-class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location) {
+class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location), MenuProvider {
     private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
 
     private var draggableMarker: Marker? = null
     private var fileName: String? = null
     private var file: File? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val menuHost: MenuHost = requireActivity() as MenuHost
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,13 +96,17 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_base, menu)
+    override fun onDestroyView() {
+        draggableMarker?.remove()
+        super.onDestroyView()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_base, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
             R.id.menu_base_confirm -> {
                 val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
                 findNavController().navigate(action)
@@ -106,14 +121,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
                 true
             }
-            else -> {
-                super.onOptionsItemSelected(item)
-            }
+            else -> false
         }
-    }
-
-    override fun onDestroyView() {
-        draggableMarker?.remove()
-        super.onDestroyView()
     }
 }
