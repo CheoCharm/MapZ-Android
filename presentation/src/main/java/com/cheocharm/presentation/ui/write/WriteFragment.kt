@@ -77,10 +77,7 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         }
 
         binding.btnWritePicture.setOnClickListener {
-            editor.insertImage(
-                "https://raw.githubusercontent.com/wasabeef/art/master/twitter.png",
-                "twitter"
-            )
+            // TODO: 사진 목록
         }
     }
 
