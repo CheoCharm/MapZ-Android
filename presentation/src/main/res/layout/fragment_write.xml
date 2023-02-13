@@ -11,95 +11,158 @@
         style="@style/root_layout_default"
         tools:context=".ui.write.WriteFragment">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_write_start"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/space_median" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_write_end"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/space_median" />
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_write"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="@string/write_title"
-            app:menu="@menu/menu_base" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_write_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="색깔"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_write_font"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_write_font"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="폰트"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_write_align"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_write_color" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_write_align"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="정렬"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_write_bold"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_write_font" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_write_bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="볼드"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_write_underline"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_write_align" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_write_underline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="밑줄"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_write_emoticon"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_write_bold" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_write_emoticon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이모티콘"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_write_picture"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_write_underline" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_write_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="사진"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_write_emoticon" />
+            app:menu="@menu/menu_base"
+            app:title="@string/write_title"
+            style="@style/common_toolbar" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_write_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_median"
+            android:text="@string/common_title"
+            android:textSize="@dimen/text_s_large"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/guideline_write_end"
+            app:layout_constraintStart_toEndOf="@id/guideline_write_start"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_write" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_write_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x_small"
+            android:background="@null"
+            android:textSize="@dimen/text_s_large"
+            android:hint="@string/write_title_hint"
+            app:layout_constraintEnd_toStartOf="@id/guideline_write_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_write_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_write_title" />
+
+        <View
+            android:id="@+id/view_write_line"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/common_divider_height"
+            android:layout_marginTop="@dimen/space_small"
+            android:background="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/et_write_title"
+            app:layout_constraintStart_toEndOf="@id/guideline_write_start"
+            app:layout_constraintEnd_toStartOf="@id/guideline_write_end" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_write_tools"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/write_tools_height"
+            android:paddingHorizontal="@dimen/space_median"
+            android:elevation="@dimen/common_elevation"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_write_color"
+                android:layout_width="@dimen/common_icon_size"
+                android:layout_height="@dimen/common_icon_size"
+                android:src="@drawable/text_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/container_write_tools"
+                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
+                app:layout_constraintEnd_toStartOf="@id/btn_write_font"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                style="@style/write_tool" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_write_font"
+                android:src="@drawable/ic_font"
+                app:layout_constraintTop_toTopOf="@id/container_write_tools"
+                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
+                app:layout_constraintEnd_toStartOf="@id/btn_write_align"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/btn_write_color"
+                style="@style/write_tool" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_write_align"
+                android:src="@drawable/ic_text_align_left"
+                app:layout_constraintTop_toTopOf="@id/container_write_tools"
+                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
+                app:layout_constraintEnd_toStartOf="@id/btn_write_bold"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_write_font"
+                style="@style/write_tool" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_write_bold"
+                android:src="@drawable/ic_text_bold"
+                app:layout_constraintTop_toTopOf="@id/container_write_tools"
+                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
+                app:layout_constraintEnd_toStartOf="@+id/btn_write_underline"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_write_align"
+                style="@style/write_tool" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_write_underline"
+                android:src="@drawable/ic_text_underline"
+                app:layout_constraintTop_toTopOf="@id/container_write_tools"
+                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
+                app:layout_constraintEnd_toStartOf="@+id/btn_write_emoticon"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_write_bold"
+                style="@style/write_tool" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_write_emoticon"
+                android:src="@drawable/ic_emoji"
+                app:layout_constraintTop_toTopOf="@id/container_write_tools"
+                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
+                app:layout_constraintEnd_toStartOf="@+id/btn_write_picture"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_write_underline"
+                style="@style/write_tool" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_write_picture"
+                android:src="@drawable/ic_image"
+                app:layout_constraintTop_toTopOf="@id/container_write_tools"
+                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/btn_write_emoticon"
+                style="@style/write_tool" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <jp.wasabeef.richeditor.RichEditor
             android:id="@+id/editor_write"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_write_color"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_write" />
+            android:layout_marginTop="@dimen/space_median"
+            app:layout_constraintBottom_toTopOf="@id/container_write_tools"
+            app:layout_constraintTop_toBottomOf="@+id/view_write_line"
+            app:layout_constraintStart_toEndOf="@id/guideline_write_start"
+            app:layout_constraintEnd_toStartOf="@id/guideline_write_end" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
