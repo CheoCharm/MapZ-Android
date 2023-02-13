@@ -6,8 +6,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import com.cheocharm.presentation.base.BaseFragment
+import androidx.navigation.findNavController
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
 import com.cheocharm.presentation.ui.MainActivity
 import jp.wasabeef.richeditor.RichEditor
@@ -31,7 +32,8 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             (activity as MainActivity).setSupportActionBar(this)
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-                // TODO: 뒤로가기
+                val action = WriteFragmentDirections.actionWriteFragmentToLocationFragment()
+                findNavController().navigate(action)
             }
         }
 

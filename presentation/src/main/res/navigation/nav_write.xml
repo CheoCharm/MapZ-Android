@@ -42,6 +42,10 @@
         android:id="@+id/writeFragment"
         android:name="com.cheocharm.presentation.ui.write.WriteFragment"
         android:label="WriteFragment"
-        tools:layout="@layout/fragment_write" />
+        tools:layout="@layout/fragment_write" >
+        <action
+            android:id="@+id/action_writeFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+    </fragment>
 
 </navigation>
