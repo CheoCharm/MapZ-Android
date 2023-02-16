@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
@@ -37,6 +38,16 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
         editor = binding.editorWrite.apply {
             setPlaceholder(getString(R.string.write_editor_placeholder))
+            setOnTextChangeListener {
+                if (it.length > MAX_CONTENT_LENGTH) {
+                    Toast.makeText(
+                        context,
+                        "${MAX_CONTENT_LENGTH}자를 초과할 수 없습니다.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    html = html.dropLast(1)
+                }
+            }
         }
 
         with(binding.toolbarWrite) {
@@ -94,5 +105,9 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
             else -> false
         }
+    }
+
+    companion object {
+        private const val MAX_CONTENT_LENGTH = 2000
     }
 }
