@@ -2,7 +2,6 @@ package com.cheocharm.presentation.ui.write
 
 import android.Manifest
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.exifinterface.media.ExifInterface
@@ -15,11 +14,9 @@ import com.cheocharm.presentation.databinding.FragmentPictureBinding
 import com.cheocharm.presentation.model.Picture
 import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.model.LatLng
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_picture) {
-    private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write) { defaultViewModelProviderFactory }
+    private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
 
     private val requestPermissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -68,14 +65,6 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
 
         binding.btnPictureGet.setOnClickListener {
             getContent.launch("image/*")
-        }
-
-        pictureViewModel.result.observe(viewLifecycleOwner) {
-            if (it.isSuccessful) {
-                Log.d(javaClass.name, "이미지 업로드 성공")
-            } else {
-                Log.e(javaClass.name, "이미지 업로드 실패: ${it.message}")
-            }
         }
     }
 

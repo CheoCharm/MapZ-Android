@@ -21,16 +21,21 @@ import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.util.UriUtil
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.util.*
 
-class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location), MenuProvider {
+@AndroidEntryPoint
+class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location),
+    MenuProvider {
     private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
+    private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.write) { defaultViewModelProviderFactory }
 
     private var draggableMarker: Marker? = null
-    private var fileName: String? = null
+    private var address: String? = null
+    private var location: LatLng? = null
     private var file: File? = null
 
     override fun onCreateView(
@@ -74,8 +79,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                     picture?.let {
                         picturesAdapter.submitList(listOf(it))
 
+                        address = it.address
+                        location = it.latLng
+
                         activity?.applicationContext?.let { context ->
-                            fileName = UUID.randomUUID().toString()
                             file = UriUtil.getFileFromUri(context, it.uri)
                         }
 
@@ -111,12 +118,22 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 findNavController().navigate(action)
 
                 file?.let {
-                    pictureViewModel.uploadImages(listOf(it))
+                    locationViewModel.uploadImages(
+                        TEST_GROUP_ID,
+                        address,
+                        location?.latitude,
+                        location?.longitude,
+                        listOf(it)
+                    )
                 }
 
                 true
             }
             else -> false
         }
+    }
+
+    companion object {
+        private const val TEST_GROUP_ID = 25L
     }
 }

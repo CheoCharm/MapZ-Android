@@ -2,6 +2,7 @@ package com.cheocharm.presentation.ui.write
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -13,6 +14,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
+import androidx.navigation.navGraphViewModels
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
@@ -20,6 +22,8 @@ import com.cheocharm.presentation.ui.MainActivity
 import jp.wasabeef.richeditor.RichEditor
 
 class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write), MenuProvider {
+    private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.write)
+
     private lateinit var editor: RichEditor
 
     override fun onCreateView(
@@ -35,6 +39,14 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        locationViewModel.result.observe(viewLifecycleOwner) {
+            if (it.isSuccessful) {
+                Log.d(javaClass.name, "이미지 업로드 성공")
+            } else {
+                Log.e(javaClass.name, "이미지 업로드 실패: ${it.message}")
+            }
+        }
 
         editor = binding.editorWrite.apply {
             setPlaceholder(getString(R.string.write_editor_placeholder))
