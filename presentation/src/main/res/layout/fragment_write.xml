@@ -82,9 +82,7 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_write_color"
-                android:layout_width="@dimen/common_icon_size"
-                android:layout_height="@dimen/common_icon_size"
-                android:src="@drawable/text_color"
+                android:src="@drawable/ic_text_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/container_write_tools"
                 app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
