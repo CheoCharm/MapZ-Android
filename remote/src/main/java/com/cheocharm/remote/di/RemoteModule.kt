@@ -1,6 +1,6 @@
 package com.cheocharm.remote.di
 
-import com.cheocharm.remote.api.DiaryApi
+import com.cheocharm.remote.api.WriteApi
 import com.cheocharm.remote.api.GroupApi
 import com.cheocharm.remote.api.LoginApi
 import com.cheocharm.remote.api.TokenApi
