@@ -25,7 +25,7 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_gro
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewmodel = writeViewModel
+        binding.viewmodel = groupsViewModel
 
         setupSwipeRefreshLayout()
         setupRecyclerView()
