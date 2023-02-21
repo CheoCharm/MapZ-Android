@@ -2,27 +2,30 @@ package com.cheocharm.presentation.ui.write
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.exifinterface.media.ExifInterface
 import androidx.navigation.findNavController
-import com.cheocharm.presentation.base.BaseFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentPictureBinding
 import com.cheocharm.presentation.model.Picture
 import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.model.LatLng
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_picture) {
-    private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
+    private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write) { defaultViewModelProviderFactory }
 
     private val requestPermissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             permissions.forEach {
                 if (it.value.not()) {
-                    // TODO: 권한 없을 때 처리
+                    TODO("권한 없을 때 처리")
                 }
             }
         }
@@ -65,6 +68,14 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
 
         binding.btnPictureGet.setOnClickListener {
             getContent.launch("image/*")
+        }
+
+        pictureViewModel.result.observe(viewLifecycleOwner) {
+            if (it.isSuccessful) {
+                Log.d(javaClass.name, "이미지 업로드 성공")
+            } else {
+                Log.e(javaClass.name, "이미지 업로드 실패: ${it.message}")
+            }
         }
     }
 

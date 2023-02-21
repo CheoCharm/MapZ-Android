@@ -16,10 +16,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
-import com.cheocharm.presentation.util.AWSUtil
-import com.cheocharm.presentation.util.UriUtil
 import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.ui.MainActivity
+import com.cheocharm.presentation.util.UriUtil
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
@@ -111,12 +110,8 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
                 findNavController().navigate(action)
 
-                activity?.applicationContext?.let { context ->
-                    fileName?.let { fn ->
-                        file?.let { f ->
-                            AWSUtil.uploadWithTransferUtility(context, fn, f)
-                        }
-                    }
+                file?.let {
+                    pictureViewModel.uploadImages(listOf(it))
                 }
 
                 true
