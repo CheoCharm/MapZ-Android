@@ -19,12 +19,16 @@ import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
 import com.cheocharm.presentation.ui.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.richeditor.RichEditor
 
+@AndroidEntryPoint
 class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write), MenuProvider {
     private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.write)
+    private val writeViewModel: WriteViewModel by navGraphViewModels(R.id.write) { defaultViewModelProviderFactory }
 
     private lateinit var editor: RichEditor
+    private var diaryId: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +47,7 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         locationViewModel.result.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
                 Log.d(javaClass.name, "이미지 업로드 성공")
+                diaryId = it.data
             } else {
                 Log.e(javaClass.name, "이미지 업로드 실패: ${it.message}")
             }
@@ -102,6 +107,14 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         binding.btnWritePicture.setOnClickListener {
             // TODO: 사진 목록
         }
+
+        writeViewModel.result.observe(viewLifecycleOwner) {
+            if (it.isSuccessful) {
+                Toast.makeText(context, "일기 작성 성공", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "일기 작성 실패", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -111,8 +124,16 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.menu_base_confirm -> {
-                // TODO: POST 요청 및 일기 상세 화면으로 이동
-                println(editor.html)
+                // TODO: 일기 작성 완료 화면으로 이동
+
+                diaryId?.let {
+                    writeViewModel.writeDiary(
+                        it,
+                        binding.etWriteTitle.text.toString(),
+                        editor.html ?: ""
+                    )
+                }
+
                 true
             }
             else -> false

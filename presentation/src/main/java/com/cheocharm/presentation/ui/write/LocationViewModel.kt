@@ -16,8 +16,8 @@ import javax.inject.Inject
 class LocationViewModel @Inject constructor(
     private val requestWriteImagesUseCase: RequestWriteImagesUseCase
 ) : ViewModel() {
-    private val _result = MutableLiveData<Result>()
-    val result: LiveData<Result> = _result
+    private val _result = MutableLiveData<Result<Long>>()
+    val result: LiveData<Result<Long>> = _result
 
     fun uploadImages(
         groupId: Long,
@@ -36,7 +36,7 @@ class LocationViewModel @Inject constructor(
                     images
                 )
             ).onSuccess {
-                _result.value = Result(true)
+                _result.value = Result(true, data = it.diaryId)
             }.onFailure {
                 _result.value = Result(false, it.message)
             }

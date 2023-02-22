@@ -4,6 +4,7 @@ import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.error.toDomain
 import com.cheocharm.data.source.WriteRemoteDataSource
 import com.cheocharm.domain.model.WriteDiaryRequest
+import com.cheocharm.domain.model.WriteDiaryResponse
 import com.cheocharm.domain.model.WriteImageRequest
 import com.cheocharm.domain.model.WriteImageResponse
 import com.cheocharm.domain.repository.WriteRepository
@@ -22,7 +23,7 @@ class WriteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun requestWriteDiary(request: WriteDiaryRequest): Result<Int> {
+    override suspend fun requestWriteDiary(request: WriteDiaryRequest): Result<WriteDiaryResponse> {
         val result = writeRemoteDataSource.requestWriteDiary(request)
 
         return when (val exception = result.exceptionOrNull()) {
