@@ -12,5 +12,26 @@
         android:layout_height="match_parent"
         tools:context=".ui.group.GroupCreateSearchFragment">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_group_create_search"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/menu_location"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/group_create_title" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_search_search"
+            style="@style/Theme.MapZ.EditText.Search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_small"
+            android:layout_marginTop="@dimen/space_large"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_group_create_search" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
