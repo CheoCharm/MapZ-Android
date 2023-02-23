@@ -48,4 +48,5 @@
 
     <dimen name="group_create_image_vertical">37dp</dimen>
     <dimen name="group_create_bio_elevation">2dp</dimen>
+    <dimen name="group_create_image">120dp</dimen>
 </resources>

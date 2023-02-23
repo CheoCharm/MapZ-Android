@@ -2,10 +2,6 @@ package com.cheocharm.presentation.ui.group
 
 import android.content.Context
 import android.graphics.Rect
-import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -17,35 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class GroupCreateActivity :
     BaseActivity<ActivityGroupCreateBinding>(R.layout.activity_group_create) {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        with(binding.toolbarGroupCreate) {
-            setSupportActionBar(this)
-            setNavigationIcon(R.drawable.ic_back)
-            setNavigationOnClickListener {
-                finish()
-            }
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_location, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.location_confirm -> {
-                // TODO: 저 버튼을 누르면 어떻게 되나..?
-                Log.d("GroupCreateActivity", "confirm clicked")
-                true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         hideKeyboardWhenOutsideTouched(ev)

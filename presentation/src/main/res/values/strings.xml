@@ -68,6 +68,6 @@
     <string name="group_create_group_hint">그룹 이름 입력</string>
     <string name="group_create_group_bio_hint">그룹의 소개글을 간략하게 적어주세요.</string>
     <string name="group_create_search_block">검색 비허용</string>
-    <string name="group_create_search_block_description">그룹이 검색결과로 뜨지 않습니다.\n오직 그룹장의 초대로 멤버가 들어올 수 있습니다.</string>진
+    <string name="group_create_search_block_description">그룹이 검색결과로 뜨지 않습니다.\n오직 그룹장의 초대로 멤버가 들어올 수 있습니다.</string>
     <string name="group_create_image">사진 추가</string>
 </resources>
