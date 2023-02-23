@@ -36,4 +36,9 @@
         <item name="android:drawableTint">@color/grey_dark</item>
         <item name="android:textCursorDrawable">@drawable/bg_cursor</item>
     </style>
+
+    <style name="Theme.MapZ.Switch" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="thumbTint">@color/white</item>
+        <item name="trackTint">@color/switch_track</item>
+    </style>
 </resources>
