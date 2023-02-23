@@ -9,5 +9,14 @@
         android:id="@+id/groupCreateFragment"
         android:name="com.cheocharm.presentation.ui.group.GroupCreateFragment"
         android:label="GroupCreateFragment"
-        tools:layout="@layout/fragment_group_create" />
+        tools:layout="@layout/fragment_group_create">
+        <action
+            android:id="@+id/action_groupCreateFragment_to_groupCreateSearchFragment"
+            app:destination="@id/groupCreateSearchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupCreateSearchFragment"
+        android:name="com.cheocharm.presentation.ui.group.GroupCreateSearchFragment"
+        android:label="GroupCreateSearchFragment"
+        tools:layout="@layout/fragment_group_create_search" />
 </navigation>
