@@ -77,6 +77,20 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         }
 
         binding.btnWriteColor.setOnClickListener {
+            binding.run {
+                groupWriteTools.visibility = View.INVISIBLE
+                groupWriteToolColor.visibility = View.VISIBLE
+            }
+        }
+
+        binding.btnWriteColorClose.setOnClickListener {
+            binding.run {
+                groupWriteToolColor.visibility = View.INVISIBLE
+                groupWriteTools.visibility = View.VISIBLE
+            }
+        }
+
+        binding.btnWriteColorRed.setOnClickListener {
             editor.setTextColor(Color.RED)
         }
 

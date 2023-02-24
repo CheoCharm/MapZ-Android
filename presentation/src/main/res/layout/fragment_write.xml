@@ -73,83 +73,183 @@
             android:id="@+id/container_write_tools"
             android:layout_width="0dp"
             android:layout_height="@dimen/write_tools_height"
-            android:paddingHorizontal="@dimen/space_median"
-            android:elevation="@dimen/common_elevation"
             android:background="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
+            android:elevation="@dimen/common_elevation"
+            android:paddingHorizontal="@dimen/space_median"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_write_color"
-                android:src="@drawable/ic_text_color"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/container_write_tools"
-                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
+                style="@style/write_tool"
+                android:src="@drawable/ic_write_tool_color"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_write_font"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                style="@style/write_tool" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_write_font"
-                android:src="@drawable/ic_font"
-                app:layout_constraintTop_toTopOf="@id/container_write_tools"
-                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
+                style="@style/write_tool"
+                android:src="@drawable/ic_write_tool_font"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_write_align"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@id/btn_write_color"
-                style="@style/write_tool" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_write_align"
-                android:src="@drawable/ic_text_align_left"
-                app:layout_constraintTop_toTopOf="@id/container_write_tools"
-                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
+                style="@style/write_tool"
+                android:src="@drawable/ic_write_tool_align_left"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_write_bold"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn_write_font"
-                style="@style/write_tool" />
+                app:layout_constraintStart_toEndOf="@id/btn_write_font"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_write_bold"
-                android:src="@drawable/ic_text_bold"
-                app:layout_constraintTop_toTopOf="@id/container_write_tools"
-                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
-                app:layout_constraintEnd_toStartOf="@+id/btn_write_underline"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn_write_align"
-                style="@style/write_tool" />
+                style="@style/write_tool"
+                android:src="@drawable/ic_write_tool_bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_write_underline"
+                app:layout_constraintStart_toEndOf="@id/btn_write_align"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_write_underline"
-                android:src="@drawable/ic_text_underline"
-                app:layout_constraintTop_toTopOf="@id/container_write_tools"
-                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
-                app:layout_constraintEnd_toStartOf="@+id/btn_write_emoticon"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn_write_bold"
-                style="@style/write_tool" />
+                style="@style/write_tool"
+                android:src="@drawable/ic_write_tool_underline"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_write_emoticon"
+                app:layout_constraintStart_toEndOf="@id/btn_write_bold"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_write_emoticon"
-                android:src="@drawable/ic_emoji"
-                app:layout_constraintTop_toTopOf="@id/container_write_tools"
-                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
-                app:layout_constraintEnd_toStartOf="@+id/btn_write_picture"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn_write_underline"
-                style="@style/write_tool" />
+                style="@style/write_tool"
+                android:src="@drawable/ic_write_tool_sticker"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_write_picture"
+                app:layout_constraintStart_toEndOf="@id/btn_write_underline"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_write_picture"
-                android:src="@drawable/ic_image"
-                app:layout_constraintTop_toTopOf="@id/container_write_tools"
-                app:layout_constraintBottom_toBottomOf="@id/container_write_tools"
+                style="@style/write_tool"
+                android:src="@drawable/ic_write_tool_image"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@id/btn_write_emoticon"
-                style="@style/write_tool" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_write_color_close"
+                android:layout_width="@dimen/write_tool_color_close_size"
+                android:layout_height="@dimen/write_tool_color_close_size"
+                android:src="@drawable/ic_write_tool_color_close"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <HorizontalScrollView
+                android:id="@+id/container_write_tool_color"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/space_median"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_write_color_close"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_write_color_red"
+                        style="@style/write_tool_color_select"
+                        android:layout_marginStart="@dimen/space_x_small"
+                        android:src="@drawable/ic_write_tool_color_select"
+                        android:tint="@color/write_tool_color_red"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_write_color_orange"
+                        style="@style/write_tool_color_select"
+                        android:src="@drawable/ic_write_tool_color_select"
+                        android:tint="@color/write_tool_color_orange"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_write_color_red"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_write_color_yellow"
+                        style="@style/write_tool_color_select"
+                        android:src="@drawable/ic_write_tool_color_select"
+                        android:tint="@color/write_tool_color_yellow"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_write_color_orange"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_write_color_green"
+                        style="@style/write_tool_color_select"
+                        android:src="@drawable/ic_write_tool_color_select"
+                        android:tint="@color/write_tool_color_green"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_write_color_yellow"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_write_color_sky_blue"
+                        style="@style/write_tool_color_select"
+                        android:src="@drawable/ic_write_tool_color_select"
+                        android:tint="@color/write_tool_color_sky"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_write_color_green"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_write_color_blue"
+                        style="@style/write_tool_color_select"
+                        android:src="@drawable/ic_write_tool_color_select"
+                        android:tint="@color/write_tool_color_blue"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_write_color_sky_blue"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_write_color_violet"
+                        style="@style/write_tool_color_select"
+                        android:layout_marginEnd="@dimen/space_x_small"
+                        android:src="@drawable/ic_write_tool_color_select"
+                        android:tint="@color/write_tool_color_violet"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/btn_write_color_blue"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </HorizontalScrollView>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_write_tools"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="visible"
+                app:constraint_referenced_ids="btn_write_color, btn_write_font, btn_write_align, btn_write_bold, btn_write_underline, btn_write_emoticon, btn_write_picture" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_write_tool_color"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                app:constraint_referenced_ids="btn_write_color_close, container_write_tool_color" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -159,9 +259,29 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/space_median"
             app:layout_constraintBottom_toTopOf="@id/container_write_tools"
-            app:layout_constraintTop_toBottomOf="@+id/view_write_line"
+            app:layout_constraintTop_toBottomOf="@id/view_write_line"
             app:layout_constraintStart_toEndOf="@id/guideline_write_start"
             app:layout_constraintEnd_toStartOf="@id/guideline_write_end" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/write_picture_list_height"
+            android:background="@color/write_picture_list_background"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/container_write_tools"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

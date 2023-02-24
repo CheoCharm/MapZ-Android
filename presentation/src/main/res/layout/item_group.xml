@@ -21,7 +21,7 @@
             android:layout_width="@dimen/groups_group_image_size"
             android:layout_height="@dimen/groups_group_image_size"
             android:background="@drawable/bg_round"
-            android:backgroundTint="@color/write_group_image_empty_color"
+            android:backgroundTint="@color/groups_group_image_empty_color"
             app:imageCircledLoad="@{group.groupImageUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
