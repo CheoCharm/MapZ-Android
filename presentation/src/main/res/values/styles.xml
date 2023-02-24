@@ -36,5 +36,7 @@
         <item name="android:layout_width">@dimen/write_tool_color_select_size</item>
         <item name="android:layout_height">@dimen/write_tool_color_select_size</item>
         <item name="android:layout_marginStart">@dimen/space_large</item>
+        <item name="android:src">@drawable/ic_write_tool_color_select</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 </resources>

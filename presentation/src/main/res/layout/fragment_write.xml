@@ -5,6 +5,12 @@
 
     <data>
 
+        <import type="com.cheocharm.presentation.model.TextColor" />
+
+        <variable
+            name="viewmodel"
+            type="com.cheocharm.presentation.ui.write.WriteViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -171,8 +177,8 @@
                         android:id="@+id/btn_write_color_red"
                         style="@style/write_tool_color_select"
                         android:layout_marginStart="@dimen/space_x_small"
-                        android:src="@drawable/ic_write_tool_color_select"
                         android:tint="@color/write_tool_color_red"
+                        android:onClick="@{() -> viewmodel.setTextColor(TextColor.Red)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -180,8 +186,8 @@
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/btn_write_color_orange"
                         style="@style/write_tool_color_select"
-                        android:src="@drawable/ic_write_tool_color_select"
                         android:tint="@color/write_tool_color_orange"
+                        android:onClick="@{() -> viewmodel.setTextColor(TextColor.Orange)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/btn_write_color_red"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -189,8 +195,8 @@
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/btn_write_color_yellow"
                         style="@style/write_tool_color_select"
-                        android:src="@drawable/ic_write_tool_color_select"
                         android:tint="@color/write_tool_color_yellow"
+                        android:onClick="@{() -> viewmodel.setTextColor(TextColor.Yellow)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/btn_write_color_orange"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -198,8 +204,8 @@
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/btn_write_color_green"
                         style="@style/write_tool_color_select"
-                        android:src="@drawable/ic_write_tool_color_select"
                         android:tint="@color/write_tool_color_green"
+                        android:onClick="@{() -> viewmodel.setTextColor(TextColor.Green)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/btn_write_color_yellow"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -207,8 +213,8 @@
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/btn_write_color_sky_blue"
                         style="@style/write_tool_color_select"
-                        android:src="@drawable/ic_write_tool_color_select"
                         android:tint="@color/write_tool_color_sky"
+                        android:onClick="@{() -> viewmodel.setTextColor(TextColor.Sky)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/btn_write_color_green"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -216,8 +222,8 @@
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/btn_write_color_blue"
                         style="@style/write_tool_color_select"
-                        android:src="@drawable/ic_write_tool_color_select"
                         android:tint="@color/write_tool_color_blue"
+                        android:onClick="@{() -> viewmodel.setTextColor(TextColor.Blue)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/btn_write_color_sky_blue"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -226,8 +232,8 @@
                         android:id="@+id/btn_write_color_violet"
                         style="@style/write_tool_color_select"
                         android:layout_marginEnd="@dimen/space_x_small"
-                        android:src="@drawable/ic_write_tool_color_select"
                         android:tint="@color/write_tool_color_violet"
+                        android:onClick="@{() -> viewmodel.setTextColor(TextColor.Violet)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/btn_write_color_blue"

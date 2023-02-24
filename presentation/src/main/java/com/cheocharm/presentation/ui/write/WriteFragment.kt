@@ -1,6 +1,5 @@
 package com.cheocharm.presentation.ui.write
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
@@ -18,6 +18,7 @@ import androidx.navigation.navGraphViewModels
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
+import com.cheocharm.presentation.model.TextColor
 import com.cheocharm.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.richeditor.RichEditor
@@ -44,6 +45,8 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.viewmodel = writeViewModel
+
         locationViewModel.result.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
                 Log.d(javaClass.name, "이미지 업로드 성공")
@@ -51,6 +54,10 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             } else {
                 Log.e(javaClass.name, "이미지 업로드 실패: ${it.message}")
             }
+        }
+
+        writeViewModel.editorTextColor.observe(viewLifecycleOwner) {
+            updateTextColor(it)
         }
 
         editor = binding.editorWrite.apply {
@@ -90,10 +97,6 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
         }
 
-        binding.btnWriteColorRed.setOnClickListener {
-            editor.setTextColor(Color.RED)
-        }
-
         binding.btnWriteFont.setOnClickListener {
             editor.setFontSize(22)
         }
@@ -129,6 +132,10 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
                 Toast.makeText(context, "일기 작성 실패", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun updateTextColor(textColor: TextColor) {
+        editor.setTextColor(ResourcesCompat.getColor(resources, textColor.id, null))
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
