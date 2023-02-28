@@ -151,8 +151,8 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_color_close"
-            android:layout_width="@dimen/write_tool_color_close_size"
-            android:layout_height="@dimen/write_tool_color_close_size"
+            android:layout_width="@dimen/write_tool_close_btn_size"
+            android:layout_height="@dimen/write_tool_close_btn_size"
             android:layout_marginStart="@dimen/space_median"
             android:elevation="@dimen/common_elevation"
             android:src="@drawable/ic_write_tool_color_close"
@@ -244,6 +244,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </HorizontalScrollView>
+
+        <include
+            layout="@layout/write_tool_detail"
+            style="@style/write_tool_detail"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
+            app:layout_constraintStart_toStartOf="@id/btn_write_font"
+            app:layout_constraintEnd_toEndOf="@id/btn_write_font" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/group_write_tools"

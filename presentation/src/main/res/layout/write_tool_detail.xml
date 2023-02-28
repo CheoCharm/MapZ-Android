@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/write_tool_detail">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_median"
+        android:text="@string/write_select_font_title_1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_s_large"
+        app:layout_constraintBottom_toBottomOf="@id/btn_font_close"
+        app:layout_constraintEnd_toStartOf="@id/btn_font_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_font_close" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_font_close"
+        android:layout_width="@dimen/write_tool_close_btn_size"
+        android:layout_height="@dimen/write_tool_close_btn_size"
+        android:layout_marginTop="@dimen/space_small"
+        android:layout_marginEnd="@dimen/space_median"
+        android:src="@drawable/ic_write_tool_color_close"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:id="@+id/view_write_tool_detail_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/write_tool_detail_divider_height"
+        android:layout_marginTop="@dimen/write_tool_detail_divider_top"
+        android:layout_marginHorizontal="@dimen/space_small"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/btn_font_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_font_1"
+        android:layout_marginTop="@dimen/write_tool_detail_divider_bottom"
+        android:text="@string/write_tool_font_1_name"
+        app:layout_constraintTop_toBottomOf="@id/view_write_tool_detail_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/write_select_font_item_selected" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_font_2"
+        style="@style/write_select_font_item_default"
+        android:layout_marginTop="@dimen/write_select_font_item_vertical_margin"
+        android:text="@string/write_tool_font_2_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_font_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_font_3"
+        style="@style/write_select_font_item_default"
+        android:layout_marginTop="@dimen/write_select_font_item_vertical_margin"
+        android:text="@string/write_tool_font_3_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_font_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:id="@+id/view_tool_detail_page_1"
+        android:backgroundTint="@color/write_tool_detail_theme"
+        style="@style/write_tool_detail_page"
+        android:layout_marginEnd="@dimen/write_tool_detail_page_horizontal_margin"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/tv_font_3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/view_tool_detail_page_2" />
+
+    <View
+        android:id="@+id/view_tool_detail_page_2"
+        style="@style/write_tool_detail_page"
+        android:backgroundTint="@color/gray_extra_700"
+        app:layout_constraintTop_toBottomOf="@id/tv_font_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/view_tool_detail_page_1"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
