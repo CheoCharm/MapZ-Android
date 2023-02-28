@@ -2,12 +2,12 @@ package com.cheocharm.remote.source
 
 import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.source.WriteRemoteDataSource
+import com.cheocharm.domain.model.AttachedImages
 import com.cheocharm.domain.model.WriteDiaryRequest
-import com.cheocharm.domain.model.WriteDiaryResponse
 import com.cheocharm.domain.model.WriteImageRequest
 import com.cheocharm.remote.api.WriteApi
+import com.cheocharm.remote.mapper.toDomain
 import com.cheocharm.remote.mapper.toDto
-import com.cheocharm.domain.model.WriteImageResponse
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class WriteRemoteDataSourceImpl @Inject constructor(
     private val api: WriteApi
 ) : WriteRemoteDataSource {
-    override suspend fun requestWriteImages(request: WriteImageRequest): Result<WriteImageResponse> {
+    override suspend fun requestWriteImages(request: WriteImageRequest): Result<AttachedImages> {
         val images = request.images.map {
             MultipartBody.Part.createFormData(
                 "files",
@@ -32,7 +32,7 @@ class WriteRemoteDataSourceImpl @Inject constructor(
                 val response =
                     result.getOrNull() ?: return Result.failure(Throwable(NullPointerException()))
 
-                response.data?.let {
+                response.data?.toDomain()?.let {
                     Result.success(it)
                 } ?: Result.failure(ErrorData.WriteImagesUnavailable(response.message))
             }
@@ -41,18 +41,17 @@ class WriteRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun requestWriteDiary(request: WriteDiaryRequest): Result<WriteDiaryResponse> {
+    override suspend fun requestWriteDiary(request: WriteDiaryRequest): Result<Long> {
         val result = runCatching { api.writeDiary(request.toDto()) }
 
         return when (val exception = result.exceptionOrNull()) {
             null -> {
                 val response =
                     result.getOrNull() ?: return Result.failure(Throwable(NullPointerException()))
-                Result.success(
-                    response.data ?: return Result.failure(
-                        ErrorData.WriteDiaryUnavailable(response.message)
-                    )
-                )
+
+                response.data?.toDomain()?.let {
+                    Result.success(it)
+                } ?: return Result.failure(ErrorData.WriteDiaryUnavailable(response.message))
             }
             is UnknownHostException -> Result.failure(ErrorData.NetworkUnavailable)
             else -> Result.failure(exception)

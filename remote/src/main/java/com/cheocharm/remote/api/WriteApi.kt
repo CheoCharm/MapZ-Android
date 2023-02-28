@@ -1,6 +1,5 @@
 package com.cheocharm.remote.api
 
-import com.cheocharm.domain.model.WriteDiaryResponse
 import com.cheocharm.remote.model.BaseResponse
 import com.cheocharm.remote.model.response.write.MyGroup
 import retrofit2.http.GET
