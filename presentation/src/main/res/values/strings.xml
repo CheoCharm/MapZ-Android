@@ -67,7 +67,12 @@
     <string name="common_title">제목</string>
     <string name="write_title_hint">추억의 제목을 작성해봐요.</string>
     <string name="write_select_font_title_1">글꼴 선택</string>
+    <string name="write_select_font_title_2">글꼴 크기</string>
     <string name="write_tool_font_1_name">DX 영화자막</string>
     <string name="write_tool_font_2_name">Noto Sans</string>
     <string name="write_tool_font_3_name">애플산돌고딕</string>
+    <string name="font_size_16">16</string>
+    <string name="font_size_14">14</string>
+    <string name="font_size_12">12</string>
+    <string name="font_size_10">10</string>
 </resources>

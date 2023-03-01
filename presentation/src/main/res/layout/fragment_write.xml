@@ -246,9 +246,14 @@
         </HorizontalScrollView>
 
         <include
+            android:id="@+id/write_font_detail"
             layout="@layout/write_tool_detail"
+            android:layout_width="@dimen/write_tool_detail_width"
+            android:layout_height="wrap_content"
             style="@style/write_tool_detail"
             android:layout_marginBottom="10dp"
+            app:title="@{viewmodel.page.title}"
+            app:page="@{viewmodel.page.id}"
             app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
             app:layout_constraintStart_toStartOf="@id/btn_write_font"
             app:layout_constraintEnd_toEndOf="@id/btn_write_font" />

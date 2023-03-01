@@ -15,9 +15,11 @@ import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.navGraphViewModels
+import androidx.viewpager2.widget.ViewPager2
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
+import com.cheocharm.presentation.model.Page
 import com.cheocharm.presentation.model.TextColor
 import com.cheocharm.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +32,22 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
     private lateinit var editor: RichEditor
     private var diaryId: Long? = null
+
+    private lateinit var writeFontAdapter: WriteFontAdapter
+    private lateinit var viewPager: ViewPager2
+
+    private val onPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            val titles = arrayOf(
+                resources.getString(R.string.write_select_font_title_1),
+                resources.getString(R.string.write_select_font_title_2)
+            )
+
+            writeViewModel.updatePage(Page(position + 1, titles[position]))
+
+            super.onPageSelected(position)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,6 +119,11 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             editor.setFontSize(22)
         }
 
+        writeFontAdapter = WriteFontAdapter(this)
+        viewPager = binding.writeFontDetail.vpWriteToolDetail
+        viewPager.adapter = writeFontAdapter
+        viewPager.registerOnPageChangeCallback(onPageChangeCallback)
+
         binding.btnWriteAlign.setOnClickListener {
             editor.setAlignCenter()
         }
@@ -159,6 +182,11 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
             else -> false
         }
+    }
+
+    override fun onDestroyView() {
+        viewPager.unregisterOnPageChangeCallback(onPageChangeCallback)
+        super.onDestroyView()
     }
 
     companion object {

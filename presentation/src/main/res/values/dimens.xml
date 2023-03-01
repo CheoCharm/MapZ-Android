@@ -55,15 +55,16 @@
     <dimen name="location_selected_location_margin_horizontal">15dp</dimen>
     <dimen name="write_tools_height">50dp</dimen>
     <dimen name="write_tool_close_btn_size">20dp</dimen>
-    <dimen name="write_tool_color_select_size">30dp</dimen>
+    <dimen name="write_tool_detail_select_circle_size">30dp</dimen>
     <dimen name="write_picture_list_height">122dp</dimen>
     <dimen name="write_tool_detail_width">150dp</dimen>
     <dimen name="write_tool_detail_divider_height">1dp</dimen>
-    <dimen name="write_tool_detail_divider_top">10dp</dimen>
-    <dimen name="write_tool_detail_divider_bottom">14dp</dimen>
+    <dimen name="write_tool_detail_divider_top_margin">10dp</dimen>
+    <dimen name="write_tool_detail_divider_bottom_margin">14dp</dimen>
     <dimen name="write_select_font_item_height">26dp</dimen>
     <dimen name="write_select_font_item_horizontal_margin">9dp</dimen>
     <dimen name="write_select_font_horizontal_padding">7dp</dimen>
     <dimen name="write_select_font_item_vertical_margin">1dp</dimen>
     <dimen name="write_tool_detail_page_horizontal_margin">10dp</dimen>
+    <dimen name="write_font_size_horizontal_margin">2dp</dimen>
 </resources>
