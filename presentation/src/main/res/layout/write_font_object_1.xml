@@ -42,8 +42,6 @@
             app:layout_constraintTop_toBottomOf="@id/tv_font_1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:background="@color/white"
-            tools:backgroundTint="@color/white"
             tools:textColor="@color/black" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -58,8 +56,6 @@
             app:layout_constraintTop_toBottomOf="@id/tv_font_2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:background="@color/white"
-            tools:backgroundTint="@color/white"
             tools:textColor="@color/black" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

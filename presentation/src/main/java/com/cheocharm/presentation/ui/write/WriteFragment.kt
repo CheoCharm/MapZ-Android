@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -38,14 +39,31 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
     private val onPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+
+            val fragment = writeFontAdapter.fragments[position]
+            val view = fragment.view
             val titles = arrayOf(
                 resources.getString(R.string.write_select_font_title_1),
                 resources.getString(R.string.write_select_font_title_2)
             )
 
-            writeViewModel.updatePage(Page(position + 1, titles[position]))
+            view?.post {
+                val wMeasureSpec =
+                    View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
+                val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
 
-            super.onPageSelected(position)
+                view.measure(wMeasureSpec, hMeasureSpec)
+
+                if (viewPager.layoutParams.height != view.measuredHeight) {
+                    viewPager.layoutParams =
+                        (viewPager.layoutParams as ConstraintLayout.LayoutParams).also { lp ->
+                            lp.height = view.measuredHeight
+                        }
+                }
+            }
+
+            writeViewModel.updatePage(Page(position + 1, titles[position]))
         }
     }
 

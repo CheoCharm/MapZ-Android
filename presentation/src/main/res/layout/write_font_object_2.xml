@@ -1,47 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_write_font_size_10"
-        style="@style/write_font_size_default"
-        android:text="@string/font_size_10"
-        android:textSize="@dimen/text_x_small"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_write_font_size_12"
-        app:layout_constraintEnd_toStartOf="@+id/tv_write_font_size_12"
-        app:layout_constraintStart_toStartOf="parent" />
+    <data>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_write_font_size_12"
-        style="@style/write_font_size_selected"
-        android:layout_marginStart="@dimen/write_font_size_horizontal_margin"
-        android:text="@string/font_size_12"
-        android:textSize="@dimen/text_small"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_write_font_size_14"
-        app:layout_constraintEnd_toStartOf="@+id/tv_write_font_size_14"
-        app:layout_constraintStart_toEndOf="@id/tv_write_font_size_10"/>
+        <variable
+            name="viewmodel"
+            type="com.cheocharm.presentation.ui.write.WriteFontObjectViewModel" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_write_font_size_14"
-        style="@style/write_font_size_default"
-        android:layout_marginStart="@dimen/write_font_size_horizontal_margin"
-        android:text="@string/font_size_14"
-        android:textSize="@dimen/text_median"
-        app:layout_constraintBottom_toBottomOf="@id/tv_write_font_size_16"
-        app:layout_constraintEnd_toStartOf="@+id/tv_write_font_size_16"
-        app:layout_constraintStart_toEndOf="@id/tv_write_font_size_12"/>
+    </data>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_write_font_size_16"
-        android:layout_marginStart="@dimen/write_font_size_horizontal_margin"
-        android:text="@string/font_size_16"
-        android:textSize="@dimen/text_s_large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_write_font_size_14"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/write_font_size_default" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_write_font_size_10"
+            style="@style/write_font_size_default"
+            android:background="@{viewmodel.selectedFontSize == 1 ? @drawable/bg_round : @drawable/bg_transparent}"
+            android:backgroundTint="@{viewmodel.selectedFontSize == 1 ? @color/write_tool_detail_theme : @color/white}"
+            android:text="@string/font_size_10"
+            android:textColor="@{viewmodel.selectedFontSize == 1 ? @color/white : @color/black}"
+            android:textSize="@dimen/text_x_small"
+            android:onClick="@{() -> viewmodel.selectFontSize(1)}"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintBottom_toBottomOf="@id/tv_write_font_size_12"
+            app:layout_constraintEnd_toStartOf="@id/tv_write_font_size_12"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:textColor="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_write_font_size_12"
+            style="@style/write_font_size_default"
+            android:layout_marginStart="@dimen/write_font_size_horizontal_margin"
+            android:background="@{viewmodel.selectedFontSize == 2 ? @drawable/bg_round : @drawable/bg_transparent}"
+            android:backgroundTint="@{viewmodel.selectedFontSize == 2 ? @color/write_tool_detail_theme : @color/white}"
+            android:text="@string/font_size_12"
+            android:textColor="@{viewmodel.selectedFontSize == 2 ? @color/white : @color/black}"
+            android:textSize="@dimen/text_small"
+            android:onClick="@{() -> viewmodel.selectFontSize(2)}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_write_font_size_14"
+            app:layout_constraintEnd_toStartOf="@id/tv_write_font_size_14"
+            app:layout_constraintStart_toEndOf="@id/tv_write_font_size_10"
+            tools:background="@drawable/bg_round"
+            tools:backgroundTint="@color/write_tool_detail_theme"
+            tools:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_write_font_size_14"
+            style="@style/write_font_size_default"
+            android:layout_marginStart="@dimen/write_font_size_horizontal_margin"
+            android:background="@{viewmodel.selectedFontSize == 3 ? @drawable/bg_round : @drawable/bg_transparent}"
+            android:backgroundTint="@{viewmodel.selectedFontSize == 3 ? @color/write_tool_detail_theme : @color/white}"
+            android:text="@string/font_size_14"
+            android:textColor="@{viewmodel.selectedFontSize == 3 ? @color/white : @color/black}"
+            android:textSize="@dimen/text_median"
+            android:onClick="@{() -> viewmodel.selectFontSize(3)}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_write_font_size_16"
+            app:layout_constraintEnd_toStartOf="@id/tv_write_font_size_16"
+            app:layout_constraintStart_toEndOf="@id/tv_write_font_size_12"
+            tools:textColor="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_write_font_size_16"
+            style="@style/write_font_size_default"
+            android:layout_marginStart="@dimen/write_font_size_horizontal_margin"
+            android:background="@{viewmodel.selectedFontSize == 4 ? @drawable/bg_round : @drawable/bg_transparent}"
+            android:backgroundTint="@{viewmodel.selectedFontSize == 4 ? @color/write_tool_detail_theme : @color/white}"
+            android:text="@string/font_size_16"
+            android:textColor="@{viewmodel.selectedFontSize == 4 ? @color/white : @color/black}"
+            android:textSize="@dimen/text_s_large"
+            android:onClick="@{() -> viewmodel.selectFontSize(4)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_write_font_size_14"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:textColor="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
