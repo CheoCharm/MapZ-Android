@@ -49,15 +49,14 @@
         <item name="android:layout_marginBottom">7dp</item>
     </style>
 
-    <!-- TODO: font -> fontFamily 변경 -->
-    <style name="write_select_font_item_default">
+    <style name="write_font_family_item">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">@dimen/write_select_font_item_height</item>
-        <item name="android:layout_marginStart">@dimen/write_select_font_item_horizontal_margin</item>
-        <item name="android:layout_marginEnd">@dimen/write_select_font_item_horizontal_margin</item>
+        <item name="android:layout_height">@dimen/write_font_family_item_height</item>
+        <item name="android:layout_marginStart">@dimen/write_font_family_item_horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/write_font_family_item_horizontal_margin</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingStart">@dimen/write_select_font_horizontal_padding</item>
-        <item name="android:paddingEnd">@dimen/write_select_font_horizontal_padding</item>
+        <item name="android:paddingStart">@dimen/write_font_family_horizontal_padding</item>
+        <item name="android:paddingEnd">@dimen/write_font_family_horizontal_padding</item>
     </style>
 
     <style name="write_tool_detail">
@@ -67,7 +66,7 @@
         <item name="android:outlineProvider">paddedBounds</item>
     </style>
 
-    <style name="write_font_size_default">
+    <style name="write_font_size_item">
         <item name="android:layout_width">@dimen/write_tool_detail_select_circle_size</item>
         <item name="android:layout_height">@dimen/write_tool_detail_select_circle_size</item>
         <item name="android:gravity">center</item>

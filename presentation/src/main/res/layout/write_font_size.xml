@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.cheocharm.presentation.ui.write.WriteFontObjectViewModel" />
+            type="com.cheocharm.presentation.ui.write.WriteFontViewModel" />
 
     </data>
 
@@ -17,7 +17,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_write_font_size_10"
-            style="@style/write_font_size_default"
+            style="@style/write_font_size_item"
             android:background="@{viewmodel.selectedFontSize == 1 ? @drawable/bg_round : @drawable/bg_transparent}"
             android:backgroundTint="@{viewmodel.selectedFontSize == 1 ? @color/write_tool_detail_theme : @color/white}"
             android:text="@string/font_size_10"
@@ -32,7 +32,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_write_font_size_12"
-            style="@style/write_font_size_default"
+            style="@style/write_font_size_item"
             android:layout_marginStart="@dimen/write_font_size_horizontal_margin"
             android:background="@{viewmodel.selectedFontSize == 2 ? @drawable/bg_round : @drawable/bg_transparent}"
             android:backgroundTint="@{viewmodel.selectedFontSize == 2 ? @color/write_tool_detail_theme : @color/white}"
@@ -49,7 +49,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_write_font_size_14"
-            style="@style/write_font_size_default"
+            style="@style/write_font_size_item"
             android:layout_marginStart="@dimen/write_font_size_horizontal_margin"
             android:background="@{viewmodel.selectedFontSize == 3 ? @drawable/bg_round : @drawable/bg_transparent}"
             android:backgroundTint="@{viewmodel.selectedFontSize == 3 ? @color/write_tool_detail_theme : @color/white}"
@@ -64,7 +64,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_write_font_size_16"
-            style="@style/write_font_size_default"
+            style="@style/write_font_size_item"
             android:layout_marginStart="@dimen/write_font_size_horizontal_margin"
             android:background="@{viewmodel.selectedFontSize == 4 ? @drawable/bg_round : @drawable/bg_transparent}"
             android:backgroundTint="@{viewmodel.selectedFontSize == 4 ? @color/write_tool_detail_theme : @color/white}"

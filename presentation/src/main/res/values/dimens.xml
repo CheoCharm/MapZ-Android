@@ -61,10 +61,10 @@
     <dimen name="write_tool_detail_divider_height">1dp</dimen>
     <dimen name="write_tool_detail_divider_top_margin">10dp</dimen>
     <dimen name="write_tool_detail_divider_bottom_margin">14dp</dimen>
-    <dimen name="write_select_font_item_height">26dp</dimen>
-    <dimen name="write_select_font_item_horizontal_margin">9dp</dimen>
-    <dimen name="write_select_font_horizontal_padding">7dp</dimen>
-    <dimen name="write_select_font_item_vertical_margin">1dp</dimen>
     <dimen name="write_tool_detail_page_horizontal_margin">10dp</dimen>
+    <dimen name="write_font_family_item_height">26dp</dimen>
+    <dimen name="write_font_family_item_horizontal_margin">9dp</dimen>
+    <dimen name="write_font_family_horizontal_padding">7dp</dimen>
+    <dimen name="write_font_family_item_vertical_margin">1dp</dimen>
     <dimen name="write_font_size_horizontal_margin">2dp</dimen>
 </resources>

@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class WriteFontObjectViewModel : ViewModel() {
-    private val _selectedFont = MutableLiveData(1)
-    val selectedFont: LiveData<Int> = _selectedFont
+class WriteFontViewModel : ViewModel() {
+    private val _selectedFontFamily = MutableLiveData(1)
+    val selectedFontFamily: LiveData<Int> = _selectedFontFamily
 
     private val _selectedFontSize = MutableLiveData(2)
     val selectedFontSize: LiveData<Int> = _selectedFontSize
 
     fun selectFont(id: Int) {
-        _selectedFont.value = id
+        _selectedFontFamily.value = id
     }
 
     fun selectFontSize(id: Int) {

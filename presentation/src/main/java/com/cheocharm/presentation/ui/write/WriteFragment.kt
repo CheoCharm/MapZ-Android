@@ -44,8 +44,8 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             val fragment = writeFontAdapter.fragments[position]
             val view = fragment.view
             val titles = arrayOf(
-                resources.getString(R.string.write_select_font_title_1),
-                resources.getString(R.string.write_select_font_title_2)
+                resources.getString(R.string.write_select_font_family_title),
+                resources.getString(R.string.write_select_font_size_title)
             )
 
             view?.post {

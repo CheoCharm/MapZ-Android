@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.cheocharm.presentation.ui.write.WriteFontObjectViewModel" />
+            type="com.cheocharm.presentation.ui.write.WriteFontViewModel" />
 
     </data>
 
@@ -17,11 +17,11 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_font_1"
-            style="@style/write_select_font_item_default"
-            android:background="@{viewmodel.selectedFont == 1 ? @drawable/bg_radius_10dp : @drawable/bg_transparent}"
-            android:backgroundTint="@{viewmodel.selectedFont == 1 ? @color/write_tool_detail_theme : @color/white}"
+            style="@style/write_font_family_item"
+            android:background="@{viewmodel.selectedFontFamily == 1 ? @drawable/bg_radius_10dp : @drawable/bg_transparent}"
+            android:backgroundTint="@{viewmodel.selectedFontFamily == 1 ? @color/write_tool_detail_theme : @color/white}"
             android:text="@string/write_tool_font_1_name"
-            android:textColor="@{viewmodel.selectedFont == 1 ? @color/white : @color/black}"
+            android:textColor="@{viewmodel.selectedFontFamily == 1 ? @color/white : @color/black}"
             android:onClick="@{() -> viewmodel.selectFont(1)}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,12 +32,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_font_2"
-            style="@style/write_select_font_item_default"
-            android:layout_marginTop="@dimen/write_select_font_item_vertical_margin"
-            android:background="@{viewmodel.selectedFont == 2 ? @drawable/bg_radius_10dp : @drawable/bg_transparent}"
-            android:backgroundTint="@{viewmodel.selectedFont == 2 ? @color/write_tool_detail_theme : @color/white}"
+            style="@style/write_font_family_item"
+            android:layout_marginTop="@dimen/write_font_family_item_vertical_margin"
+            android:background="@{viewmodel.selectedFontFamily == 2 ? @drawable/bg_radius_10dp : @drawable/bg_transparent}"
+            android:backgroundTint="@{viewmodel.selectedFontFamily == 2 ? @color/write_tool_detail_theme : @color/white}"
             android:text="@string/write_tool_font_2_name"
-            android:textColor="@{viewmodel.selectedFont == 2 ? @color/white : @color/black}"
+            android:textColor="@{viewmodel.selectedFontFamily == 2 ? @color/white : @color/black}"
             android:onClick="@{() -> viewmodel.selectFont(2)}"
             app:layout_constraintTop_toBottomOf="@id/tv_font_1"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,12 +46,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_font_3"
-            style="@style/write_select_font_item_default"
-            android:layout_marginTop="@dimen/write_select_font_item_vertical_margin"
-            android:background="@{viewmodel.selectedFont == 3 ? @drawable/bg_radius_10dp : @drawable/bg_transparent}"
-            android:backgroundTint="@{viewmodel.selectedFont == 3 ? @color/write_tool_detail_theme : @color/white}"
+            style="@style/write_font_family_item"
+            android:layout_marginTop="@dimen/write_font_family_item_vertical_margin"
+            android:background="@{viewmodel.selectedFontFamily == 3 ? @drawable/bg_radius_10dp : @drawable/bg_transparent}"
+            android:backgroundTint="@{viewmodel.selectedFontFamily == 3 ? @color/write_tool_detail_theme : @color/white}"
             android:text="@string/write_tool_font_3_name"
-            android:textColor="@{viewmodel.selectedFont == 3 ? @color/white : @color/black}"
+            android:textColor="@{viewmodel.selectedFontFamily == 3 ? @color/white : @color/black}"
             android:onClick="@{() -> viewmodel.selectFont(3)}"
             app:layout_constraintTop_toBottomOf="@id/tv_font_2"
             app:layout_constraintStart_toStartOf="parent"

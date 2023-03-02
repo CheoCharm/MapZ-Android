@@ -7,11 +7,11 @@ import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
-import com.cheocharm.presentation.databinding.WriteFontObject1Binding
-import com.cheocharm.presentation.databinding.WriteFontObject2Binding
+import com.cheocharm.presentation.databinding.WriteFontFamilyBinding
+import com.cheocharm.presentation.databinding.WriteFontSizeBinding
 
 class WriteFontAdapter(fragment: WriteFragment) : FragmentStateAdapter(fragment) {
-    val fragments = listOf(WriteFontObjectFirstFragment(), WriteFontObjectSecondFragment())
+    val fragments = listOf(WriteFontFamilyFragment(), WriteFontSizeFragment())
 
     override fun getItemCount(): Int = 2
 
@@ -20,9 +20,8 @@ class WriteFontAdapter(fragment: WriteFragment) : FragmentStateAdapter(fragment)
     }
 }
 
-class WriteFontObjectFirstFragment :
-    BaseFragment<WriteFontObject1Binding>(R.layout.write_font_object_1) {
-    private val viewModel: WriteFontObjectViewModel by viewModels()
+class WriteFontFamilyFragment : BaseFragment<WriteFontFamilyBinding>(R.layout.write_font_family) {
+    private val viewModel: WriteFontViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,9 +30,8 @@ class WriteFontObjectFirstFragment :
     }
 }
 
-class WriteFontObjectSecondFragment :
-    BaseFragment<WriteFontObject2Binding>(R.layout.write_font_object_2) {
-    private val viewModel: WriteFontObjectViewModel by viewModels()
+class WriteFontSizeFragment : BaseFragment<WriteFontSizeBinding>(R.layout.write_font_size) {
+    private val viewModel: WriteFontViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

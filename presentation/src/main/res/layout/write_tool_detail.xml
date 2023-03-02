@@ -32,7 +32,7 @@
             app:layout_constraintEnd_toStartOf="@id/btn_font_close"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/btn_font_close"
-            tools:text="@string/write_select_font_title_1" />
+            tools:text="@string/write_select_font_family_title" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_font_close"
