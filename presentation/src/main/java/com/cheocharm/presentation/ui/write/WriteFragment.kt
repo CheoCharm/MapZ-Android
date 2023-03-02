@@ -13,6 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.navGraphViewModels
@@ -20,6 +22,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
+import com.cheocharm.presentation.model.FontSize
 import com.cheocharm.presentation.model.Page
 import com.cheocharm.presentation.model.TextColor
 import com.cheocharm.presentation.ui.MainActivity
@@ -30,6 +33,7 @@ import jp.wasabeef.richeditor.RichEditor
 class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write), MenuProvider {
     private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.write)
     private val writeViewModel: WriteViewModel by navGraphViewModels(R.id.write) { defaultViewModelProviderFactory }
+    val writeFontViewModel: WriteFontViewModel by viewModels()
 
     private lateinit var editor: RichEditor
     private var diaryId: Long? = null
@@ -85,10 +89,10 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
         locationViewModel.result.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
-                Log.d(javaClass.name, "이미지 업로드 성공")
+                Log.d(logTag, "이미지 업로드 성공")
                 diaryId = it.data
             } else {
-                Log.e(javaClass.name, "이미지 업로드 실패: ${it.message}")
+                Log.e(logTag, "이미지 업로드 실패: ${it.message}")
             }
         }
 
@@ -121,26 +125,46 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
         binding.btnWriteColor.setOnClickListener {
             binding.run {
-                groupWriteTools.visibility = View.INVISIBLE
-                groupWriteToolColor.visibility = View.VISIBLE
+                groupWriteTools.isVisible = false
+                groupWriteToolColor.isVisible = true
             }
         }
 
         binding.btnWriteColorClose.setOnClickListener {
             binding.run {
-                groupWriteToolColor.visibility = View.INVISIBLE
-                groupWriteTools.visibility = View.VISIBLE
+                groupWriteToolColor.isVisible = false
+                groupWriteTools.isVisible = true
             }
         }
 
+        val detailView = binding.writeFontDetail.root
+
         binding.btnWriteFont.setOnClickListener {
-            editor.setFontSize(22)
+            detailView.isVisible = detailView.isVisible.not()
         }
 
         writeFontAdapter = WriteFontAdapter(this)
         viewPager = binding.writeFontDetail.vpWriteToolDetail
         viewPager.adapter = writeFontAdapter
         viewPager.registerOnPageChangeCallback(onPageChangeCallback)
+
+        writeFontViewModel.selectedFontSize.observe(viewLifecycleOwner) {
+            Log.d(logTag, "글꼴 크기: $it")
+
+            val htmlFontSize = when (it) {
+                FontSize.Ten -> 1
+                FontSize.Twelve -> 2
+                FontSize.Fourteen -> 3
+                FontSize.Sixteen -> 4
+                else -> 2
+            }
+
+            editor.setFontSize(htmlFontSize)
+        }
+
+        binding.writeFontDetail.btnFontClose.setOnClickListener {
+            detailView.isVisible = false
+        }
 
         binding.btnWriteAlign.setOnClickListener {
             editor.setAlignCenter()
@@ -188,13 +212,15 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             R.id.menu_base_confirm -> {
                 // TODO: 일기 작성 완료 화면으로 이동
 
-                diaryId?.let {
-                    writeViewModel.writeDiary(
-                        it,
-                        binding.etWriteTitle.text.toString(),
-                        editor.html ?: ""
-                    )
-                }
+                // TODO: 테스트 완료 후 복구
+                Log.d(logTag, editor.html.toString())
+//                diaryId?.let {
+//                    writeViewModel.writeDiary(
+//                        it,
+//                        binding.etWriteTitle.text.toString(),
+//                        editor.html ?: ""
+//                    )
+//                }
 
                 true
             }
@@ -209,5 +235,6 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
     companion object {
         private const val MAX_CONTENT_LENGTH = 2000
+        private val logTag = this::class.java.name
     }
 }
