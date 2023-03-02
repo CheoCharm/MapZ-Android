@@ -1,33 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_font_1"
-        android:text="@string/write_tool_font_1_name"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/write_select_font_item_selected" />
+    <data>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_font_2"
-        style="@style/write_select_font_item_default"
-        android:layout_marginTop="@dimen/write_select_font_item_vertical_margin"
-        android:text="@string/write_tool_font_2_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_font_1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <variable
+            name="viewmodel"
+            type="com.cheocharm.presentation.ui.write.WriteFontObjectViewModel" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_font_3"
-        style="@style/write_select_font_item_default"
-        android:layout_marginTop="@dimen/write_select_font_item_vertical_margin"
-        android:text="@string/write_tool_font_3_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_font_2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    </data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_font_1"
+            style="@style/write_select_font_item_default"
+            android:background="@{viewmodel.selectedFont == 1 ? @drawable/bg_radius_10dp : @drawable/bg_transparent}"
+            android:backgroundTint="@{viewmodel.selectedFont == 1 ? @color/write_tool_detail_theme : @color/white}"
+            android:text="@string/write_tool_font_1_name"
+            android:textColor="@{viewmodel.selectedFont == 1 ? @color/white : @color/black}"
+            android:onClick="@{() -> viewmodel.selectFont(1)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:background="@drawable/bg_radius_10dp"
+            tools:backgroundTint="@color/write_tool_detail_theme"
+            tools:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_font_2"
+            style="@style/write_select_font_item_default"
+            android:layout_marginTop="@dimen/write_select_font_item_vertical_margin"
+            android:background="@{viewmodel.selectedFont == 2 ? @drawable/bg_radius_10dp : @drawable/bg_transparent}"
+            android:backgroundTint="@{viewmodel.selectedFont == 2 ? @color/write_tool_detail_theme : @color/white}"
+            android:text="@string/write_tool_font_2_name"
+            android:textColor="@{viewmodel.selectedFont == 2 ? @color/white : @color/black}"
+            android:onClick="@{() -> viewmodel.selectFont(2)}"
+            app:layout_constraintTop_toBottomOf="@id/tv_font_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:background="@color/white"
+            tools:backgroundTint="@color/white"
+            tools:textColor="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_font_3"
+            style="@style/write_select_font_item_default"
+            android:layout_marginTop="@dimen/write_select_font_item_vertical_margin"
+            android:background="@{viewmodel.selectedFont == 3 ? @drawable/bg_radius_10dp : @drawable/bg_transparent}"
+            android:backgroundTint="@{viewmodel.selectedFont == 3 ? @color/write_tool_detail_theme : @color/white}"
+            android:text="@string/write_tool_font_3_name"
+            android:textColor="@{viewmodel.selectedFont == 3 ? @color/white : @color/black}"
+            android:onClick="@{() -> viewmodel.selectFont(3)}"
+            app:layout_constraintTop_toBottomOf="@id/tv_font_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:background="@color/white"
+            tools:backgroundTint="@color/white"
+            tools:textColor="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

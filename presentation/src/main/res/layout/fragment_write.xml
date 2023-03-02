@@ -245,6 +245,7 @@
 
         </HorizontalScrollView>
 
+        <!-- TODO: Barrier 추가, 글꼴 적용 -->
         <include
             android:id="@+id/write_font_detail"
             layout="@layout/write_tool_detail"
@@ -252,6 +253,8 @@
             android:layout_height="wrap_content"
             style="@style/write_tool_detail"
             android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
             app:title="@{viewmodel.page.title}"
             app:page="@{viewmodel.page.id}"
             app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
