@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/btn_write_align_left"
+        android:layout_width="@dimen/write_tool_detail_select_circle_size"
+        android:layout_height="@dimen/write_tool_detail_select_circle_size"
+        android:layout_marginStart="@dimen/space_median"
+        android:background="@drawable/bg_round"
+        android:backgroundTint="@color/write_tool_detail_theme"
+        android:contentDescription="@string/write_align_left"
+        android:src="@drawable/ic_write_tool_align_left"
+        app:tint="@color/white"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintEnd_toStartOf="@id/btn_write_align_center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:tint="@color/white" />
+
+    <ImageButton
+        android:id="@+id/btn_write_align_center"
+        android:layout_width="@dimen/write_tool_detail_select_circle_size"
+        android:layout_height="@dimen/write_tool_detail_select_circle_size"
+        android:background="@null"
+        android:contentDescription="@string/write_align_center"
+        android:src="@drawable/ic_write_tool_align_center"
+        app:layout_constraintEnd_toStartOf="@id/btn_write_align_right"
+        app:layout_constraintStart_toEndOf="@id/btn_write_align_left"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_write_align_right"
+        android:layout_width="@dimen/write_tool_detail_select_circle_size"
+        android:layout_height="@dimen/write_tool_detail_select_circle_size"
+        android:layout_marginEnd="@dimen/space_median"
+        android:background="@null"
+        android:contentDescription="@string/write_align_right"
+        android:src="@drawable/ic_write_tool_align_right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_write_align_center"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -137,10 +137,10 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
         }
 
-        val detailView = binding.writeFontDetail.root
+        val fontDetailView = binding.writeFontDetail.root
 
         binding.btnWriteFont.setOnClickListener {
-            detailView.isVisible = detailView.isVisible.not()
+            fontDetailView.isVisible = fontDetailView.isVisible.not()
         }
 
         writeFontAdapter = WriteFontAdapter(this)
@@ -162,12 +162,19 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             editor.setFontSize(htmlFontSize)
         }
 
-        binding.writeFontDetail.btnFontClose.setOnClickListener {
-            detailView.isVisible = false
+        binding.writeFontDetail.btnToolDetailClose.setOnClickListener {
+            fontDetailView.isVisible = false
         }
 
+        val alignDetailView = binding.writeAlignDetail.root
+
         binding.btnWriteAlign.setOnClickListener {
+            alignDetailView.isVisible = alignDetailView.isVisible.not()
             editor.setAlignCenter()
+        }
+
+        binding.writeAlignDetail.btnToolDetailClose.setOnClickListener {
+            alignDetailView.isVisible = false
         }
 
         binding.btnWriteBold.setOnClickListener {

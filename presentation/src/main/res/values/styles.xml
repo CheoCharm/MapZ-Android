@@ -60,8 +60,11 @@
     </style>
 
     <style name="write_tool_detail">
+        <item name="android:layout_marginBottom">10dp</item>
         <item name="android:background">@drawable/bg_radius_10dp</item>
         <item name="android:backgroundTint">@color/white</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
         <item name="android:elevation">@dimen/common_elevation</item>
         <item name="android:outlineProvider">paddedBounds</item>
     </style>
