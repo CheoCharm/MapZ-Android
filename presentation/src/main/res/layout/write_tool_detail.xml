@@ -7,6 +7,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.cheocharm.presentation.model.TextEditTool" />
+
         <variable
             name="viewmodel"
             type="com.cheocharm.presentation.ui.write.WriteViewModel" />
@@ -48,6 +50,7 @@
             android:layout_marginEnd="@dimen/space_median"
             android:background="@null"
             android:src="@drawable/ic_write_tool_color_close"
+            android:onClick="@{() -> viewmodel.openToolDetail((TextEditTool) null)}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

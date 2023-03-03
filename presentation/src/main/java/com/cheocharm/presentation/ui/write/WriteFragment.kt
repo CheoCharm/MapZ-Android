@@ -13,7 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
@@ -22,7 +21,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
-import com.cheocharm.presentation.model.FontSize
 import com.cheocharm.presentation.model.Page
 import com.cheocharm.presentation.model.TextAlign
 import com.cheocharm.presentation.model.TextColor
@@ -124,26 +122,6 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
         }
 
-        binding.btnWriteColor.setOnClickListener {
-            binding.run {
-                groupWriteTools.isVisible = false
-                groupWriteToolColor.isVisible = true
-            }
-        }
-
-        binding.btnWriteColorClose.setOnClickListener {
-            binding.run {
-                groupWriteToolColor.isVisible = false
-                groupWriteTools.isVisible = true
-            }
-        }
-
-        val fontDetailView = binding.writeFontDetail.root
-
-        binding.btnWriteFont.setOnClickListener {
-            fontDetailView.isVisible = fontDetailView.isVisible.not()
-        }
-
         writeFontAdapter = WriteFontAdapter(this)
         viewPager = binding.writeFontDetail.vpWriteToolDetail
         viewPager.adapter = writeFontAdapter
@@ -154,23 +132,8 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             editor.setFontSize(it.id)
         }
 
-        binding.writeFontDetail.btnToolDetailClose.setOnClickListener {
-            fontDetailView.isVisible = false
-        }
-
-        val alignDetailView = binding.writeAlignDetail.root
-
-        binding.btnWriteAlign.setOnClickListener {
-            alignDetailView.isVisible = alignDetailView.isVisible.not()
-            editor.setAlignCenter()
-        }
-
         writeViewModel.textAlign.observe(viewLifecycleOwner) {
             setTextAlign(it)
-        }
-
-        binding.writeAlignDetail.btnToolDetailClose.setOnClickListener {
-            alignDetailView.isVisible = false
         }
 
         binding.btnWriteBold.setOnClickListener {

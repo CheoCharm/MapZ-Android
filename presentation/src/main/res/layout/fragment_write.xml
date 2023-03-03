@@ -5,6 +5,10 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="com.cheocharm.presentation.model.TextEditTool" />
+
         <import type="com.cheocharm.presentation.model.TextColor" />
 
         <variable
@@ -88,6 +92,7 @@
             style="@style/write_tool"
             android:layout_marginStart="@dimen/space_large"
             android:src="@drawable/ic_write_tool_color"
+            android:onClick="@{() -> viewmodel.openToolDetail(TextEditTool.Color)}"
             app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
             app:layout_constraintEnd_toStartOf="@id/btn_write_font"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -98,6 +103,7 @@
             android:id="@+id/btn_write_font"
             style="@style/write_tool"
             android:src="@drawable/ic_write_tool_font"
+            android:onClick="@{() -> viewmodel.openToolDetail(TextEditTool.Font)}"
             app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
             app:layout_constraintEnd_toStartOf="@id/btn_write_align"
             app:layout_constraintStart_toEndOf="@id/btn_write_color"
@@ -109,17 +115,20 @@
             android:layout_width="@dimen/write_tool_detail_width"
             android:layout_height="wrap_content"
             style="@style/write_tool_detail"
-            android:visibility="invisible"
+            android:visibility="@{viewmodel.openTool == TextEditTool.Font ? View.VISIBLE : View.INVISIBLE}"
             app:title="@{viewmodel.page.title}"
             app:page="@{viewmodel.page.id}"
+            app:viewmodel="@{viewmodel}"
             app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
             app:layout_constraintStart_toStartOf="@id/btn_write_font"
-            app:layout_constraintEnd_toEndOf="@id/btn_write_font" />
+            app:layout_constraintEnd_toEndOf="@id/btn_write_font"
+            tools:visibility="invisible" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_align"
             style="@style/write_tool"
             android:src="@drawable/ic_write_tool_align_left"
+            android:onClick="@{() -> viewmodel.openToolDetail(TextEditTool.Align)}"
             app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
             app:layout_constraintEnd_toStartOf="@id/btn_write_bold"
             app:layout_constraintStart_toEndOf="@id/btn_write_font"
@@ -131,12 +140,14 @@
             android:layout_width="@dimen/write_tool_detail_width"
             android:layout_height="wrap_content"
             style="@style/write_tool_detail"
+            android:visibility="@{viewmodel.openTool == TextEditTool.Align ? View.VISIBLE : View.INVISIBLE}"
             app:title="@{@string/write_align_title}"
             app:page="@{0}"
             app:viewmodel="@{viewmodel}"
             app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
             app:layout_constraintStart_toStartOf="@id/btn_write_align"
-            app:layout_constraintEnd_toEndOf="@id/btn_write_align" />
+            app:layout_constraintEnd_toEndOf="@id/btn_write_align"
+            tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_bold"
@@ -175,103 +186,16 @@
             app:layout_constraintStart_toEndOf="@id/btn_write_emoticon"
             app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
 
-        <!-- TODO: include로 구현 -->
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_write_color_close"
-            android:layout_width="@dimen/write_tool_close_btn_size"
-            android:layout_height="@dimen/write_tool_close_btn_size"
-            android:layout_marginStart="@dimen/space_median"
-            android:elevation="@dimen/common_elevation"
-            android:src="@drawable/ic_write_tool_color_close"
-            android:background="@null"
-            app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
-
-        <HorizontalScrollView
-            android:id="@+id/container_write_tool_color"
-            android:layout_width="0dp"
+        <include
+            android:id="@+id/write_color_detail"
+            layout="@layout/write_color"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/space_median"
-            android:elevation="@dimen/common_elevation"
-            app:layout_constraintTop_toTopOf="@id/view_write_tools_background"
+            android:visibility="@{viewmodel.openTool == TextEditTool.Color ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
-            app:layout_constraintStart_toEndOf="@id/btn_write_color_close"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btn_write_color_red"
-                    style="@style/write_tool_color_select"
-                    android:layout_marginStart="@dimen/space_x_small"
-                    android:tint="@color/write_tool_color_red"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Red)}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btn_write_color_orange"
-                    style="@style/write_tool_color_select"
-                    android:tint="@color/write_tool_color_orange"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Orange)}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/btn_write_color_red"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btn_write_color_yellow"
-                    style="@style/write_tool_color_select"
-                    android:tint="@color/write_tool_color_yellow"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Yellow)}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/btn_write_color_orange"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btn_write_color_green"
-                    style="@style/write_tool_color_select"
-                    android:tint="@color/write_tool_color_green"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Green)}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/btn_write_color_yellow"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btn_write_color_sky_blue"
-                    style="@style/write_tool_color_select"
-                    android:tint="@color/write_tool_color_sky"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Sky)}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/btn_write_color_green"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btn_write_color_blue"
-                    style="@style/write_tool_color_select"
-                    android:tint="@color/write_tool_color_blue"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Blue)}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/btn_write_color_sky_blue"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btn_write_color_violet"
-                    style="@style/write_tool_color_select"
-                    android:layout_marginEnd="@dimen/space_x_small"
-                    android:tint="@color/write_tool_color_violet"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Violet)}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/btn_write_color_blue"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </HorizontalScrollView>
+            app:layout_constraintTop_toTopOf="@id/view_write_tools_background"
+            app:viewmodel="@{viewmodel}"
+            tools:visibility="visible" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/group_write_tools"
@@ -279,13 +203,6 @@
             android:layout_height="0dp"
             android:visibility="visible"
             app:constraint_referenced_ids="btn_write_color, btn_write_font, btn_write_align, btn_write_bold, btn_write_underline, btn_write_emoticon, btn_write_picture" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/group_write_tool_color"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="invisible"
-            app:constraint_referenced_ids="btn_write_color_close, container_write_tool_color" />
 
         <jp.wasabeef.richeditor.RichEditor
             android:id="@+id/editor_write"
