@@ -30,7 +30,7 @@
             android:elevation="@dimen/common_elevation"
             android:src="@drawable/ic_write_tool_color_close"
             android:background="@null"
-            android:onClick="@{() -> viewmodel.openToolDetail((TextEditTool) null)}"
+            android:onClick="@{() -> viewmodel.onClickTool((TextEditTool) null)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

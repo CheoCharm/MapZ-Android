@@ -20,10 +20,10 @@ import androidx.navigation.navGraphViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
+import com.cheocharm.presentation.common.TEST_IMAGE_URL
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
 import com.cheocharm.presentation.model.Page
 import com.cheocharm.presentation.model.TextAlign
-import com.cheocharm.presentation.model.TextColor
 import com.cheocharm.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.richeditor.RichEditor
@@ -39,7 +39,6 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
     private lateinit var writeFontAdapter: WriteFontAdapter
     private lateinit var viewPager: ViewPager2
-
     private val onPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
@@ -70,6 +69,8 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         }
     }
 
+    private val stickerAdapter = WriteStickerAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -86,6 +87,12 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
         binding.viewmodel = writeViewModel
 
+        setupToolbar()
+        setupEditor()
+        setupTextColor()
+        setupFont()
+        setupTextAlign()
+
         locationViewModel.result.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
                 Log.d(logTag, "이미지 업로드 성공")
@@ -93,47 +100,6 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             } else {
                 Log.e(logTag, "이미지 업로드 실패: ${it.message}")
             }
-        }
-
-        writeViewModel.textColor.observe(viewLifecycleOwner) {
-            updateTextColor(it)
-        }
-
-        editor = binding.editorWrite.apply {
-            setPlaceholder(getString(R.string.write_editor_placeholder))
-            setOnTextChangeListener {
-                if (it.length > MAX_CONTENT_LENGTH) {
-                    Toast.makeText(
-                        context,
-                        "${MAX_CONTENT_LENGTH}자를 초과할 수 없습니다.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    html = html.dropLast(1)
-                }
-            }
-        }
-
-        with(binding.toolbarWrite) {
-            (activity as MainActivity).setSupportActionBar(this)
-            setNavigationIcon(R.drawable.ic_back)
-            setNavigationOnClickListener {
-                val action = WriteFragmentDirections.actionWriteFragmentToLocationFragment()
-                findNavController().navigate(action)
-            }
-        }
-
-        writeFontAdapter = WriteFontAdapter(this)
-        viewPager = binding.writeFontDetail.vpWriteToolDetail
-        viewPager.adapter = writeFontAdapter
-        viewPager.registerOnPageChangeCallback(onPageChangeCallback)
-
-        writeFontViewModel.selectedFontSize.observe(viewLifecycleOwner) {
-            Log.d(logTag, "글꼴 크기: $it")
-            editor.setFontSize(it.id)
-        }
-
-        writeViewModel.textAlign.observe(viewLifecycleOwner) {
-            setTextAlign(it)
         }
 
         writeViewModel.bold.observe(viewLifecycleOwner) {
@@ -150,10 +116,19 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
         }
 
-        binding.btnWriteEmoticon.setOnClickListener {
+        with(binding.rvWriteSticker) {
+            adapter = stickerAdapter
+            addItemDecoration(
+                WriteStickerItemDecoration(
+                    resources.getDimension(R.dimen.space_x_small).toInt()
+                )
+            )
+        }
+
+        binding.btnWriteSticker.setOnClickListener {
             editor.insertImage(
-                "https://mapz-bucket.s3.ap-northeast-2.amazonaws.com/Mapz/Emoji/IMG_6148.JPG",
-                "emoticon",
+                TEST_IMAGE_URL,
+                "sticker",
                 150
             )
         }
@@ -171,16 +146,62 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         }
     }
 
-    private fun setTextAlign(textAlign: TextAlign) {
-        when (textAlign) {
-            TextAlign.Left -> editor.setAlignLeft()
-            TextAlign.Center -> editor.setAlignCenter()
-            TextAlign.Right -> editor.setAlignRight()
+    private fun setupToolbar() {
+        val toolbarWrite = binding.toolbarWrite.apply {
+            setNavigationIcon(R.drawable.ic_back)
+            setNavigationOnClickListener {
+                val action = WriteFragmentDirections.actionWriteFragmentToLocationFragment()
+                findNavController().navigate(action)
+            }
+        }
+
+        (activity as MainActivity).setSupportActionBar(toolbarWrite)
+    }
+
+    private fun setupEditor() {
+        editor = binding.editorWrite.apply {
+            setPlaceholder(getString(R.string.write_editor_placeholder))
+            setOnTextChangeListener {
+                if (it.length > MAX_CONTENT_LENGTH) {
+                    Toast.makeText(
+                        context,
+                        "${MAX_CONTENT_LENGTH}자를 초과할 수 없습니다.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    html = html.dropLast(1)
+                }
+            }
         }
     }
 
-    private fun updateTextColor(textColor: TextColor) {
-        editor.setTextColor(ResourcesCompat.getColor(resources, textColor.id, null))
+    private fun setupTextColor() {
+        writeViewModel.textColor.observe(viewLifecycleOwner) {
+            editor.setTextColor(ResourcesCompat.getColor(resources, it.id, null))
+        }
+    }
+
+    private fun setupFont() {
+        writeFontAdapter = WriteFontAdapter(this)
+        viewPager = binding.writeFontDetail.vpWriteToolDetail.apply {
+            adapter = writeFontAdapter
+            registerOnPageChangeCallback(onPageChangeCallback)
+        }
+
+        writeFontViewModel.selectedFontSize.observe(viewLifecycleOwner) {
+            Log.d(logTag, "글꼴 크기: $it")
+            editor.setFontSize(it.id)
+        }
+    }
+
+    private fun setupTextAlign() {
+        writeViewModel.textAlign.observe(viewLifecycleOwner) {
+            when (it) {
+                null -> editor.setAlignLeft()
+                TextAlign.Left -> editor.setAlignLeft()
+                TextAlign.Center -> editor.setAlignCenter()
+                TextAlign.Right -> editor.setAlignRight()
+            }
+        }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

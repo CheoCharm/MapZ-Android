@@ -22,6 +22,7 @@
 
     <dimen name="common_icon_size">24dp</dimen>
     <dimen name="common_elevation">4dp</dimen>
+    <dimen name="sub_elevation">2dp</dimen>
     <dimen name="common_divider_height">1.5dp</dimen>
 
     <dimen name="sign_in_top">150dp</dimen>
@@ -67,4 +68,5 @@
     <dimen name="write_font_family_horizontal_padding">7dp</dimen>
     <dimen name="write_font_family_item_vertical_margin">1dp</dimen>
     <dimen name="write_font_size_horizontal_margin">2dp</dimen>
+    <dimen name="write_horizontal_scroll_item_size">90dp</dimen>
 </resources>

@@ -50,7 +50,7 @@
             android:layout_marginEnd="@dimen/space_median"
             android:background="@null"
             android:src="@drawable/ic_write_tool_color_close"
-            android:onClick="@{() -> viewmodel.openToolDetail((TextEditTool) null)}"
+            android:onClick="@{() -> viewmodel.onClickTool((TextEditTool) null)}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
