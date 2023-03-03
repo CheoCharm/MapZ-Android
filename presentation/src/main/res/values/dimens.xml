@@ -55,7 +55,7 @@
     <dimen name="location_selected_location_margin_horizontal">15dp</dimen>
     <dimen name="write_tools_height">50dp</dimen>
     <dimen name="write_tool_close_btn_size">20dp</dimen>
-    <dimen name="write_tool_detail_select_circle_size">30dp</dimen>
+    <dimen name="write_tool_select_circle_size">30dp</dimen>
     <dimen name="write_picture_list_height">122dp</dimen>
     <dimen name="write_tool_detail_width">150dp</dimen>
     <dimen name="write_tool_detail_divider_height">1dp</dimen>

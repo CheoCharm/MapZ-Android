@@ -95,7 +95,7 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
         }
 
-        writeViewModel.editorTextColor.observe(viewLifecycleOwner) {
+        writeViewModel.textColor.observe(viewLifecycleOwner) {
             updateTextColor(it)
         }
 
@@ -136,8 +136,11 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             setTextAlign(it)
         }
 
-        binding.btnWriteBold.setOnClickListener {
-            editor.setBold()
+        writeViewModel.bold.observe(viewLifecycleOwner) {
+            it?.let {
+                editor.focusEditor()
+                editor.setBold()
+            }
         }
 
         binding.btnWriteUnderline.setOnClickListener {

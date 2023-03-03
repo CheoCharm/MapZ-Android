@@ -152,11 +152,16 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_bold"
             style="@style/write_tool"
+            android:backgroundTint="@{viewmodel.bold ? @color/write_tool_detail_theme : @android:color/transparent}"
             android:src="@drawable/ic_write_tool_bold"
+            android:tint="@{viewmodel.bold ? @color/white : @color/grey_dark}"
+            android:onClick="@{() -> viewmodel.setBold()}"
             app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
             app:layout_constraintEnd_toStartOf="@id/btn_write_underline"
             app:layout_constraintStart_toEndOf="@id/btn_write_align"
-            app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
+            app:layout_constraintTop_toTopOf="@id/view_write_tools_background"
+            tools:backgroundTint="@color/write_tool_detail_theme"
+            tools:tint="@color/white" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_underline"
@@ -195,14 +200,7 @@
             app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
             app:layout_constraintTop_toTopOf="@id/view_write_tools_background"
             app:viewmodel="@{viewmodel}"
-            tools:visibility="visible" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/group_write_tools"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="visible"
-            app:constraint_referenced_ids="btn_write_color, btn_write_font, btn_write_align, btn_write_bold, btn_write_underline, btn_write_emoticon, btn_write_picture" />
+            tools:visibility="invisible" />
 
         <jp.wasabeef.richeditor.RichEditor
             android:id="@+id/editor_write"

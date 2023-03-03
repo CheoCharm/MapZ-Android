@@ -19,8 +19,8 @@
 
         <ImageButton
             android:id="@+id/btn_write_align_left"
-            android:layout_width="@dimen/write_tool_detail_select_circle_size"
-            android:layout_height="@dimen/write_tool_detail_select_circle_size"
+            android:layout_width="@dimen/write_tool_select_circle_size"
+            android:layout_height="@dimen/write_tool_select_circle_size"
             android:layout_marginStart="@dimen/space_median"
             android:background="@{viewmodel.textAlign == TextAlign.Left ? @drawable/bg_round : null}"
             android:backgroundTint="@{viewmodel.textAlign == TextAlign.Left ? @color/write_tool_detail_theme : @color/white}"
@@ -38,8 +38,8 @@
 
         <ImageButton
             android:id="@+id/btn_write_align_center"
-            android:layout_width="@dimen/write_tool_detail_select_circle_size"
-            android:layout_height="@dimen/write_tool_detail_select_circle_size"
+            android:layout_width="@dimen/write_tool_select_circle_size"
+            android:layout_height="@dimen/write_tool_select_circle_size"
             android:background="@{viewmodel.textAlign == TextAlign.Center ? @drawable/bg_round : null}"
             android:backgroundTint="@{viewmodel.textAlign == TextAlign.Center ? @color/write_tool_detail_theme : @color/white}"
             android:contentDescription="@string/write_align_center"
@@ -53,8 +53,8 @@
 
         <ImageButton
             android:id="@+id/btn_write_align_right"
-            android:layout_width="@dimen/write_tool_detail_select_circle_size"
-            android:layout_height="@dimen/write_tool_detail_select_circle_size"
+            android:layout_width="@dimen/write_tool_select_circle_size"
+            android:layout_height="@dimen/write_tool_select_circle_size"
             android:layout_marginEnd="@dimen/space_median"
             android:background="@{viewmodel.textAlign == TextAlign.Right ? @drawable/bg_round : null}"
             android:backgroundTint="@{viewmodel.textAlign == TextAlign.Right ? @color/write_tool_detail_theme : @color/white}"

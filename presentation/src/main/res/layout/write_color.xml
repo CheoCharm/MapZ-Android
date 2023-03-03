@@ -55,7 +55,7 @@
                     style="@style/write_tool_color_select"
                     android:layout_marginStart="@dimen/space_x_small"
                     android:tint="@color/write_tool_color_red"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Red)}"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Red)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -64,7 +64,7 @@
                     android:id="@+id/btn_write_color_orange"
                     style="@style/write_tool_color_select"
                     android:tint="@color/write_tool_color_orange"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Orange)}"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Orange)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btn_write_color_red"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -73,7 +73,7 @@
                     android:id="@+id/btn_write_color_yellow"
                     style="@style/write_tool_color_select"
                     android:tint="@color/write_tool_color_yellow"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Yellow)}"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Yellow)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btn_write_color_orange"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -82,7 +82,7 @@
                     android:id="@+id/btn_write_color_green"
                     style="@style/write_tool_color_select"
                     android:tint="@color/write_tool_color_green"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Green)}"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Green)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btn_write_color_yellow"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -91,7 +91,7 @@
                     android:id="@+id/btn_write_color_sky_blue"
                     style="@style/write_tool_color_select"
                     android:tint="@color/write_tool_color_sky"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Sky)}"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Sky)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btn_write_color_green"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -100,7 +100,7 @@
                     android:id="@+id/btn_write_color_blue"
                     style="@style/write_tool_color_select"
                     android:tint="@color/write_tool_color_blue"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Blue)}"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Blue)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btn_write_color_sky_blue"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -110,7 +110,7 @@
                     style="@style/write_tool_color_select"
                     android:layout_marginEnd="@dimen/space_x_small"
                     android:tint="@color/write_tool_color_violet"
-                    android:onClick="@{() -> viewmodel.setTextColor(TextColor.Violet)}"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Violet)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/btn_write_color_blue"

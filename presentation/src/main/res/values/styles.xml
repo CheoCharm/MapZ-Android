@@ -27,15 +27,16 @@
     </style>
 
     <style name="write_tool">
-        <item name="android:layout_width">@dimen/common_icon_size</item>
-        <item name="android:layout_height">@dimen/common_icon_size</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:layout_width">@dimen/write_tool_select_circle_size</item>
+        <item name="android:layout_height">@dimen/write_tool_select_circle_size</item>
+        <item name="android:background">@drawable/bg_round</item>
         <item name="android:elevation">@dimen/common_elevation</item>
+        <item name="android:padding">3dp</item>
     </style>
 
     <style name="write_tool_color_select">
-        <item name="android:layout_width">@dimen/write_tool_detail_select_circle_size</item>
-        <item name="android:layout_height">@dimen/write_tool_detail_select_circle_size</item>
+        <item name="android:layout_width">@dimen/write_tool_select_circle_size</item>
+        <item name="android:layout_height">@dimen/write_tool_select_circle_size</item>
         <item name="android:layout_marginStart">@dimen/space_large</item>
         <item name="android:src">@drawable/ic_write_tool_color_select</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
@@ -70,8 +71,8 @@
     </style>
 
     <style name="write_font_size_item">
-        <item name="android:layout_width">@dimen/write_tool_detail_select_circle_size</item>
-        <item name="android:layout_height">@dimen/write_tool_detail_select_circle_size</item>
+        <item name="android:layout_width">@dimen/write_tool_select_circle_size</item>
+        <item name="android:layout_height">@dimen/write_tool_select_circle_size</item>
         <item name="android:gravity">center</item>
     </style>
 
