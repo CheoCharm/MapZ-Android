@@ -8,6 +8,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="viewmodel"
+            type="com.cheocharm.presentation.ui.write.WriteViewModel" />
+
+        <variable
             name="title"
             type="String" />
 
@@ -73,6 +77,7 @@
             android:layout_marginTop="@dimen/write_tool_detail_divider_bottom_margin"
             android:layout_marginBottom="@dimen/space_x_small"
             android:visibility="@{page == 0 ? View.VISIBLE : View.GONE}"
+            app:viewmodel="@{viewmodel}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_write_tool_detail_divider"
             tools:visibility="gone" />

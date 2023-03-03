@@ -133,6 +133,7 @@
             style="@style/write_tool_detail"
             app:title="@{@string/write_align_title}"
             app:page="@{0}"
+            app:viewmodel="@{viewmodel}"
             app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
             app:layout_constraintStart_toStartOf="@id/btn_write_align"
             app:layout_constraintEnd_toEndOf="@id/btn_write_align" />
@@ -174,6 +175,7 @@
             app:layout_constraintStart_toEndOf="@id/btn_write_emoticon"
             app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
 
+        <!-- TODO: include로 구현 -->
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_color_close"
             android:layout_width="@dimen/write_tool_close_btn_size"

@@ -24,6 +24,7 @@ import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
 import com.cheocharm.presentation.model.FontSize
 import com.cheocharm.presentation.model.Page
+import com.cheocharm.presentation.model.TextAlign
 import com.cheocharm.presentation.model.TextColor
 import com.cheocharm.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -150,16 +151,7 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
         writeFontViewModel.selectedFontSize.observe(viewLifecycleOwner) {
             Log.d(logTag, "글꼴 크기: $it")
-
-            val htmlFontSize = when (it) {
-                FontSize.Ten -> 1
-                FontSize.Twelve -> 2
-                FontSize.Fourteen -> 3
-                FontSize.Sixteen -> 4
-                else -> 2
-            }
-
-            editor.setFontSize(htmlFontSize)
+            editor.setFontSize(it.id)
         }
 
         binding.writeFontDetail.btnToolDetailClose.setOnClickListener {
@@ -171,6 +163,10 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         binding.btnWriteAlign.setOnClickListener {
             alignDetailView.isVisible = alignDetailView.isVisible.not()
             editor.setAlignCenter()
+        }
+
+        writeViewModel.textAlign.observe(viewLifecycleOwner) {
+            setTextAlign(it)
         }
 
         binding.writeAlignDetail.btnToolDetailClose.setOnClickListener {
@@ -203,6 +199,14 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             } else {
                 Toast.makeText(context, "일기 작성 실패", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun setTextAlign(textAlign: TextAlign) {
+        when (textAlign) {
+            TextAlign.Left -> editor.setAlignLeft()
+            TextAlign.Center -> editor.setAlignCenter()
+            TextAlign.Right -> editor.setAlignRight()
         }
     }
 
