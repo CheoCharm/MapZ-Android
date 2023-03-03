@@ -183,6 +183,7 @@
             android:layout_marginStart="@dimen/space_median"
             android:elevation="@dimen/common_elevation"
             android:src="@drawable/ic_write_tool_color_close"
+            android:background="@null"
             app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
