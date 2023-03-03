@@ -166,7 +166,10 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_underline"
             style="@style/write_tool"
+            android:backgroundTint="@{viewmodel.underline ? @color/write_tool_detail_theme : @android:color/transparent}"
             android:src="@drawable/ic_write_tool_underline"
+            android:tint="@{viewmodel.underline ? @color/white : @color/grey_dark}"
+            android:onClick="@{() -> viewmodel.setUnderline()}"
             app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
             app:layout_constraintEnd_toStartOf="@id/btn_write_emoticon"
             app:layout_constraintStart_toEndOf="@id/btn_write_bold"

@@ -143,8 +143,11 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
         }
 
-        binding.btnWriteUnderline.setOnClickListener {
-            editor.setUnderline()
+        writeViewModel.underline.observe(viewLifecycleOwner) {
+            it?.let {
+                editor.focusEditor()
+                editor.setUnderline()
+            }
         }
 
         binding.btnWriteEmoticon.setOnClickListener {
