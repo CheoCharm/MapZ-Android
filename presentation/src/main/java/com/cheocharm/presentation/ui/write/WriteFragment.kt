@@ -22,6 +22,7 @@ import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
 import com.cheocharm.presentation.model.Page
+import com.cheocharm.presentation.model.Sticker
 import com.cheocharm.presentation.model.TextAlign
 import com.cheocharm.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -102,6 +103,10 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
         }
 
+        locationViewModel.stickers.observe(viewLifecycleOwner) {
+            rvWriteSticker.adapter = WriteStickerAdapter(it, ::onStickerClickListener)
+        }
+
         writeViewModel.bold.observe(viewLifecycleOwner) {
             it?.let {
                 editor.focusEditor()
@@ -116,7 +121,6 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
         }
 
-        rvWriteSticker.adapter = WriteStickerAdapter(::onStickerClickListener)
         rvWriteSticker.addItemDecoration(
             WriteImageItemDecoration(
                 resources.getDimension(R.dimen.space_x_small).toInt()
@@ -196,11 +200,11 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         }
     }
 
-    private fun onStickerClickListener(position: Int) {
+    private fun onStickerClickListener(sticker: Sticker) {
         editor.focusEditor()
         editor.insertImage(
-            "",
-            "sticker $position",
+            sticker.url,
+            sticker.name,
             150
         )
     }
