@@ -20,7 +20,6 @@ import androidx.navigation.navGraphViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
-import com.cheocharm.presentation.common.TEST_IMAGE_URL
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
 import com.cheocharm.presentation.model.Page
 import com.cheocharm.presentation.model.TextAlign
@@ -69,8 +68,6 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         }
     }
 
-    private val stickerAdapter = WriteStickerAdapter()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -117,19 +114,11 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         }
 
         with(binding.rvWriteSticker) {
-            adapter = stickerAdapter
+            adapter = WriteStickerAdapter(::onStickerClickListener)
             addItemDecoration(
                 WriteStickerItemDecoration(
                     resources.getDimension(R.dimen.space_x_small).toInt()
                 )
-            )
-        }
-
-        binding.btnWriteSticker.setOnClickListener {
-            editor.insertImage(
-                TEST_IMAGE_URL,
-                "sticker",
-                150
             )
         }
 
@@ -202,6 +191,15 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
                 TextAlign.Right -> editor.setAlignRight()
             }
         }
+    }
+
+    private fun onStickerClickListener(position: Int) {
+        editor.focusEditor()
+        editor.insertImage(
+            WriteStickerAdapter.stickerUrls[position],
+            "sticker $position",
+            150
+        )
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
