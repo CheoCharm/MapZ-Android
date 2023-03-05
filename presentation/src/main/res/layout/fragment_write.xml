@@ -79,6 +79,16 @@
             app:layout_constraintStart_toEndOf="@id/guideline_write_start"
             app:layout_constraintEnd_toStartOf="@id/guideline_write_end" />
 
+        <jp.wasabeef.richeditor.RichEditor
+            android:id="@+id/editor_write"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/space_median"
+            app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
+            app:layout_constraintTop_toBottomOf="@id/view_write_line"
+            app:layout_constraintStart_toEndOf="@id/guideline_write_start"
+            app:layout_constraintEnd_toStartOf="@id/guideline_write_end" />
+
         <View
             android:id="@+id/view_write_tools_background"
             android:layout_width="match_parent"
@@ -98,6 +108,17 @@
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
+
+        <include
+            android:id="@+id/write_color_detail"
+            layout="@layout/write_color"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="@{viewmodel.openTool == TextEditTool.Color ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
+            app:layout_constraintTop_toTopOf="@id/view_write_tools_background"
+            app:viewmodel="@{viewmodel}"
+            tools:visibility="invisible" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_font"
@@ -186,37 +207,6 @@
             app:layout_constraintStart_toEndOf="@id/btn_write_underline"
             app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_write_picture"
-            style="@style/write_tool"
-            android:layout_marginEnd="@dimen/space_large"
-            android:src="@drawable/ic_write_tool_image"
-            app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_write_sticker"
-            app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
-
-        <include
-            android:id="@+id/write_color_detail"
-            layout="@layout/write_color"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="@{viewmodel.openTool == TextEditTool.Color ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
-            app:layout_constraintTop_toTopOf="@id/view_write_tools_background"
-            app:viewmodel="@{viewmodel}"
-            tools:visibility="invisible" />
-
-        <jp.wasabeef.richeditor.RichEditor
-            android:id="@+id/editor_write"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/space_median"
-            app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
-            app:layout_constraintTop_toBottomOf="@id/view_write_line"
-            app:layout_constraintStart_toEndOf="@id/guideline_write_start"
-            app:layout_constraintEnd_toStartOf="@id/guideline_write_end" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_write_sticker"
             android:layout_width="match_parent"
@@ -233,27 +223,38 @@
             app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/item_write_sticker" />
+            tools:listitem="@layout/item_write_image"
+            tools:visibility="invisible" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="@dimen/write_picture_list_height"
-            android:background="@color/write_picture_list_background"
-            android:visibility="invisible"
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_write_picture"
+            style="@style/write_tool"
+            android:layout_marginEnd="@dimen/space_large"
+            android:src="@drawable/ic_write_tool_image"
+            android:tint="@{viewmodel.openTool == TextEditTool.Image ? @color/write_tool_detail_theme : @color/grey_dark}"
+            android:onClick="@{() -> viewmodel.onClickTool(TextEditTool.Image)}"
+            app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_write_sticker"
+            app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_write_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/write_image_list_background"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/space_median"
+            android:clipToPadding="false"
+            android:visibility="@{viewmodel.openTool == TextEditTool.Image ? View.VISIBLE : View.INVISIBLE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/item_write_image"
+            tools:visibility="visible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

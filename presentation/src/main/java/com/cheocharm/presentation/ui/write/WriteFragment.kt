@@ -34,7 +34,6 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
     val writeFontViewModel: WriteFontViewModel by viewModels()
 
     private lateinit var editor: RichEditor
-    private var diaryId: Long? = null
 
     private lateinit var writeFontAdapter: WriteFontAdapter
     private lateinit var viewPager: ViewPager2
@@ -84,6 +83,9 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
         binding.viewmodel = writeViewModel
 
+        val rvWriteImage = binding.rvWriteImage
+        val rvWriteSticker = binding.rvWriteSticker
+
         setupToolbar()
         setupEditor()
         setupTextColor()
@@ -91,10 +93,11 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         setupTextAlign()
 
         locationViewModel.result.observe(viewLifecycleOwner) {
-            if (it.isSuccessful) {
-                Log.d(logTag, "이미지 업로드 성공")
-                diaryId = it.data
+            if (it.isSuccessful && it.data != null) {
+                Log.d(logTag, "이미지 ${it.data.imageUrls.size}개 업로드 성공")
+                rvWriteImage.adapter = WriteImageAdapter(it.data.imageUrls, ::onImageClickListener)
             } else {
+                // TODO: LocationFragment에서 이미지 업로드 실패 처리
                 Log.e(logTag, "이미지 업로드 실패: ${it.message}")
             }
         }
@@ -113,18 +116,18 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
         }
 
-        with(binding.rvWriteSticker) {
-            adapter = WriteStickerAdapter(::onStickerClickListener)
-            addItemDecoration(
-                WriteStickerItemDecoration(
-                    resources.getDimension(R.dimen.space_x_small).toInt()
-                )
+        rvWriteSticker.adapter = WriteStickerAdapter(::onStickerClickListener)
+        rvWriteSticker.addItemDecoration(
+            WriteImageItemDecoration(
+                resources.getDimension(R.dimen.space_x_small).toInt()
             )
-        }
+        )
 
-        binding.btnWritePicture.setOnClickListener {
-            // TODO: 사진 목록
-        }
+        rvWriteImage.addItemDecoration(
+            WriteImageItemDecoration(
+                resources.getDimension(R.dimen.space_x_small).toInt()
+            )
+        )
 
         writeViewModel.result.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
@@ -196,8 +199,17 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
     private fun onStickerClickListener(position: Int) {
         editor.focusEditor()
         editor.insertImage(
-            WriteStickerAdapter.stickerUrls[position],
+            "",
             "sticker $position",
+            150
+        )
+    }
+
+    private fun onImageClickListener(imageUrl: String) {
+        editor.focusEditor()
+        editor.insertImage(
+            imageUrl,
+            imageUrl,
             150
         )
     }

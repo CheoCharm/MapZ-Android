@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cheocharm.domain.model.AttachedImages
 import com.cheocharm.domain.model.WriteImageRequest
 import com.cheocharm.domain.usecase.write.RequestWriteImagesUseCase
 import com.cheocharm.presentation.model.Result
@@ -16,8 +17,8 @@ import javax.inject.Inject
 class LocationViewModel @Inject constructor(
     private val requestWriteImagesUseCase: RequestWriteImagesUseCase
 ) : ViewModel() {
-    private val _result = MutableLiveData<Result<Long>>()
-    val result: LiveData<Result<Long>> = _result
+    private val _result = MutableLiveData<Result<AttachedImages>>()
+    val result: LiveData<Result<AttachedImages>> = _result
 
     fun uploadImages(
         groupId: Long,
@@ -36,7 +37,7 @@ class LocationViewModel @Inject constructor(
                     images
                 )
             ).onSuccess {
-                _result.value = Result(true, data = it.diaryId)
+                _result.value = Result(true, data = it)
             }.onFailure {
                 _result.value = Result(false, it.message)
             }

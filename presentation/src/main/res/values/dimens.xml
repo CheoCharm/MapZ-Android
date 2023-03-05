@@ -68,5 +68,5 @@
     <dimen name="write_font_family_horizontal_padding">7dp</dimen>
     <dimen name="write_font_family_item_vertical_margin">1dp</dimen>
     <dimen name="write_font_size_horizontal_margin">2dp</dimen>
-    <dimen name="write_horizontal_scroll_item_size">90dp</dimen>
+    <dimen name="write_image_item_size">90dp</dimen>
 </resources>

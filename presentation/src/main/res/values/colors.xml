@@ -46,7 +46,7 @@
     <color name="write_tool_color_blue">#61A0FF</color>
     <color name="write_tool_color_violet">#9D61FF</color>
     <color name="write_tool_detail_theme">#ED4E38</color>
-    <color name="write_picture_list_background">#525252</color>
+    <color name="write_image_list_background">#525252</color>
 
     <color name="sign_up_profile_icon">@color/grey_dark</color>
 
