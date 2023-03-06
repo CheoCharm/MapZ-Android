@@ -1,5 +1,6 @@
 package com.cheocharm.presentation.ui.write
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,6 +25,7 @@ import com.cheocharm.presentation.databinding.FragmentWriteBinding
 import com.cheocharm.presentation.model.Page
 import com.cheocharm.presentation.model.Sticker
 import com.cheocharm.presentation.model.TextAlign
+import com.cheocharm.presentation.ui.DiaryActivity
 import com.cheocharm.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.richeditor.RichEditor
@@ -35,6 +37,7 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
     val writeFontViewModel: WriteFontViewModel by viewModels()
 
     private lateinit var editor: RichEditor
+    private var diaryId: Long? = null
 
     private lateinit var writeFontAdapter: WriteFontAdapter
     private lateinit var viewPager: ViewPager2
@@ -95,11 +98,8 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
         locationViewModel.result.observe(viewLifecycleOwner) {
             if (it.isSuccessful && it.data != null) {
-                Log.d(logTag, "이미지 ${it.data.imageUrls.size}개 업로드 성공")
+                diaryId = it.data.diaryId
                 rvWriteImage.adapter = WriteImageAdapter(it.data.imageUrls, ::onImageClickListener)
-            } else {
-                // TODO: LocationFragment에서 이미지 업로드 실패 처리
-                Log.e(logTag, "이미지 업로드 실패: ${it.message}")
             }
         }
 
@@ -124,6 +124,9 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         writeViewModel.result.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
                 Toast.makeText(context, "일기 작성 성공", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(activity, DiaryActivity::class.java)
+                startActivity(intent)
             } else {
                 Toast.makeText(context, "일기 작성 실패", Toast.LENGTH_SHORT).show()
             }
@@ -216,17 +219,15 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.menu_base_confirm -> {
-                // TODO: 일기 작성 완료 화면으로 이동
+                Log.d(logTag, editor.html ?: "")
 
-                // TODO: 테스트 완료 후 복구
-                Log.d(logTag, editor.html.toString())
-//                diaryId?.let {
-//                    writeViewModel.writeDiary(
-//                        it,
-//                        binding.etWriteTitle.text.toString(),
-//                        editor.html ?: ""
-//                    )
-//                }
+                diaryId?.let {
+                    writeViewModel.writeDiary(
+                        it,
+                        binding.etWriteTitle.text.toString(),
+                        editor.html ?: ""
+                    )
+                }
 
                 true
             }

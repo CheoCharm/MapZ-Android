@@ -24,6 +24,8 @@
             android:name="com.cheocharm.presentation.ui.MainActivity"
             android:exported="true" />
 
+        <activity android:name="com.cheocharm.presentation.ui.DiaryActivity" />
+
         <activity
             android:name="com.cheocharm.presentation.ui.login.SignActivity"
             android:exported="true"

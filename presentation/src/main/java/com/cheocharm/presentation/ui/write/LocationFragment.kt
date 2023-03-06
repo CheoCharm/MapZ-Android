@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
@@ -100,6 +101,15 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 }
             }
         }
+
+        locationViewModel.result.observe(viewLifecycleOwner) {
+            if (it.isSuccessful) {
+                val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
+                findNavController().navigate(action)
+            } else if (it != null) {
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -114,9 +124,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.menu_base_confirm -> {
-                val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
-                findNavController().navigate(action)
-
                 file?.let {
                     locationViewModel.uploadImages(
                         TEST_GROUP_ID,
