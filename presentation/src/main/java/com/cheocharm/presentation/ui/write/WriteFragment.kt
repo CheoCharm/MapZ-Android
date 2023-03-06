@@ -31,7 +31,7 @@ import jp.wasabeef.richeditor.RichEditor
 @AndroidEntryPoint
 class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write), MenuProvider {
     private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.write)
-    private val writeViewModel: WriteViewModel by navGraphViewModels(R.id.write) { defaultViewModelProviderFactory }
+    private val writeViewModel: WriteViewModel by viewModels()
     val writeFontViewModel: WriteFontViewModel by viewModels()
 
     private lateinit var editor: RichEditor
