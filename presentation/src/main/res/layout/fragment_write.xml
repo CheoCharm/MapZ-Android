@@ -62,6 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_x_small"
             android:background="@null"
+            android:inputType="text"
+            android:maxLines="1"
             android:textSize="@dimen/text_s_large"
             android:hint="@string/write_title_hint"
             android:maxLength="20"
@@ -162,12 +164,12 @@
             android:tint="@{viewmodel.openTool == TextEditTool.Sticker ? @color/write_tool_detail_theme : @color/grey_dark}"
             android:onClick="@{() -> viewmodel.onClickTool(TextEditTool.Sticker)}"
             app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
-            app:layout_constraintEnd_toStartOf="@id/btn_write_picture"
+            app:layout_constraintEnd_toStartOf="@id/btn_write_image"
             app:layout_constraintStart_toEndOf="@id/btn_write_underline"
             app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_write_picture"
+            android:id="@+id/btn_write_image"
             style="@style/write_tool"
             android:layout_marginEnd="@dimen/space_large"
             android:src="@drawable/ic_write_tool_image"
