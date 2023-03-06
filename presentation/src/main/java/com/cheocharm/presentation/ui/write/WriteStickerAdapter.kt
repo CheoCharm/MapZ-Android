@@ -18,13 +18,13 @@ class WriteStickerAdapter(
         val imageView: ImageView
 
         init {
-            imageView = view.findViewById(R.id.iv_write_image_item)
+            imageView = view.findViewById(R.id.iv_write_sticker_item)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_write_image, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_write_sticker, parent, false)
 
         return ViewHolder(view)
     }

@@ -223,8 +223,8 @@
             app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/item_write_image"
-            tools:visibility="invisible" />
+            tools:listitem="@layout/item_write_sticker"
+            tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_picture"
@@ -254,7 +254,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/item_write_image"
-            tools:visibility="visible"/>
+            tools:visibility="invisible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
