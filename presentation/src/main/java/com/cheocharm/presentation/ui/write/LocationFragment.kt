@@ -62,11 +62,12 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         }
 
         with(binding.toolbarLocation) {
-            (activity as MainActivity).setSupportActionBar(this)
+            val mainActivity = activity as MainActivity
+
+            mainActivity.setSupportActionBar(this)
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-                val action = LocationFragmentDirections.actionLocationFragmentToPictureFragment()
-                findNavController().navigate(action)
+                mainActivity.onBackPressed()
             }
         }
 

@@ -139,16 +139,15 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
     }
 
     private fun setupToolbar() {
+        val mainActivity = activity as MainActivity
         val toolbarWrite = binding.toolbarWrite
 
-        (activity as MainActivity).setSupportActionBar(toolbarWrite)
+        mainActivity.setSupportActionBar(toolbarWrite)
 
         with(toolbarWrite) {
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-                Log.d(logTag, "navigationOnClick 호출")
-                val action = WriteFragmentDirections.actionWriteFragmentToLocationFragment()
-                findNavController().navigate(action)
+                mainActivity.onBackPressed()
             }
         }
     }

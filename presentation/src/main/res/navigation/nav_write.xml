@@ -32,9 +32,6 @@
         android:label="LocationFragment"
         tools:layout="@layout/fragment_location">
         <action
-            android:id="@+id/action_locationFragment_to_pictureFragment"
-            app:destination="@id/pictureFragment" />
-        <action
             android:id="@+id/action_locationFragment_to_writeFragment"
             app:destination="@id/writeFragment" />
     </fragment>
@@ -42,10 +39,6 @@
         android:id="@+id/writeFragment"
         android:name="com.cheocharm.presentation.ui.write.WriteFragment"
         android:label="WriteFragment"
-        tools:layout="@layout/fragment_write" >
-        <action
-            android:id="@+id/action_writeFragment_to_locationFragment"
-            app:destination="@id/locationFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_write" />
 
 </navigation>
