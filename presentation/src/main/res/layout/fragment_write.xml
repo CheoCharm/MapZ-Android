@@ -109,17 +109,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
 
-        <include
-            android:id="@+id/write_color_detail"
-            layout="@layout/write_color"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="@{viewmodel.openTool == TextEditTool.Color ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
-            app:layout_constraintTop_toTopOf="@id/view_write_tools_background"
-            app:viewmodel="@{viewmodel}"
-            tools:visibility="invisible" />
-
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_font"
             style="@style/write_tool"
@@ -130,21 +119,6 @@
             app:layout_constraintStart_toEndOf="@id/btn_write_color"
             app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
 
-        <include
-            android:id="@+id/write_font_detail"
-            layout="@layout/write_tool_detail"
-            android:layout_width="@dimen/write_tool_detail_width"
-            android:layout_height="wrap_content"
-            style="@style/write_tool_detail"
-            android:visibility="@{viewmodel.openTool == TextEditTool.Font ? View.VISIBLE : View.INVISIBLE}"
-            app:title="@{viewmodel.page.title}"
-            app:page="@{viewmodel.page.id}"
-            app:viewmodel="@{viewmodel}"
-            app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
-            app:layout_constraintStart_toStartOf="@id/btn_write_font"
-            app:layout_constraintEnd_toEndOf="@id/btn_write_font"
-            tools:visibility="invisible" />
-
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_align"
             style="@style/write_tool"
@@ -154,21 +128,6 @@
             app:layout_constraintEnd_toStartOf="@id/btn_write_bold"
             app:layout_constraintStart_toEndOf="@id/btn_write_font"
             app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
-
-        <include
-            android:id="@+id/write_align_detail"
-            layout="@layout/write_tool_detail"
-            android:layout_width="@dimen/write_tool_detail_width"
-            android:layout_height="wrap_content"
-            style="@style/write_tool_detail"
-            android:visibility="@{viewmodel.openTool == TextEditTool.Align ? View.VISIBLE : View.INVISIBLE}"
-            app:title="@{@string/write_align_title}"
-            app:page="@{0}"
-            app:viewmodel="@{viewmodel}"
-            app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
-            app:layout_constraintStart_toStartOf="@id/btn_write_align"
-            app:layout_constraintEnd_toEndOf="@id/btn_write_align"
-            tools:visibility="invisible" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_write_bold"
@@ -207,6 +166,59 @@
             app:layout_constraintStart_toEndOf="@id/btn_write_underline"
             app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_write_picture"
+            style="@style/write_tool"
+            android:layout_marginEnd="@dimen/space_large"
+            android:src="@drawable/ic_write_tool_image"
+            android:tint="@{viewmodel.openTool == TextEditTool.Image ? @color/write_tool_detail_theme : @color/grey_dark}"
+            android:onClick="@{() -> viewmodel.onClickTool(TextEditTool.Image)}"
+            app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_write_sticker"
+            app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
+
+        <include
+            android:id="@+id/write_color_detail"
+            layout="@layout/write_color"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="@{viewmodel.openTool == TextEditTool.Color ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
+            app:layout_constraintTop_toTopOf="@id/view_write_tools_background"
+            app:viewmodel="@{viewmodel}"
+            tools:visibility="invisible" />
+
+        <include
+            android:id="@+id/write_font_detail"
+            layout="@layout/write_tool_detail"
+            android:layout_width="@dimen/write_tool_detail_width"
+            android:layout_height="wrap_content"
+            style="@style/write_tool_detail"
+            android:visibility="@{viewmodel.openTool == TextEditTool.Font ? View.VISIBLE : View.INVISIBLE}"
+            app:title="@{viewmodel.page.title}"
+            app:page="@{viewmodel.page.id}"
+            app:viewmodel="@{viewmodel}"
+            app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
+            app:layout_constraintStart_toStartOf="@id/btn_write_font"
+            app:layout_constraintEnd_toEndOf="@id/btn_write_font"
+            tools:visibility="invisible" />
+
+        <include
+            android:id="@+id/write_align_detail"
+            layout="@layout/write_tool_detail"
+            android:layout_width="@dimen/write_tool_detail_width"
+            android:layout_height="wrap_content"
+            style="@style/write_tool_detail"
+            android:visibility="@{viewmodel.openTool == TextEditTool.Align ? View.VISIBLE : View.INVISIBLE}"
+            app:title="@{@string/write_align_title}"
+            app:page="@{0}"
+            app:viewmodel="@{viewmodel}"
+            app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
+            app:layout_constraintStart_toStartOf="@id/btn_write_align"
+            app:layout_constraintEnd_toEndOf="@id/btn_write_align"
+            tools:visibility="invisible" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_write_sticker"
             android:layout_width="match_parent"
@@ -226,18 +238,6 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/item_write_sticker"
             tools:visibility="visible" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_write_picture"
-            style="@style/write_tool"
-            android:layout_marginEnd="@dimen/space_large"
-            android:src="@drawable/ic_write_tool_image"
-            android:tint="@{viewmodel.openTool == TextEditTool.Image ? @color/write_tool_detail_theme : @color/grey_dark}"
-            android:onClick="@{() -> viewmodel.onClickTool(TextEditTool.Image)}"
-            app:layout_constraintBottom_toBottomOf="@id/view_write_tools_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_write_sticker"
-            app:layout_constraintTop_toTopOf="@id/view_write_tools_background" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_write_image"
