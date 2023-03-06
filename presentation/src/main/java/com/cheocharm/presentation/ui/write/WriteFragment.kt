@@ -97,9 +97,14 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         setupTextAlign()
 
         locationViewModel.result.observe(viewLifecycleOwner) {
-            if (it.isSuccessful && it.data != null) {
-                diaryId = it.data.diaryId
-                rvWriteImage.adapter = WriteImageAdapter(it.data.imageUrls, ::onImageClickListener)
+            it?.let { result ->
+                if (result.isSuccessful) {
+                    result.data?.let { data ->
+                        diaryId = data.diaryId
+                        rvWriteImage.adapter =
+                            WriteImageAdapter(data.imageUrls, ::onImageClickListener)
+                    }
+                }
             }
         }
 
@@ -127,7 +132,7 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
                 val intent = Intent(activity, DiaryActivity::class.java)
                 startActivity(intent)
-            } else {
+            } else if (it.isSuccessful.not()) {
                 Toast.makeText(context, "일기 작성 실패", Toast.LENGTH_SHORT).show()
             }
         }

@@ -21,6 +21,7 @@ import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.util.UriUtil
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
@@ -74,45 +75,54 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
         val mapFragment =
             requireActivity().supportFragmentManager.findFragmentById(R.id.fragment_main_map) as? SupportMapFragment
-        mapFragment?.getMapAsync { map ->
-            map.setOnMapLoadedCallback {
-                pictureViewModel.picture.observe(viewLifecycleOwner) { picture ->
-                    picture?.let {
-                        picturesAdapter.submitList(listOf(it))
+        mapFragment?.getMapAsync {
+            it.setOnMapLoadedCallback {
+                // TODO: 마커 생성
+            }
+        }
 
-                        address = it.address
-                        location = it.latLng
+        pictureViewModel.picture.observe(viewLifecycleOwner) { picture ->
+            picture?.let { pic ->
+                picturesAdapter.submitList(listOf(pic))
 
-                        activity?.applicationContext?.let { context ->
-                            file = UriUtil.getFileFromUri(context, it.uri)
-                        }
+                address = pic.address
+                location = pic.latLng
 
-                        val selectedLocation = it.latLng
-                        if (selectedLocation != null) {
-                            val markerOptions = MarkerOptions()
-                                .position(selectedLocation)
-                                .draggable(true)
-                            draggableMarker = map.addMarker(markerOptions)
-                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 15F))
-                        } else {
-                            // TODO: 사진에 장소 정보가 없으면 기본 위치로 카메라 이동
-                        }
-                    }
+                activity?.applicationContext?.let { context ->
+                    file = UriUtil.getFileFromUri(context, pic.uri)
                 }
+
+//                val selectedLocation = pic.latLng
+//                if (selectedLocation != null) {
+//                    val markerOptions = MarkerOptions()
+//                        .position(selectedLocation)
+//                        .draggable(true)
+//                    draggableMarker = it.addMarker(markerOptions)
+//                    it.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 15F))
+//                } else {
+//                    // TODO: 사진에 장소 정보가 없으면 기본 위치로 카메라 이동
+//                }
             }
         }
 
         locationViewModel.result.observe(viewLifecycleOwner) {
-            if (it.isSuccessful) {
-                val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
-                findNavController().navigate(action)
-            } else if (it != null) {
-                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+            if (locationViewModel.updated) {
+                it?.let { result ->
+                    if (result.isSuccessful) {
+                        val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
+                        findNavController().navigate(action)
+
+                        locationViewModel.updated = false
+                    } else {
+                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
 
     override fun onDestroyView() {
+        locationViewModel.updated = false
         draggableMarker?.remove()
         super.onDestroyView()
     }

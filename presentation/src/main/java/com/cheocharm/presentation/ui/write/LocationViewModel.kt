@@ -21,6 +21,8 @@ class LocationViewModel @Inject constructor(
     private val _result = MutableLiveData<Result<AttachedImages>>()
     val result: LiveData<Result<AttachedImages>> = _result
 
+    var updated = false
+
     private val _stickers = MutableLiveData(testStickers)
     val stickers: LiveData<List<Sticker>> = _stickers
 
@@ -32,6 +34,12 @@ class LocationViewModel @Inject constructor(
         images: List<File>
     ) {
         viewModelScope.launch {
+            updated = true
+
+            // 테스트
+//            _result.value = Result(true, data = AttachedImages(38, testImages))
+//            _result.value = Result(false, "TEST: 이미지 업로드 실패")
+
             requestWriteImagesUseCase.invoke(
                 WriteImageRequest(
                     groupId,
