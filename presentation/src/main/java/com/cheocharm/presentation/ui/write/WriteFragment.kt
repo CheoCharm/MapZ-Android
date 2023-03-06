@@ -121,18 +121,6 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
         }
 
-        rvWriteSticker.addItemDecoration(
-            WriteImageItemDecoration(
-                resources.getDimension(R.dimen.space_x_small).toInt()
-            )
-        )
-
-        rvWriteImage.addItemDecoration(
-            WriteImageItemDecoration(
-                resources.getDimension(R.dimen.space_x_small).toInt()
-            )
-        )
-
         writeViewModel.result.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
                 Toast.makeText(context, "일기 작성 성공", Toast.LENGTH_SHORT).show()
