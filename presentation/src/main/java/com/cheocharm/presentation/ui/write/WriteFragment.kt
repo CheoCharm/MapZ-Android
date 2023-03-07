@@ -32,7 +32,7 @@ import jp.wasabeef.richeditor.RichEditor
 @AndroidEntryPoint
 class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write), MenuProvider {
     private val writeViewModel by navGraphViewModels<WriteViewModel>(R.id.write)
-    val writeFontViewModel by viewModels<WriteFontViewModel>()
+    private val writeFontViewModel by viewModels<WriteFontViewModel>()
 
     private lateinit var editor: RichEditor
     private var diaryId: Long? = null
