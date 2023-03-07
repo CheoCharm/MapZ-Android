@@ -1,12 +1,9 @@
 package com.cheocharm.presentation.ui
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.base.BaseActivity
+import com.cheocharm.presentation.databinding.ActivityDiaryBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class DiaryActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_diary)
-    }
-}
+@AndroidEntryPoint
+class DiaryActivity : BaseActivity<ActivityDiaryBinding>(R.layout.activity_diary)
