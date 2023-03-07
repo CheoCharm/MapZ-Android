@@ -12,7 +12,6 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.cheocharm.presentation.R
@@ -20,20 +19,18 @@ import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.util.UriUtil
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
 @AndroidEntryPoint
 class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location),
     MenuProvider {
-    private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
-    private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.write) { defaultViewModelProviderFactory }
+    private val pictureViewModel by navGraphViewModels<PictureViewModel>(R.id.write)
+    private val locationViewModel by navGraphViewModels<LocationViewModel>(R.id.write) { defaultViewModelProviderFactory }
+    private val writeViewModel by navGraphViewModels<WriteViewModel>(R.id.write) { defaultViewModelProviderFactory }
 
     private var draggableMarker: Marker? = null
     private var address: String? = null
@@ -106,24 +103,33 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             }
         }
 
-        locationViewModel.result.observe(viewLifecycleOwner) {
-            if (locationViewModel.updated) {
-                it?.let { result ->
-                    if (result.isSuccessful) {
-                        val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
-                        findNavController().navigate(action)
+        setupToast()
+        setupNavigation()
+    }
 
-                        locationViewModel.updated = false
-                    } else {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    }
+    private fun setupToast() {
+        locationViewModel.toastText.observe(viewLifecycleOwner) {
+            it?.let {
+                Toast.makeText(context, it.getContentIfNotHandled(), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setupNavigation() {
+        locationViewModel.locationSelectedEvent.observe(viewLifecycleOwner) {
+            it?.let {
+                it.getContentIfNotHandled()?.let { temp ->
+                    writeViewModel.temp = temp
+                    writeViewModel.stickers = locationViewModel.stickers
+
+                    val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
+                    findNavController().navigate(action)
                 }
             }
         }
     }
 
     override fun onDestroyView() {
-        locationViewModel.updated = false
         draggableMarker?.remove()
         super.onDestroyView()
     }

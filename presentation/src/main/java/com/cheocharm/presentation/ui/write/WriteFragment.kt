@@ -21,9 +21,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
-import com.cheocharm.presentation.model.ToolDetailPage
 import com.cheocharm.presentation.model.Sticker
 import com.cheocharm.presentation.model.TextAlign
+import com.cheocharm.presentation.model.ToolDetailPage
 import com.cheocharm.presentation.ui.DiaryActivity
 import com.cheocharm.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,9 +31,8 @@ import jp.wasabeef.richeditor.RichEditor
 
 @AndroidEntryPoint
 class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write), MenuProvider {
-    private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.write)
-    private val writeViewModel: WriteViewModel by viewModels()
-    val writeFontViewModel: WriteFontViewModel by viewModels()
+    private val writeViewModel by navGraphViewModels<WriteViewModel>(R.id.write)
+    val writeFontViewModel by viewModels<WriteFontViewModel>()
 
     private lateinit var editor: RichEditor
     private var diaryId: Long? = null
@@ -86,30 +85,12 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
 
         binding.viewmodel = writeViewModel
 
-        val rvWriteImage = binding.rvWriteImage
-        val rvWriteSticker = binding.rvWriteSticker
-
         setupToolbar()
         setupEditor()
         setupTextColor()
         setupFont()
         setupTextAlign()
-
-        locationViewModel.result.observe(viewLifecycleOwner) {
-            it?.let { result ->
-                if (result.isSuccessful) {
-                    result.data?.let { data ->
-                        diaryId = data.diaryId
-                        rvWriteImage.adapter =
-                            WriteImageAdapter(data.imageUrls, ::onImageClickListener)
-                    }
-                }
-            }
-        }
-
-        locationViewModel.stickers.observe(viewLifecycleOwner) {
-            rvWriteSticker.adapter = WriteStickerAdapter(it, ::onStickerClickListener)
-        }
+        setupDiary()
 
         writeViewModel.bold.observe(viewLifecycleOwner) {
             it?.let {
@@ -195,6 +176,18 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
                 TextAlign.Right -> editor.setAlignRight()
             }
         }
+    }
+
+    private fun setupDiary() {
+        val rvWriteImage = binding.rvWriteImage
+        val rvWriteSticker = binding.rvWriteSticker
+
+        diaryId = writeViewModel.temp.diaryId
+
+        rvWriteImage.adapter =
+            WriteImageAdapter(writeViewModel.temp.imageUrls, ::onImageClickListener)
+        rvWriteSticker.adapter =
+            WriteStickerAdapter(writeViewModel.stickers, ::onStickerClickListener)
     }
 
     private fun onStickerClickListener(sticker: Sticker) {
