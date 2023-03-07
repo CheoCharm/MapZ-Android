@@ -16,13 +16,12 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
-import com.cheocharm.presentation.model.Page
+import com.cheocharm.presentation.model.ToolDetailPage
 import com.cheocharm.presentation.model.Sticker
 import com.cheocharm.presentation.model.TextAlign
 import com.cheocharm.presentation.ui.DiaryActivity
@@ -67,7 +66,7 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
                 }
             }
 
-            writeViewModel.updatePage(Page(position + 1, titles[position]))
+            writeViewModel.updatePage(ToolDetailPage(position + 1, titles[position]))
         }
     }
 
