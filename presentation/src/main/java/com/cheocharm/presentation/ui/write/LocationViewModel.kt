@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cheocharm.domain.model.AttachedImages
+import com.cheocharm.domain.model.DiaryTemp
 import com.cheocharm.domain.model.WriteImageRequest
 import com.cheocharm.domain.usecase.write.RequestWriteImagesUseCase
 import com.cheocharm.presentation.common.Event
@@ -21,8 +21,8 @@ class LocationViewModel @Inject constructor(
     private val _toastText = MutableLiveData<Event<String>?>()
     val toastText: LiveData<Event<String>?> = _toastText
 
-    private val _locationSelectedEvent = MutableLiveData<Event<AttachedImages>?>()
-    val locationSelectedEvent: LiveData<Event<AttachedImages>?> = _locationSelectedEvent
+    private val _locationSelectedEvent = MutableLiveData<Event<DiaryTemp>?>()
+    val locationSelectedEvent: LiveData<Event<DiaryTemp>?> = _locationSelectedEvent
 
     var stickers: List<Sticker> = testStickers
         private set
