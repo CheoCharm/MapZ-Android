@@ -76,6 +76,16 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         mapFragment?.getMapAsync {
             it.setOnMapLoadedCallback {
                 // TODO: 마커 생성
+//                val selectedLocation = pic.latLng
+//                if (selectedLocation != null) {
+//                    val markerOptions = MarkerOptions()
+//                        .position(selectedLocation)
+//                        .draggable(true)
+//                    draggableMarker = it.addMarker(markerOptions)
+//                    it.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 15F))
+//                } else {
+//                    // TODO: 사진에 장소 정보가 없으면 기본 위치로 카메라 이동
+//                }
             }
         }
 
@@ -89,17 +99,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 activity?.applicationContext?.let { context ->
                     file = UriUtil.getFileFromUri(context, pic.uri)
                 }
-
-//                val selectedLocation = pic.latLng
-//                if (selectedLocation != null) {
-//                    val markerOptions = MarkerOptions()
-//                        .position(selectedLocation)
-//                        .draggable(true)
-//                    draggableMarker = it.addMarker(markerOptions)
-//                    it.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 15F))
-//                } else {
-//                    // TODO: 사진에 장소 정보가 없으면 기본 위치로 카메라 이동
-//                }
             }
         }
 
@@ -141,6 +140,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.menu_base_confirm -> {
+                // TODO: file을 여기서 초기화하면 전역변수로 두지 않아도 될듯
                 file?.let {
                     locationViewModel.uploadImages(
                         TEST_GROUP_ID,
