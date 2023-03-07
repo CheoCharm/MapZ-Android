@@ -90,21 +90,9 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         setupTextColor()
         setupFont()
         setupTextAlign()
+        setupBold()
+        setupUnderline()
         setupDiary()
-
-        writeViewModel.bold.observe(viewLifecycleOwner) {
-            it?.let {
-                editor.focusEditor()
-                editor.setBold()
-            }
-        }
-
-        writeViewModel.underline.observe(viewLifecycleOwner) {
-            it?.let {
-                editor.focusEditor()
-                editor.setUnderline()
-            }
-        }
 
         setupToast()
         setupNavigation()
@@ -166,6 +154,24 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
                 TextAlign.Left -> editor.setAlignLeft()
                 TextAlign.Center -> editor.setAlignCenter()
                 TextAlign.Right -> editor.setAlignRight()
+            }
+        }
+    }
+
+    private fun setupBold() {
+        writeViewModel.bold.observe(viewLifecycleOwner) {
+            it?.let {
+                editor.focusEditor()
+                editor.setBold()
+            }
+        }
+    }
+
+    private fun setupUnderline() {
+        writeViewModel.underline.observe(viewLifecycleOwner) {
+            it?.let {
+                editor.focusEditor()
+                editor.setUnderline()
             }
         }
     }
