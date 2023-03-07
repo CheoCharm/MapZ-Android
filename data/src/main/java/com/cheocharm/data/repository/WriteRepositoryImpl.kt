@@ -3,7 +3,7 @@ package com.cheocharm.data.repository
 import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.error.toDomain
 import com.cheocharm.data.source.WriteRemoteDataSource
-import com.cheocharm.domain.model.DiaryTemp
+import com.cheocharm.domain.model.TempDiary
 import com.cheocharm.domain.model.WriteDiaryRequest
 import com.cheocharm.domain.model.WriteImageRequest
 import com.cheocharm.domain.repository.WriteRepository
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class WriteRepositoryImpl @Inject constructor(
     private val writeRemoteDataSource: WriteRemoteDataSource
 ) : WriteRepository {
-    override suspend fun requestWriteImages(request: WriteImageRequest): Result<DiaryTemp> {
+    override suspend fun requestWriteImages(request: WriteImageRequest): Result<TempDiary> {
         val result = writeRemoteDataSource.requestWriteImages(request)
 
         return when (val exception = result.exceptionOrNull()) {

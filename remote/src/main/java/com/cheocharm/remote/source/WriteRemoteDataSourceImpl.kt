@@ -2,7 +2,7 @@ package com.cheocharm.remote.source
 
 import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.source.WriteRemoteDataSource
-import com.cheocharm.domain.model.DiaryTemp
+import com.cheocharm.domain.model.TempDiary
 import com.cheocharm.domain.model.WriteDiaryRequest
 import com.cheocharm.domain.model.WriteImageRequest
 import com.cheocharm.remote.api.WriteApi
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class WriteRemoteDataSourceImpl @Inject constructor(
     private val api: WriteApi
 ) : WriteRemoteDataSource {
-    override suspend fun requestWriteImages(request: WriteImageRequest): Result<DiaryTemp> {
+    override suspend fun requestWriteImages(request: WriteImageRequest): Result<TempDiary> {
         val images = request.images.map {
             MultipartBody.Part.createFormData(
                 "files",

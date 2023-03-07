@@ -106,16 +106,8 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             }
         }
 
-        writeViewModel.result.observe(viewLifecycleOwner) {
-            if (it.isSuccessful) {
-                Toast.makeText(context, "일기 작성 성공", Toast.LENGTH_SHORT).show()
-
-                val intent = Intent(activity, DiaryActivity::class.java)
-                startActivity(intent)
-            } else if (it.isSuccessful.not()) {
-                Toast.makeText(context, "일기 작성 실패", Toast.LENGTH_SHORT).show()
-            }
-        }
+        setupToast()
+        setupNavigation()
     }
 
     private fun setupToolbar() {
@@ -206,6 +198,27 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             imageUrl,
             150
         )
+    }
+
+    private fun setupToast() {
+        writeViewModel.toastText.observe(viewLifecycleOwner) {
+            it?.let {
+                Toast.makeText(context, it.getContentIfNotHandled(), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setupNavigation() {
+        writeViewModel.diaryWrittenEvent.observe(viewLifecycleOwner) {
+            it?.let {
+                it.getContentIfNotHandled()?.let { id ->
+                    Toast.makeText(context, "일기#$id 작성 완료", Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent(activity, DiaryActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
