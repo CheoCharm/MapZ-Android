@@ -3,10 +3,6 @@
     package="com.cheocharm.presentation">
 
     <application>
-        <activity
-            android:name=".DiaryActivity"
-            android:exported="false" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
