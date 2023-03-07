@@ -57,6 +57,7 @@ class LocationViewModel @Inject constructor(
     }
 
     companion object {
+        // TODO: 기본 위치 설정
         private const val TEST_LAT = 0.0
         private const val TEST_LNG = 0.0
         private const val TEST_ADDRESS = ""
