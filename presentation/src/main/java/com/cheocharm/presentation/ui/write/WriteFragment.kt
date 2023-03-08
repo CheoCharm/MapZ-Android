@@ -99,7 +99,7 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
     }
 
     private fun setupToolbar() {
-        val mainActivity = activity as MainActivity
+        val mainActivity = requireActivity() as MainActivity
         val toolbarWrite = binding.toolbarWrite
 
         mainActivity.setSupportActionBar(toolbarWrite)
@@ -220,7 +220,7 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
                 it.getContentIfNotHandled()?.let { id ->
                     Toast.makeText(context, "일기#$id 작성 완료", Toast.LENGTH_SHORT).show()
 
-                    val intent = Intent(activity, DiaryActivity::class.java)
+                    val intent = Intent(requireActivity(), DiaryActivity::class.java)
                     startActivity(intent)
                 }
             }
