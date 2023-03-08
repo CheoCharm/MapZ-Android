@@ -21,7 +21,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentWriteBinding
-import com.cheocharm.presentation.model.Sticker
 import com.cheocharm.presentation.model.TextAlign
 import com.cheocharm.presentation.model.ToolDetailPage
 import com.cheocharm.presentation.ui.DiaryActivity
