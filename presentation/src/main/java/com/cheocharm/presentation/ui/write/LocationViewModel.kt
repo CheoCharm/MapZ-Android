@@ -46,12 +46,12 @@ class LocationViewModel @Inject constructor(
     }
 
     fun setSelectedLatLng(latLng: LatLng, type: LatLngSelectionType, address: String? = null) {
-        val locationString = if (type == LatLngSelectionType.DEFAULT || type == LatLngSelectionType.CURRENT) {
-            type.locationString
-        } else {
-            // TODO: null 처리
-            address ?: latLng.toCoordString() ?: ""
-        }
+        val locationString: String =
+            if (type == LatLngSelectionType.DEFAULT || type == LatLngSelectionType.CURRENT) {
+                type.locationString
+            } else {
+                address ?: latLng.toCoordString()
+            }
 
         _selectedLatLng.postValue(latLng)
         _latLngString.postValue(locationString)

@@ -5,10 +5,11 @@ import com.google.android.gms.maps.model.LatLng
 
 fun Location.toLatLng() = LatLng(this.latitude, this.longitude)
 
-fun LatLng?.toCoordString() = this?.let {
+fun LatLng.toCoordString(): String {
     with("%.5f") {
-        val lat = format(it.latitude)
-        val lng = format(it.longitude)
-        "($lat, $lng)"
+        val lat = format(latitude)
+        val lng = format(longitude)
+
+        return "($lat, $lng)"
     }
 }
