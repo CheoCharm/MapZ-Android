@@ -11,14 +11,19 @@ import com.cheocharm.presentation.model.Sticker
 
 class WriteStickerAdapter(
     private val stickers: List<Sticker>,
-    private val onItemClickListener: (Sticker) -> Unit
+    private val onItemClickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<WriteStickerAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, onItemClickListener: (Int) -> Unit) :
+        RecyclerView.ViewHolder(view) {
         val imageView: ImageView
 
         init {
             imageView = view.findViewById(R.id.iv_write_sticker_item)
+
+            view.setOnClickListener {
+                onItemClickListener(bindingAdapterPosition)
+            }
         }
     }
 
@@ -26,7 +31,7 @@ class WriteStickerAdapter(
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_write_sticker, parent, false)
 
-        return ViewHolder(view)
+        return ViewHolder(view, onItemClickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -34,10 +39,6 @@ class WriteStickerAdapter(
         val sticker = stickers[position]
 
         Glide.with(view.context).load(sticker.url).into(view)
-
-        view.setOnClickListener {
-            onItemClickListener(sticker)
-        }
     }
 
     override fun getItemCount(): Int = 4

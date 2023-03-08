@@ -188,7 +188,9 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
             WriteStickerAdapter(writeViewModel.stickers, ::onStickerClickListener)
     }
 
-    private fun onStickerClickListener(sticker: Sticker) {
+    private fun onStickerClickListener(position: Int) {
+        val sticker = writeViewModel.stickers[position]
+
         editor.focusEditor()
         editor.insertImage(
             sticker.url,
@@ -197,11 +199,13 @@ class WriteFragment : BaseFragment<FragmentWriteBinding>(R.layout.fragment_write
         )
     }
 
-    private fun onImageClickListener(imageUrl: String) {
+    private fun onImageClickListener(position: Int) {
+        val imageUrl = writeViewModel.temp.imageUrls[position]
+
         editor.focusEditor()
         editor.insertImage(
             imageUrl,
-            imageUrl,
+            imageUrl, // TODO: 파일 이름으로 변경
             150
         )
     }

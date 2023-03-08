@@ -10,14 +10,19 @@ import com.cheocharm.presentation.R
 
 class WriteImageAdapter(
     private val imageUrls: List<String>,
-    private val onItemClickListener: (String) -> Unit
+    private val onItemClickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<WriteImageAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, onItemClickListener: (Int) -> Unit) :
+        RecyclerView.ViewHolder(view) {
         val imageView: ImageView
 
         init {
             imageView = view.findViewById(R.id.iv_write_image_item)
+
+            view.setOnClickListener {
+                onItemClickListener(bindingAdapterPosition)
+            }
         }
     }
 
@@ -25,7 +30,7 @@ class WriteImageAdapter(
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_write_image, parent, false)
 
-        return ViewHolder(view)
+        return ViewHolder(view, onItemClickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -36,10 +41,6 @@ class WriteImageAdapter(
             .centerCrop()
             .placeholder(R.drawable.img_join_group)
             .into(view)
-
-        view.setOnClickListener {
-            onItemClickListener(imageUrls[position])
-        }
     }
 
     override fun getItemCount(): Int = imageUrls.size
