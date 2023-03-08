@@ -23,14 +23,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val homeViewModel: HomeViewModel by viewModels()
 
-    private lateinit var mainActivity: MainActivity
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewmodel = homeViewModel
 
-        mainActivity = activity as MainActivity
+        val mainActivity = requireActivity() as MainActivity
         mainActivity.setMapVisible(true)
 
         val mapFragment = (activity as MainActivity).getMap()

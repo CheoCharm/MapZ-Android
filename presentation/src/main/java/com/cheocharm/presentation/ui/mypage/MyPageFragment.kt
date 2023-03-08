@@ -37,7 +37,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
         binding.viewmodel = myPageViewModel
 
-        (activity as MainActivity).setMapVisible(false)
+        val mainActivity = requireActivity() as MainActivity
+        mainActivity.setMapVisible(false)
 
         initButton()
         myPageViewModel.countUp()
