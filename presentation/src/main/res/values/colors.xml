@@ -38,6 +38,7 @@
     <color name="picture_gallery_desc_text_color">#FF6D6D6D</color>
     <color name="location_picture_list_bg_color">#BF525252</color>
     <color name="write_editor_text_color">@color/grey_dark</color>
+    <color name="write_editor_cursor_color">#FF0000</color>
     <color name="write_tool_color_red">#FF3535</color>
     <color name="write_tool_color_orange">#FF9635</color>
     <color name="write_tool_color_yellow">#FBFF35</color>

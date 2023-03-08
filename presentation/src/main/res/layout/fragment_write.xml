@@ -21,20 +21,6 @@
         style="@style/root_layout_default"
         tools:context=".ui.write.WriteFragment">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_write_start"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/space_median" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_write_end"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/space_median" />
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_write"
             app:layout_constraintTop_toTopOf="parent"
@@ -44,52 +30,81 @@
             app:title="@string/write_title"
             style="@style/common_toolbar" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_write_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_median"
-            android:text="@string/common_title"
-            android:textSize="@dimen/text_s_large"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@id/guideline_write_end"
-            app:layout_constraintStart_toEndOf="@id/guideline_write_start"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_write" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_write_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_x_small"
-            android:background="@null"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textSize="@dimen/text_s_large"
-            android:hint="@string/write_title_hint"
-            android:maxLength="20"
-            app:layout_constraintEnd_toStartOf="@id/guideline_write_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_write_start"
-            app:layout_constraintTop_toBottomOf="@id/tv_write_title" />
-
-        <View
-            android:id="@+id/view_write_line"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/common_divider_height"
-            android:layout_marginTop="@dimen/space_small"
-            android:background="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/et_write_title"
-            app:layout_constraintStart_toEndOf="@id/guideline_write_start"
-            app:layout_constraintEnd_toStartOf="@id/guideline_write_end" />
-
-        <jp.wasabeef.richeditor.RichEditor
-            android:id="@+id/editor_write"
-            android:layout_width="0dp"
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/space_median"
-            app:layout_constraintBottom_toTopOf="@id/view_write_tools_background"
-            app:layout_constraintTop_toBottomOf="@id/view_write_line"
-            app:layout_constraintStart_toEndOf="@id/guideline_write_start"
-            app:layout_constraintEnd_toStartOf="@id/guideline_write_end" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar_write"
+            app:layout_constraintBottom_toTopOf="@id/view_write_tools_background">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/space_median">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_write_start"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/space_median" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_write_end"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/space_median" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_write_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/common_title"
+                    android:textSize="@dimen/text_s_large"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_write_end"
+                    app:layout_constraintStart_toEndOf="@id/guideline_write_start"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_write_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x_small"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="@dimen/text_s_large"
+                    android:hint="@string/write_title_hint"
+                    android:maxLength="20"
+                    android:theme="@style/Theme.MapZ.EditText.Editor"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_write_end"
+                    app:layout_constraintStart_toStartOf="@id/guideline_write_start"
+                    app:layout_constraintTop_toBottomOf="@id/tv_write_title" />
+
+                <View
+                    android:id="@+id/view_write_line"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_divider_height"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:background="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/et_write_title"
+                    app:layout_constraintStart_toEndOf="@id/guideline_write_start"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_write_end" />
+
+                <jp.wasabeef.richeditor.RichEditor
+                    android:id="@+id/editor_write"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_median"
+                    android:theme="@style/Theme.MapZ.EditText.Editor"
+                    app:layout_constraintTop_toBottomOf="@id/view_write_line"
+                    app:layout_constraintStart_toEndOf="@id/guideline_write_start"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_write_end" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
         <View
             android:id="@+id/view_write_tools_background"
@@ -239,7 +254,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/item_write_sticker"
-            tools:visibility="visible" />
+            tools:visibility="invisible" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_write_image"

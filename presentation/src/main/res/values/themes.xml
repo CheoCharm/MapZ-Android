@@ -36,4 +36,10 @@
         <item name="android:drawableTint">@color/grey_dark</item>
         <item name="android:textCursorDrawable">@drawable/bg_cursor</item>
     </style>
+
+    <style name="Theme.MapZ.EditText.Editor" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorControlActivated">@color/write_editor_cursor_color</item>
+        <item name="android:colorAccent">@color/write_editor_cursor_color</item>
+        <item name="android:textCursorDrawable">@color/write_editor_cursor_color</item>
+    </style>
 </resources>
