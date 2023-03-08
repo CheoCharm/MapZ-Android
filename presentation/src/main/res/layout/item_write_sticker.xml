@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_radius_10dp"
-    android:backgroundTint="@color/white"
-    android:elevation="@dimen/common_elevation"
-    android:outlineProvider="bounds">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_write_sticker_item"
-        android:layout_width="@dimen/write_image_item_size"
-        android:layout_height="@dimen/write_image_item_size"
+    <data>
+
+        <variable
+            name="imageUrl"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_radius_10dp"
-        android:clipToOutline="true"
-        android:src="@drawable/img_join_group"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:targetApi="s" />
+        android:backgroundTint="@color/white"
+        android:elevation="@dimen/common_elevation"
+        android:outlineProvider="bounds">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_write_sticker_item"
+            android:layout_width="@dimen/write_image_item_size"
+            android:layout_height="@dimen/write_image_item_size"
+            android:background="@drawable/bg_radius_10dp"
+            android:clipToOutline="true"
+            app:imageLoad="@{imageUrl}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/img_join_group"
+            tools:targetApi="s" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
