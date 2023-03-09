@@ -32,11 +32,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         when {
-            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+            permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
                 fusedLocationClient =
                     LocationServices.getFusedLocationProviderClient(this)
             }
-            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
                 fusedLocationClient =
                     LocationServices.getFusedLocationProviderClient(this)
             }
