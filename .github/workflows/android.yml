@@ -38,15 +38,5 @@ jobs:
         BASE_URL: $
       run: echo base.url=\"BASE_URL\" >> ./local.properties
 
-    - name: Access BUCKET_ACCESS_KEY
-      env:
-        BASE_URL: $
-      run: echo BUCKET_ACCESS_KEY=\"BUCKET_ACCESS_KEY\" >> ./local.properties
-
-    - name: Access BUCKET_SECRET_KEY
-      env:
-        BASE_URL: $
-      run: echo BUCKET_SECRET_KEY=\"BUCKET_SECRET_KEY\" >> ./local.properties
-
     - name: Build with Gradle
       run: ./gradlew build
