@@ -48,10 +48,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     private val locationViewModel by navGraphViewModels<LocationViewModel>(R.id.write) { defaultViewModelProviderFactory }
     private val writeViewModel by navGraphViewModels<WriteViewModel>(R.id.write) { defaultViewModelProviderFactory }
 
-    private lateinit var mainActivity: MainActivity
-
     private lateinit var map: GoogleMap
-
     private lateinit var geocodeUtil: GeocodeUtil
 
     private var initialLatLng: LatLng? = null
@@ -91,12 +88,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             adapter = picturesAdapter
         }
 
-        mainActivity = activity as MainActivity
+        val mainActivity = requireActivity() as MainActivity
         mainActivity.setMapVisible(true)
 
         with(binding.toolbarLocation) {
-            val mainActivity = activity as MainActivity
-
             mainActivity.setSupportActionBar(this)
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
