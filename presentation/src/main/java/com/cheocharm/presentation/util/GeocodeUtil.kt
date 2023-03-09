@@ -9,11 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.*
 
-object GeocodeUtil {
-    suspend fun execute(
-        context: Context,
-        picture: Picture
-    ) = withContext(Dispatchers.IO) {
+class GeocodeUtil(private val context: Context) {
+
+    suspend fun execute(picture: Picture) = withContext(Dispatchers.IO) {
         picture.latLng?.let {
             try {
                 val geocoder = Geocoder(context, Locale.KOREAN)
@@ -31,7 +29,6 @@ object GeocodeUtil {
     }
 
     suspend fun execute(
-        context: Context,
         latLng: LatLng,
         type: LatLngSelectionType,
         callback: (LatLng, LatLngSelectionType, String?) -> Unit

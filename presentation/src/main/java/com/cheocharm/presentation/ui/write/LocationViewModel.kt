@@ -13,6 +13,7 @@ import com.cheocharm.presentation.model.Sticker
 import com.cheocharm.presentation.common.toCoordString
 import com.cheocharm.presentation.enum.LatLngSelectionType
 import com.cheocharm.presentation.model.Picture
+import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -41,8 +42,14 @@ class LocationViewModel @Inject constructor(
     private val _latLngString = MutableLiveData<String>()
     val latLngString: LiveData<String> = _latLngString
 
-    fun setPicture(picture: Picture) {
+    fun loadPicture(picture: Picture, geocodeUtil: GeocodeUtil) {
         _picture.value = picture
+
+        if (picture.address == null) {
+            viewModelScope.launch {
+                geocodeUtil.execute(picture)
+            }
+        }
     }
 
     fun setSelectedLatLng(latLng: LatLng, type: LatLngSelectionType, address: String? = null) {

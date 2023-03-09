@@ -52,6 +52,8 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
     private lateinit var map: GoogleMap
 
+    private lateinit var geocodeUtil: GeocodeUtil
+
     private var initialLatLng: LatLng? = null
     private var initialType: LatLngSelectionType? = null
 
@@ -62,6 +64,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        geocodeUtil = GeocodeUtil(requireContext())
+
         setHasOptionsMenu(true)
     }
 
@@ -108,7 +113,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
                 if (uri != null) {
                     val latLng = if (lat != null && lng != null) LatLng(lat, lng) else null
-                    locationViewModel.setPicture(Picture(Uri.parse(uri), latLng))
+                    val picture = Picture(Uri.parse(uri), latLng)
+
+                    locationViewModel.loadPicture(picture, geocodeUtil)
                 }
 
                 if (isDefaultLocation) {
@@ -169,7 +176,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                     }
 
                     if (type == LatLngSelectionType.SPECIFIED) {
-                        GeocodeUtil.execute(requireContext(), latLng, type, ::onGeocoded)
+                        geocodeUtil.execute(latLng, type, ::onGeocoded)
                     } else {
                         locationViewModel.setSelectedLatLng(latLng, type)
                     }
@@ -183,8 +190,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
     private fun initTypeToSpecified(latLng: LatLng) {
         CoroutineScope(Dispatchers.Main).launch {
-            GeocodeUtil.execute(
-                requireContext(),
+            geocodeUtil.execute(
                 latLng,
                 LatLngSelectionType.SPECIFIED,
                 ::onGeocoded

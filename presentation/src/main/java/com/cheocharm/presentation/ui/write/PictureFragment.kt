@@ -14,9 +14,6 @@ import com.cheocharm.presentation.databinding.FragmentPictureBinding
 import com.cheocharm.presentation.model.Picture
 import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_picture) {
     private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.write)
@@ -38,13 +35,9 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
                         LatLng(array[0], array[1])
                     }
                     val picture = Picture(uri, latLng)
+                    val geocodeUtil = GeocodeUtil(requireContext())
 
-                    locationViewModel.setPicture(picture)
-
-                    CoroutineScope(Dispatchers.Main).launch {
-                        GeocodeUtil.execute(requireContext(), picture)
-                    }
-
+                    locationViewModel.loadPicture(picture, geocodeUtil)
                     inputStream.close()
                 }
 
