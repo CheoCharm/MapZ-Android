@@ -23,8 +23,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
         binding.viewmodel = searchViewModel
 
-        (activity as MainActivity).setMapVisible(false)
-        mainActivityBinding = (activity as MainActivity).getBinding()
+        val mainActivity = requireActivity() as MainActivity
+        mainActivity.setMapVisible(false)
+        mainActivityBinding = mainActivity.getBinding()
 
         initEditTexts()
         initObservers()
