@@ -10,9 +10,9 @@ import java.util.*
 
 class GeocodeUtil(private val context: Context) {
 
-    suspend fun execute(picture: Picture) = withContext(Dispatchers.IO) {
+    suspend fun execute(picture: Picture) = withContext(ioDispatcher) {
         picture.latLng?.let {
-            try {
+            runCatching {
                 val geocoder = Geocoder(context, Locale.KOREAN)
                 val addresses = geocoder.getFromLocation(it.latitude, it.longitude, 1)
 
@@ -21,8 +21,6 @@ class GeocodeUtil(private val context: Context) {
                     val address = fetchedAddress.getAddressLine(0)
                     picture.address = address
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }
@@ -31,8 +29,8 @@ class GeocodeUtil(private val context: Context) {
         latLng: DoubleArray,
         type: LatLngSelectionType,
         callback: (DoubleArray, LatLngSelectionType, String?) -> Unit
-    ) = withContext(Dispatchers.IO) {
-        try {
+    ) = withContext(ioDispatcher) {
+        runCatching {
             val geocoder = Geocoder(context, Locale.KOREAN)
             val addresses = geocoder.getFromLocation(latLng[0], latLng[1], 1)
 
@@ -42,10 +40,12 @@ class GeocodeUtil(private val context: Context) {
                 callback(latLng, type, address)
                 return@withContext
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
 
         callback(latLng, type, null)
+    }
+
+    companion object {
+        private val ioDispatcher = Dispatchers.IO
     }
 }
