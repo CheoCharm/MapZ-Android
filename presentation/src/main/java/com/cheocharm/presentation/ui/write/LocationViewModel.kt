@@ -9,12 +9,10 @@ import com.cheocharm.domain.model.WriteImageRequest
 import com.cheocharm.domain.usecase.write.RequestWriteImagesUseCase
 import com.cheocharm.presentation.common.Event
 import com.cheocharm.presentation.common.TestValues
-import com.cheocharm.presentation.model.Sticker
-import com.cheocharm.presentation.common.toCoordString
 import com.cheocharm.presentation.enum.LatLngSelectionType
 import com.cheocharm.presentation.model.Picture
+import com.cheocharm.presentation.model.Sticker
 import com.cheocharm.presentation.util.GeocodeUtil
-import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -36,9 +34,8 @@ class LocationViewModel @Inject constructor(
     private val _picture = MutableLiveData<Picture>()
     val picture: LiveData<Picture> = _picture
 
-    // TODO: LatLng 참조하지 않도록 수정
-    private val _selectedLatLng = MutableLiveData<LatLng>()
-    val selectedLocation: LiveData<LatLng> = _selectedLatLng
+    private val _selectedLatLng = MutableLiveData<DoubleArray>()
+    val selectedLocation: LiveData<DoubleArray> = _selectedLatLng
 
     private val _latLngString = MutableLiveData<String>()
     val latLngString: LiveData<String> = _latLngString
@@ -53,13 +50,13 @@ class LocationViewModel @Inject constructor(
         }
     }
 
-    fun geocode(geocodeUtil: GeocodeUtil, latLng: LatLng, type: LatLngSelectionType) {
+    fun geocode(geocodeUtil: GeocodeUtil, latLng: DoubleArray, type: LatLngSelectionType) {
         viewModelScope.launch {
             geocodeUtil.execute(latLng, type, ::setSelectedLatLng)
         }
     }
 
-    fun setSelectedLatLng(latLng: LatLng, type: LatLngSelectionType, address: String? = null) {
+    fun setSelectedLatLng(latLng: DoubleArray, type: LatLngSelectionType, address: String? = null) {
         val locationString: String =
             if (type == LatLngSelectionType.DEFAULT || type == LatLngSelectionType.CURRENT) {
                 type.locationString
@@ -69,6 +66,14 @@ class LocationViewModel @Inject constructor(
 
         _selectedLatLng.postValue(latLng)
         _latLngString.postValue(locationString)
+    }
+
+    private fun DoubleArray.toCoordString(): String {
+        val format = "%.5f"
+        val lat = format.format(get(0))
+        val lng = format.format(get(1))
+
+        return "($lat, $lng)"
     }
 
     fun uploadImages(

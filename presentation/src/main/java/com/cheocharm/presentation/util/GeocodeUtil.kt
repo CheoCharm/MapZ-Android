@@ -4,7 +4,6 @@ import android.content.Context
 import android.location.Geocoder
 import com.cheocharm.presentation.enum.LatLngSelectionType
 import com.cheocharm.presentation.model.Picture
-import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.*
@@ -29,13 +28,13 @@ class GeocodeUtil(private val context: Context) {
     }
 
     suspend fun execute(
-        latLng: LatLng,
+        latLng: DoubleArray,
         type: LatLngSelectionType,
-        callback: (LatLng, LatLngSelectionType, String?) -> Unit
+        callback: (DoubleArray, LatLngSelectionType, String?) -> Unit
     ) = withContext(Dispatchers.IO) {
         try {
             val geocoder = Geocoder(context, Locale.KOREAN)
-            val addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+            val addresses = geocoder.getFromLocation(latLng[0], latLng[1], 1)
 
             if (addresses != null && addresses.isEmpty().not()) {
                 val fetchedAddress = addresses.first()

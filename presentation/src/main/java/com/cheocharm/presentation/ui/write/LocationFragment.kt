@@ -37,9 +37,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
@@ -116,7 +113,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 if (isDefaultLocation) {
                     val typeDefault = LatLngSelectionType.DEFAULT
                     initialType = typeDefault
-                    locationViewModel.setSelectedLatLng(defaultLatLng, typeDefault)
+                    locationViewModel.setSelectedLatLng(defaultLatLng.toDoubleArray(), typeDefault)
                 }
             }
         }
@@ -156,7 +153,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
             googleMap.setOnCameraMoveListener {
                 val latLng = map.cameraPosition.target
-                locationViewModel.setSelectedLatLng(latLng, LatLngSelectionType.SPECIFIED)
+                locationViewModel.setSelectedLatLng(
+                    latLng.toDoubleArray(),
+                    LatLngSelectionType.SPECIFIED
+                )
             }
 
             googleMap.setOnCameraIdleListener {
@@ -168,11 +168,12 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 } else {
                     LatLngSelectionType.SPECIFIED
                 }
+                val array = latLng.toDoubleArray()
 
                 if (type == LatLngSelectionType.SPECIFIED) {
-                    locationViewModel.geocode(geocodeUtil, latLng, type)
+                    locationViewModel.geocode(geocodeUtil, array, type)
                 } else {
-                    locationViewModel.setSelectedLatLng(latLng, type)
+                    locationViewModel.setSelectedLatLng(array, type)
                 }
             }
         }
@@ -182,7 +183,11 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     private fun initTypeToSpecified(latLng: LatLng) {
-        locationViewModel.geocode(geocodeUtil, latLng, LatLngSelectionType.SPECIFIED)
+        locationViewModel.geocode(
+            geocodeUtil,
+            latLng.toDoubleArray(),
+            LatLngSelectionType.SPECIFIED
+        )
     }
 
     private fun setupToast() {
@@ -192,7 +197,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     private fun initTypeToCurrent(latLng: LatLng) {
-        locationViewModel.setSelectedLatLng(latLng, LatLngSelectionType.CURRENT)
+        locationViewModel.setSelectedLatLng(latLng.toDoubleArray(), LatLngSelectionType.CURRENT)
 
         initialLatLng = latLng
         initialType = LatLngSelectionType.CURRENT
@@ -201,13 +206,18 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     private fun initTypeToDefault() {
-        locationViewModel.setSelectedLatLng(defaultLatLng, LatLngSelectionType.DEFAULT)
+        locationViewModel.setSelectedLatLng(
+            defaultLatLng.toDoubleArray(),
+            LatLngSelectionType.DEFAULT
+        )
 
         initialLatLng = defaultLatLng
         initialType = LatLngSelectionType.DEFAULT
 
         createMarkerAndMoveCamera(defaultLatLng, SOUTH_KOREA_ZOOM_LEVEL)
     }
+
+    private fun LatLng.toDoubleArray(): DoubleArray = doubleArrayOf(latitude, longitude)
 
     private fun createMarkerAndMoveCamera(latLng: LatLng, zoomLevel: Float) {
         val markerOptions = MarkerOptions()
