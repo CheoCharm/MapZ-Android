@@ -36,6 +36,7 @@ class LocationViewModel @Inject constructor(
     private val _picture = MutableLiveData<Picture>()
     val picture: LiveData<Picture> = _picture
 
+    // TODO: LatLng 참조하지 않도록 수정
     private val _selectedLatLng = MutableLiveData<LatLng>()
     val selectedLocation: LiveData<LatLng> = _selectedLatLng
 
@@ -49,6 +50,12 @@ class LocationViewModel @Inject constructor(
             viewModelScope.launch {
                 geocodeUtil.execute(picture)
             }
+        }
+    }
+
+    fun geocode(geocodeUtil: GeocodeUtil, latLng: LatLng, type: LatLngSelectionType) {
+        viewModelScope.launch {
+            geocodeUtil.execute(latLng, type, ::setSelectedLatLng)
         }
     }
 

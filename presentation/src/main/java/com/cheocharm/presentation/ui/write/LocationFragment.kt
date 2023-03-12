@@ -160,21 +160,19 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             }
 
             googleMap.setOnCameraIdleListener {
-                CoroutineScope(Dispatchers.Main).launch {
-                    val latLng = map.cameraPosition.target
-                    val type = if (initialLatLng != null &&
-                        distanceBetween(initialLatLng!!, latLng) <= 1
-                    ) {
-                        initialType ?: LatLngSelectionType.SPECIFIED
-                    } else {
-                        LatLngSelectionType.SPECIFIED
-                    }
+                val latLng = map.cameraPosition.target
+                val type = if (initialLatLng != null &&
+                    distanceBetween(initialLatLng!!, latLng) <= 1
+                ) {
+                    initialType ?: LatLngSelectionType.SPECIFIED
+                } else {
+                    LatLngSelectionType.SPECIFIED
+                }
 
-                    if (type == LatLngSelectionType.SPECIFIED) {
-                        geocodeUtil.execute(latLng, type, ::onGeocoded)
-                    } else {
-                        locationViewModel.setSelectedLatLng(latLng, type)
-                    }
+                if (type == LatLngSelectionType.SPECIFIED) {
+                    locationViewModel.geocode(geocodeUtil, latLng, type)
+                } else {
+                    locationViewModel.setSelectedLatLng(latLng, type)
                 }
             }
         }
@@ -184,13 +182,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     private fun initTypeToSpecified(latLng: LatLng) {
-        CoroutineScope(Dispatchers.Main).launch {
-            geocodeUtil.execute(
-                latLng,
-                LatLngSelectionType.SPECIFIED,
-                ::onGeocoded
-            )
-        }
+        locationViewModel.geocode(geocodeUtil, latLng, LatLngSelectionType.SPECIFIED)
     }
 
     private fun setupToast() {
@@ -234,10 +226,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
             findNavController().navigate(action)
         })
-    }
-
-    private fun onGeocoded(latLng: LatLng, type: LatLngSelectionType, address: String?) {
-        locationViewModel.setSelectedLatLng(latLng, type, address)
     }
 
     private fun distanceBetween(latLng1: LatLng, latLng2: LatLng): Float {
