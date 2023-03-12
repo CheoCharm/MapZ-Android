@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
+import com.cheocharm.presentation.common.EventObserver
 import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.util.UriUtil
@@ -107,25 +108,19 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     private fun setupToast() {
-        locationViewModel.toastText.observe(viewLifecycleOwner) {
-            it?.let {
-                Toast.makeText(context, it.getContentIfNotHandled(), Toast.LENGTH_SHORT).show()
-            }
-        }
+        locationViewModel.toastText.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun setupNavigation() {
-        locationViewModel.locationSelectedEvent.observe(viewLifecycleOwner) {
-            it?.let {
-                it.getContentIfNotHandled()?.let { temp ->
-                    writeViewModel.temp = temp
-                    writeViewModel.stickers = locationViewModel.stickers
+        locationViewModel.locationSelectedEvent.observe(viewLifecycleOwner, EventObserver {
+            writeViewModel.temp = it
+            writeViewModel.stickers = locationViewModel.stickers
 
-                    val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
-                    findNavController().navigate(action)
-                }
-            }
-        }
+            val action = LocationFragmentDirections.actionLocationFragmentToWriteFragment()
+            findNavController().navigate(action)
+        })
     }
 
     override fun onDestroyView() {
@@ -158,6 +153,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     companion object {
-        private const val TEST_GROUP_ID = 25L
+        private const val TEST_GROUP_ID = 1L
     }
 }

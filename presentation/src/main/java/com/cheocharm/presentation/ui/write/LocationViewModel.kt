@@ -19,11 +19,11 @@ import javax.inject.Inject
 class LocationViewModel @Inject constructor(
     private val requestWriteImagesUseCase: RequestWriteImagesUseCase
 ) : ViewModel() {
-    private val _toastText = MutableLiveData<Event<String>?>()
-    val toastText: LiveData<Event<String>?> = _toastText
+    private val _toastText = MutableLiveData<Event<String>>()
+    val toastText: LiveData<Event<String>> = _toastText
 
-    private val _locationSelectedEvent = MutableLiveData<Event<TempDiary>?>()
-    val locationSelectedEvent: LiveData<Event<TempDiary>?> = _locationSelectedEvent
+    private val _locationSelectedEvent = MutableLiveData<Event<TempDiary>>()
+    val locationSelectedEvent: LiveData<Event<TempDiary>> = _locationSelectedEvent
 
     var stickers: List<Sticker> = TestValues.testStickers
         private set
