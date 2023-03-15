@@ -6,6 +6,7 @@ import com.cheocharm.domain.model.GroupMember
 
 internal fun GroupData.toDomain(): Group =
     Group(
+        groupId,
         groupName,
         "",
         "",
