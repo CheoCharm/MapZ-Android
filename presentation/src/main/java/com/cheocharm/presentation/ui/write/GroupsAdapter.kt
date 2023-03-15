@@ -6,15 +6,15 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cheocharm.domain.model.Group
-import com.cheocharm.domain.model.GroupMember
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.ItemWriteGroupBinding
+import com.cheocharm.presentation.model.GroupMemberModel
+import com.cheocharm.presentation.model.GroupModel
 
-class GroupsAdapter(private val onClick: (Group) -> Unit) :
-    ListAdapter<Group, GroupsAdapter.ViewHolder>(GroupDiffCallback) {
+class GroupsAdapter(private val onClick: (GroupModel) -> Unit) :
+    ListAdapter<GroupModel, GroupsAdapter.ViewHolder>(GroupDiffCallback) {
 
-    class ViewHolder(private val binding: ItemWriteGroupBinding, val onClick: (Group) -> Unit) :
+    class ViewHolder(private val binding: ItemWriteGroupBinding, val onClick: (GroupModel) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -25,19 +25,18 @@ class GroupsAdapter(private val onClick: (Group) -> Unit) :
             }
         }
 
-        fun bind(group: Group) {
-            binding.group = group
-
+        fun bind(groupModel: GroupModel) {
             with(binding) {
+                group = groupModel
 
-                val numberOfMembersExceedingFour = group.numberOfMembers
-                val members: List<GroupMember>
+                val numberOfMembersExceedingFour = groupModel.numberOfMembers - 4
+                val members: List<GroupMemberModel>
 
-                if (numberOfMembersExceedingFour == 0) {
-                    members = group.members
+                if (numberOfMembersExceedingFour <= 0) {
+                    members = groupModel.members
                     tvWriteNumberOfGroupMembers.isVisible = false
                 } else {
-                    members = group.members.subList(0, 4)
+                    members = groupModel.members.subList(0, 4)
                     tvWriteNumberOfGroupMembers.text = String.format(
                         binding.root.context.resources.getString(
                             R.string.format_write_number_of_group_members
@@ -49,8 +48,9 @@ class GroupsAdapter(private val onClick: (Group) -> Unit) :
                 rvWriteGroupMembers.adapter = MembersAdapter().apply {
                     submitList(members)
                 }
+
+                executePendingBindings()
             }
-            binding.executePendingBindings()
         }
     }
 
@@ -71,9 +71,9 @@ class GroupsAdapter(private val onClick: (Group) -> Unit) :
     }
 }
 
-object GroupDiffCallback : DiffUtil.ItemCallback<Group>() {
-    override fun areItemsTheSame(oldItem: Group, newItem: Group): Boolean = oldItem == newItem
+object GroupDiffCallback : DiffUtil.ItemCallback<GroupModel>() {
+    override fun areItemsTheSame(oldItem: GroupModel, newItem: GroupModel): Boolean = oldItem == newItem
 
-    override fun areContentsTheSame(oldItem: Group, newItem: Group): Boolean =
+    override fun areContentsTheSame(oldItem: GroupModel, newItem: GroupModel): Boolean =
         oldItem.name == newItem.name && oldItem.groupImageUrl == newItem.groupImageUrl
 }

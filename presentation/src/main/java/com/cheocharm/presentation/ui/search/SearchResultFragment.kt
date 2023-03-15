@@ -9,12 +9,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.cheocharm.domain.model.Group
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.common.EventObserver
 import com.cheocharm.presentation.databinding.ActivityMainBinding
 import com.cheocharm.presentation.databinding.FragmentSearchResultBinding
+import com.cheocharm.presentation.model.GroupModel
 import com.cheocharm.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -90,7 +90,7 @@ class SearchResultFragment :
         }
     }
 
-    private fun onGroupClicked(group: Group) {
+    private fun onGroupClicked(group: GroupModel) {
         searchViewModel.setSelectedGroup(group)
         findNavController().navigate(R.id.action_searchResultFragment_to_searchGroupFragment)
     }

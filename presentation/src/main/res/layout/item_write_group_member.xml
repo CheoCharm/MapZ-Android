@@ -6,7 +6,8 @@
 
         <variable
             name="member"
-            type="com.cheocharm.domain.model.GroupMember" />
+            type="com.cheocharm.presentation.model.GroupMemberModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

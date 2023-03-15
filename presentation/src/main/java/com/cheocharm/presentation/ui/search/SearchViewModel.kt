@@ -1,15 +1,21 @@
 package com.cheocharm.presentation.ui.search
 
-import androidx.lifecycle.*
-import androidx.paging.PagingData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.cheocharm.domain.model.Error
-import com.cheocharm.domain.model.Group
 import com.cheocharm.domain.usecase.group.JoinGroupUseCase
 import com.cheocharm.domain.usecase.group.SearchGroupUseCase
 import com.cheocharm.presentation.common.Event
+import com.cheocharm.presentation.model.GroupModel
+import com.cheocharm.presentation.model.toPresentation
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,11 +30,16 @@ class SearchViewModel @Inject constructor(
         get() = _searchGroupName
 
     val groupSearchResultList = searchGroupName.switchMap { groupName ->
-        searchGroupUseCase.invoke(groupName).cachedIn(viewModelScope).asLiveData()
+        searchGroupUseCase.invoke(groupName)
+            .map {
+                it.map { group -> group.toPresentation() }
+            }
+            .cachedIn(viewModelScope)
+            .asLiveData()
     }
 
-    private val _selectedGroup = MutableLiveData<Group>()
-    val selectedGroup: LiveData<Group>
+    private val _selectedGroup = MutableLiveData<GroupModel>()
+    val selectedGroup: LiveData<GroupModel>
         get() = _selectedGroup
 
     private val _searchGroupJoinBottom = MutableLiveData<Event<Unit>>()
@@ -43,7 +54,7 @@ class SearchViewModel @Inject constructor(
         _searchGroupName.value = groupName
     }
 
-    fun setSelectedGroup(group: Group) {
+    fun setSelectedGroup(group: GroupModel) {
         _selectedGroup.value = group
     }
 

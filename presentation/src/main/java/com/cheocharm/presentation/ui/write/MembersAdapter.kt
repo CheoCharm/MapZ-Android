@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cheocharm.domain.model.GroupMember
 import com.cheocharm.presentation.databinding.ItemWriteGroupMemberBinding
+import com.cheocharm.presentation.model.GroupMemberModel
 
-class MembersAdapter : ListAdapter<GroupMember, MembersAdapter.ViewHolder>(MemberDiffCallback) {
+class MembersAdapter : ListAdapter<GroupMemberModel, MembersAdapter.ViewHolder>(MemberDiffCallback) {
 
     class ViewHolder(private val binding: ItemWriteGroupMemberBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(member: GroupMember) {
+        fun bind(member: GroupMemberModel) {
             binding.member = member
             binding.executePendingBindings()
         }
@@ -36,10 +36,10 @@ class MembersAdapter : ListAdapter<GroupMember, MembersAdapter.ViewHolder>(Membe
     }
 }
 
-object MemberDiffCallback : DiffUtil.ItemCallback<GroupMember>() {
-    override fun areItemsTheSame(oldItem: GroupMember, newItem: GroupMember): Boolean =
+object MemberDiffCallback : DiffUtil.ItemCallback<GroupMemberModel>() {
+    override fun areItemsTheSame(oldItem: GroupMemberModel, newItem: GroupMemberModel): Boolean =
         oldItem == newItem
 
-    override fun areContentsTheSame(oldItem: GroupMember, newItem: GroupMember): Boolean =
+    override fun areContentsTheSame(oldItem: GroupMemberModel, newItem: GroupMemberModel): Boolean =
         oldItem.imageUrl == newItem.imageUrl
 }

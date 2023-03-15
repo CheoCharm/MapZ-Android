@@ -3,45 +3,43 @@ package com.cheocharm.presentation.ui.write
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cheocharm.domain.model.Group
-import com.cheocharm.domain.model.GroupMember
+import androidx.lifecycle.viewModelScope
+import com.cheocharm.domain.usecase.write.GetMyGroupsUseCase
+import com.cheocharm.presentation.common.Event
+import com.cheocharm.presentation.model.GroupModel
+import com.cheocharm.presentation.model.toPresentation
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WriteViewModel @Inject constructor() : ViewModel() {
-    private val _groups = MutableLiveData(
-        listOf(
-            Group(
-                "그룹제목 1",
-                "맵지 고등학교 추억 교환일기!",
-                "2022.02.23",
-                listOf(
-                    GroupMember(),
-                    GroupMember(),
-                    GroupMember(),
-                    GroupMember(),
-                    GroupMember(),
-                    GroupMember(),
-                    GroupMember(),
-                    GroupMember()
-                ), 4
-            ),
-            Group(
-                "그룹제목 2", "맵지 고등학교 추억 교환일기!",
-                "2022.02.23",
-                listOf(
-                    GroupMember(), GroupMember(), GroupMember()
-                ), 0
-            ),
-            Group(
-                "그룹제목 3", "맵지 고등학교 추억 교환일기!",
-                "2022.02.23",
-                listOf(
-                    GroupMember(), GroupMember(), GroupMember()
-                ), 0
-            ),
-        )
-    )
-    val groups: LiveData<List<Group>> = _groups
+class WriteViewModel @Inject constructor(
+    private val getMyGroupsUseCase: GetMyGroupsUseCase
+) : ViewModel() {
+
+    private val _groups = MutableLiveData<List<GroupModel>>()
+    val groups: LiveData<List<GroupModel>> = _groups
+
+    private val _toastText = MutableLiveData<Event<String>>()
+    val toastText: LiveData<Event<String>> = _toastText
+
+    init {
+        fetchMyGroups()
+    }
+
+    private fun fetchMyGroups() {
+        viewModelScope.launch {
+            val result = getMyGroupsUseCase()
+
+            result.mapCatching {
+                it.map { domain ->
+                    domain.toPresentation()
+                }
+            }.onSuccess { groups ->
+                _groups.value = groups
+            }.onFailure { throwable ->
+                _toastText.value = Event(throwable.message ?: "그룹 불러오기에 실패했습니다.")
+            }
+        }
+    }
 }
