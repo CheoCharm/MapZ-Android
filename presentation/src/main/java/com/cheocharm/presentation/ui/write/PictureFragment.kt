@@ -64,7 +64,7 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
             }
         }
 
-        binding.btnPictureGet.setOnClickListener {
+        binding.btnPictureGetPicture.setOnClickListener {
             getContent.launch("image/*")
         }
     }
