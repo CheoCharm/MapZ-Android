@@ -1,6 +1,7 @@
 package com.cheocharm.presentation.ui.write
 
 import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -70,11 +71,16 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
     }
 
     private fun launchPermissionRequest() {
-        requestPermissionsLauncher.launch(
+        val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             arrayOf(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_MEDIA_LOCATION
             )
-        )
+        } else {
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+        }
+        requestPermissionsLauncher.launch(permissions)
     }
 }
