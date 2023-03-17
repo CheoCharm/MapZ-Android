@@ -8,6 +8,7 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.common.EventObserver
@@ -19,13 +20,24 @@ import dagger.hilt.android.AndroidEntryPoint
 class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_groups) {
     private val writeViewModel by hiltNavGraphViewModels<WriteViewModel>(R.id.write)
 
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewmodel = writeViewModel
 
+        setupSwipeRefreshLayout()
         setupRecyclerView()
         setupToast()
+    }
+
+    private fun setupSwipeRefreshLayout() {
+        swipeRefreshLayout = binding.containerGroupsRefresh
+
+        swipeRefreshLayout.setOnRefreshListener {
+            writeViewModel.fetchMyGroups()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -39,6 +51,8 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_gro
         }
 
         writeViewModel.groups.observe(viewLifecycleOwner) {
+            swipeRefreshLayout.isRefreshing = false
+
             it?.let {
                 groupsAdapter.submitList(it)
             }
@@ -52,6 +66,8 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_gro
 
     private fun setupToast() {
         writeViewModel.toastText.observe(viewLifecycleOwner, EventObserver {
+            swipeRefreshLayout.isRefreshing = false
+
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             Log.e(logTag, it)
         })

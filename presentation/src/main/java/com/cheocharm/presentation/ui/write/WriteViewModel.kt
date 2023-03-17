@@ -27,7 +27,7 @@ class WriteViewModel @Inject constructor(
         fetchMyGroups()
     }
 
-    private fun fetchMyGroups() {
+    fun fetchMyGroups() {
         viewModelScope.launch {
             val result = getMyGroupsUseCase()
 
