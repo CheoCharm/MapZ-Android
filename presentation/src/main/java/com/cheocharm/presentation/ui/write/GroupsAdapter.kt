@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cheocharm.presentation.R
-import com.cheocharm.presentation.databinding.ItemWriteGroupBinding
+import com.cheocharm.presentation.databinding.ItemGroupBinding
 import com.cheocharm.presentation.model.GroupMemberModel
 import com.cheocharm.presentation.model.GroupModel
 
 class GroupsAdapter(private val onClick: (GroupModel) -> Unit) :
     ListAdapter<GroupModel, GroupsAdapter.ViewHolder>(GroupDiffCallback) {
 
-    class ViewHolder(private val binding: ItemWriteGroupBinding, val onClick: (GroupModel) -> Unit) :
+    class ViewHolder(private val binding: ItemGroupBinding, val onClick: (GroupModel) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -55,7 +55,7 @@ class GroupsAdapter(private val onClick: (GroupModel) -> Unit) :
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemWriteGroupBinding.inflate(
+        val binding = ItemGroupBinding.inflate(
             LayoutInflater.from(viewGroup.context),
             viewGroup,
             false

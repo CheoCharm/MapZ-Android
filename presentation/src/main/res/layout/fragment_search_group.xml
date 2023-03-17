@@ -101,7 +101,7 @@
             android:paddingHorizontal="@dimen/space_small"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/tv_search_group_description"
-            tools:listitem="@layout/item_write_group_member" />
+            tools:listitem="@layout/item_group_member" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/btn_search_group_join"

@@ -58,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/iv_write_user_tag"
             app:layout_constraintStart_toEndOf="@+id/iv_write_user_tag"
             app:layout_constraintTop_toTopOf="@+id/iv_write_user_tag"
-            tools:listitem="@layout/item_write_group_member" />
+            tools:listitem="@layout/item_group_member" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_write_number_of_group_members"

@@ -3,7 +3,7 @@ package com.cheocharm.presentation.ui.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import com.cheocharm.presentation.databinding.ItemWriteGroupBinding
+import com.cheocharm.presentation.databinding.ItemGroupBinding
 import com.cheocharm.presentation.model.GroupModel
 import com.cheocharm.presentation.ui.write.GroupDiffCallback
 import com.cheocharm.presentation.ui.write.GroupsAdapter
@@ -19,7 +19,7 @@ class GroupsPagingAdapter(private val onClick: (GroupModel) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupsAdapter.ViewHolder {
         return GroupsAdapter.ViewHolder(
-            ItemWriteGroupBinding.inflate(
+            ItemGroupBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
