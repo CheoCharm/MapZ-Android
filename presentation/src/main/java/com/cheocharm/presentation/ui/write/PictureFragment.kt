@@ -1,10 +1,16 @@
 package com.cheocharm.presentation.ui.write
 
 import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.exifinterface.media.ExifInterface
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -15,6 +21,7 @@ import com.cheocharm.presentation.databinding.FragmentPictureBinding
 import com.cheocharm.presentation.model.Picture
 import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 
 class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_picture) {
@@ -22,10 +29,19 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
 
     private val requestPermissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            permissions.forEach {
-                if (it.value.not()) {
-                    // TODO: 권한 없을 때 처리
+            if (permissions.any { it.value.not() }) {
+                val snackbar = Snackbar.make(
+                    binding.containerPicture,
+                    R.string.picture_set_permission,
+                    Snackbar.LENGTH_LONG
+                )
+                snackbar.setAction(R.string.picture_snackbar_action) {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    val uri = Uri.fromParts("package", requireActivity().packageName, null)
+                    intent.data = uri
+                    startActivity(intent)
                 }
+                snackbar.show()
             }
         }
     private val getContent =
@@ -55,8 +71,16 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        launchPermissionRequest()
+        setupToolbar()
 
+        requestPermissions()
+
+        binding.btnPictureGetPicture.setOnClickListener {
+            getContent.launch("image/*")
+        }
+    }
+
+    private fun setupToolbar() {
         with(binding.toolbarPicture) {
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
@@ -64,9 +88,25 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
                 findNavController().navigate(action)
             }
         }
+    }
 
-        binding.btnPictureGetPicture.setOnClickListener {
-            getContent.launch("image/*")
+    private fun requestPermissions() {
+        when {
+            shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) -> {
+                Toast.makeText(
+                    context,
+                    R.string.picture_permission_rationale,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                launchPermissionRequest()
+            }
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_DENIED -> {
+                launchPermissionRequest()
+            }
         }
     }
 

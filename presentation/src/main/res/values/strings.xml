@@ -64,6 +64,9 @@
     <string name="picture_title">사진 선택하기</string>
     <string name="picture_desc">친구들과의 추억이 담긴 사진을 선택해주세요.</string>
     <string name="picture_button">사진 가져오기</string>
+    <string name="picture_permission_rationale">파일 및 미디어 액세스 권한을 허용하지 않으면 일부 사진을 가져올 수 없습니다.</string>
+    <string name="picture_set_permission">모든 사진에 접근하려면 파일 및 미디어 액세스 권한을 허용해주세요.</string>
+    <string name="picture_snackbar_action">설정</string>
     <string name="location_title">위치 확인하기</string>
     <string name="location_confirm">위치 확인하기 완료</string>
     <string name="write_title">일기 작성하기</string>
