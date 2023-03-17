@@ -14,12 +14,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/space_median">
+        android:paddingVertical="@dimen/groups_item_padding_vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_write_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/groups_group_image_size"
+            android:layout_height="@dimen/groups_group_image_size"
             android:background="@drawable/bg_round"
             android:backgroundTint="@color/write_group_image_empty_color"
             app:imageCircledLoad="@{group.groupImageUrl}"
@@ -31,18 +31,19 @@
             android:id="@+id/tv_write_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_median"
+            android:layout_marginStart="@dimen/groups_group_title_margin_start"
             android:text="@{group.name}"
             android:textColor="@color/black"
+            android:textSize="@dimen/text_s_large"
             app:layout_constraintStart_toEndOf="@+id/iv_write_group"
             app:layout_constraintTop_toTopOf="@+id/iv_write_group"
             tools:text="그룹 제목 1" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_write_user_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_small"
+            android:layout_width="@dimen/groups_members_icon_size"
+            android:layout_height="@dimen/groups_members_icon_size"
+            android:layout_marginTop="@dimen/groups_members_icon_margin_top"
             app:layout_constraintStart_toStartOf="@+id/tv_write_group_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_write_group_name"
             app:srcCompat="@drawable/ic_write_user_tag" />
@@ -63,8 +64,10 @@
             android:id="@+id/tv_write_number_of_group_members"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/groups_number_of_members_margin_start"
             android:text="@{String.valueOf(group.numberOfMembers)}"
             android:textColor="@color/map_z_blue_700"
+            android:textSize="@dimen/text_median"
             app:layout_constraintBottom_toBottomOf="@+id/rv_write_group_members"
             app:layout_constraintStart_toEndOf="@+id/rv_write_group_members"
             app:layout_constraintTop_toTopOf="@+id/rv_write_group_members"
