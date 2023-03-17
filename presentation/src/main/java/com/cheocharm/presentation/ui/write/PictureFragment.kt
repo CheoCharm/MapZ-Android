@@ -1,11 +1,13 @@
 package com.cheocharm.presentation.ui.write
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
@@ -45,23 +47,54 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
             }
         }
     private val getContent =
-        registerForActivityResult(ActivityResultContracts.GetContent()) {
-            it?.let { uri ->
-                requireContext().contentResolver.openInputStream(uri)?.let { inputStream ->
-                    val exif = ExifInterface(inputStream)
-                    val latLng = exif.latLong?.let { array ->
-                        LatLng(array[0], array[1])
-                    }
-                    val picture = Picture(uri, latLng)
-                    val geocodeUtil = GeocodeUtil(requireContext(), Dispatchers.IO)
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val pictures = mutableListOf<Picture>()
+                val clipData = it?.data?.clipData
+                val geocodeUtil = GeocodeUtil(requireContext(), Dispatchers.IO)
 
-                    locationViewModel.loadPicture(picture, geocodeUtil)
-                    inputStream.close()
+                if (clipData == null) {
+                    val uri = it?.data?.data
+                    val picture = uri?.toPicture()
+
+                    picture?.let { pic ->
+                        pictures.add(pic)
+                    }
+                } else {
+                    for (i in 0 until clipData.itemCount) {
+                        val uri = clipData.getItemAt(i).uri
+                        val picture = uri.toPicture()
+
+                        picture?.let { pic ->
+                            pictures.add(pic)
+                        }
+                    }
+
                 }
 
+                val picture = pictures[0]
+
+                locationViewModel.loadPicture(picture, geocodeUtil)
                 navigateToLocationFragment()
             }
         }
+
+    private fun Uri.toPicture(): Picture? {
+        var picture: Picture? = null
+
+        requireContext().contentResolver.openInputStream(this)?.let { inputStream ->
+            val exif = ExifInterface(inputStream)
+            val latLng = exif.latLong?.let { array ->
+                LatLng(array[0], array[1])
+            }
+
+            picture = Picture(this, latLng)
+
+            inputStream.close()
+        }
+
+        return picture
+    }
 
     private fun navigateToLocationFragment() {
         val action = PictureFragmentDirections.actionPictureFragmentToLocationFragment()
@@ -76,7 +109,14 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
         requestPermissions()
 
         binding.btnPictureGetPicture.setOnClickListener {
-            getContent.launch("image/*")
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.setDataAndType(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Images.Media.CONTENT_TYPE
+            )
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+
+            getContent.launch(intent)
         }
     }
 
