@@ -15,6 +15,7 @@ import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.common.EventObserver
 import com.cheocharm.presentation.databinding.FragmentGroupsBinding
+import com.cheocharm.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,6 +29,8 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_gro
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewmodel = groupsViewModel
+
+        (requireActivity() as MainActivity).setStatusBarColor(R.color.map_z_red_common, false)
 
         setupSwipeRefreshLayout()
         setupRecyclerView()

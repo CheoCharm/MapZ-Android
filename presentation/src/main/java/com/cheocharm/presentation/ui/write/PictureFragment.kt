@@ -21,6 +21,7 @@ import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentPictureBinding
 import com.cheocharm.presentation.model.Picture
+import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
@@ -46,7 +47,7 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
                 snackbar.show()
             }
         }
-    private val getContent =
+    private val getContentLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val pictures = mutableListOf<Picture>()
@@ -105,9 +106,24 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
         super.onViewCreated(view, savedInstanceState)
 
         setupToolbar()
+        setupButton()
 
         requestPermissions()
+    }
 
+    private fun setupToolbar() {
+        (requireActivity() as MainActivity).setStatusBarColor(R.color.white, true)
+
+        with(binding.toolbarPicture) {
+            setNavigationIcon(R.drawable.ic_back)
+            setNavigationOnClickListener {
+                val action = PictureFragmentDirections.actionPictureFragmentToWriteDest()
+                findNavController().navigate(action)
+            }
+        }
+    }
+
+    private fun setupButton() {
         binding.btnPictureGetPicture.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.setDataAndType(
@@ -116,17 +132,7 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
             )
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
 
-            getContent.launch(intent)
-        }
-    }
-
-    private fun setupToolbar() {
-        with(binding.toolbarPicture) {
-            setNavigationIcon(R.drawable.ic_back)
-            setNavigationOnClickListener {
-                val action = PictureFragmentDirections.actionPictureFragmentToWriteDest()
-                findNavController().navigate(action)
-            }
+            getContentLauncher.launch(intent)
         }
     }
 
