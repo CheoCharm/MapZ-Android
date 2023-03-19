@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cheocharm.domain.model.Group
 import com.cheocharm.domain.usecase.write.GetMyGroupsUseCase
+import com.cheocharm.presentation.common.ErrorMessage
 import com.cheocharm.presentation.common.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,7 +36,8 @@ class WriteViewModel @Inject constructor(
                     _groups.value = groups
                 }
                 .onFailure { throwable ->
-                    _toastText.value = Event(throwable.message ?: "그룹 불러오기에 실패했습니다.")
+                    _toastText.value =
+                        Event(throwable.message ?: ErrorMessage.FETCH_MY_GROUPS_FAILED)
                 }
         }
     }
