@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cheocharm.domain.model.Group
 import com.cheocharm.domain.usecase.write.GetMyGroupsUseCase
 import com.cheocharm.presentation.common.Event
-import com.cheocharm.presentation.model.GroupModel
-import com.cheocharm.presentation.model.toPresentation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,8 +16,8 @@ class WriteViewModel @Inject constructor(
     private val getMyGroupsUseCase: GetMyGroupsUseCase
 ) : ViewModel() {
 
-    private val _groups = MutableLiveData<List<GroupModel>>()
-    val groups: LiveData<List<GroupModel>> = _groups
+    private val _groups = MutableLiveData<List<Group>>()
+    val groups: LiveData<List<Group>> = _groups
 
     private val _toastText = MutableLiveData<Event<String>>()
     val toastText: LiveData<Event<String>> = _toastText
@@ -31,15 +30,13 @@ class WriteViewModel @Inject constructor(
         viewModelScope.launch {
             val result = getMyGroupsUseCase()
 
-            result.mapCatching {
-                it.map { domain ->
-                    domain.toPresentation()
+            result
+                .onSuccess { groups ->
+                    _groups.value = groups
                 }
-            }.onSuccess { groups ->
-                _groups.value = groups
-            }.onFailure { throwable ->
-                _toastText.value = Event(throwable.message ?: "그룹 불러오기에 실패했습니다.")
-            }
+                .onFailure { throwable ->
+                    _toastText.value = Event(throwable.message ?: "그룹 불러오기에 실패했습니다.")
+                }
         }
     }
 }

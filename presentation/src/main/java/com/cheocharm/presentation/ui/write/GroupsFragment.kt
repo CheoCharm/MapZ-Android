@@ -9,11 +9,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.cheocharm.domain.model.Group
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.common.EventObserver
 import com.cheocharm.presentation.databinding.FragmentGroupsBinding
-import com.cheocharm.presentation.model.GroupModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -59,7 +59,7 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_gro
         }
     }
 
-    private fun adapterOnClick(group: GroupModel) {
+    private fun adapterOnClick(group: Group) {
         val action = GroupsFragmentDirections.actionWriteDestToPictureFragment()
         findNavController().navigate(action)
     }

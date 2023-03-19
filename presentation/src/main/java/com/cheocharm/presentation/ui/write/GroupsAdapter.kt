@@ -6,15 +6,15 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.cheocharm.domain.model.Group
+import com.cheocharm.domain.model.GroupMember
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.databinding.ItemGroupBinding
-import com.cheocharm.presentation.model.GroupMemberModel
-import com.cheocharm.presentation.model.GroupModel
 
-class GroupsAdapter(private val onClick: (GroupModel) -> Unit) :
-    ListAdapter<GroupModel, GroupsAdapter.ViewHolder>(GroupDiffCallback) {
+class GroupsAdapter(private val onClick: (Group) -> Unit) :
+    ListAdapter<Group, GroupsAdapter.ViewHolder>(GroupDiffCallback) {
 
-    class ViewHolder(private val binding: ItemGroupBinding, val onClick: (GroupModel) -> Unit) :
+    class ViewHolder(private val binding: ItemGroupBinding, val onClick: (Group) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -25,12 +25,12 @@ class GroupsAdapter(private val onClick: (GroupModel) -> Unit) :
             }
         }
 
-        fun bind(groupModel: GroupModel) {
+        fun bind(groupModel: Group) {
             with(binding) {
                 group = groupModel
 
                 val numberOfMembersExceedingFour = groupModel.numberOfMembers - 4
-                val members: List<GroupMemberModel>
+                val members: List<GroupMember>
 
                 if (numberOfMembersExceedingFour <= 0) {
                     members = groupModel.members
@@ -71,9 +71,9 @@ class GroupsAdapter(private val onClick: (GroupModel) -> Unit) :
     }
 }
 
-object GroupDiffCallback : DiffUtil.ItemCallback<GroupModel>() {
-    override fun areItemsTheSame(oldItem: GroupModel, newItem: GroupModel): Boolean = oldItem == newItem
+object GroupDiffCallback : DiffUtil.ItemCallback<Group>() {
+    override fun areItemsTheSame(oldItem: Group, newItem: Group): Boolean = oldItem == newItem
 
-    override fun areContentsTheSame(oldItem: GroupModel, newItem: GroupModel): Boolean =
+    override fun areContentsTheSame(oldItem: Group, newItem: Group): Boolean =
         oldItem.name == newItem.name && oldItem.groupImageUrl == newItem.groupImageUrl
 }

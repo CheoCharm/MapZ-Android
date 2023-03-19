@@ -3,13 +3,13 @@ package com.cheocharm.presentation.ui.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
+import com.cheocharm.domain.model.Group
 import com.cheocharm.presentation.databinding.ItemGroupBinding
-import com.cheocharm.presentation.model.GroupModel
 import com.cheocharm.presentation.ui.write.GroupDiffCallback
 import com.cheocharm.presentation.ui.write.GroupsAdapter
 
-class GroupsPagingAdapter(private val onClick: (GroupModel) -> Unit) :
-    PagingDataAdapter<GroupModel, GroupsAdapter.ViewHolder>(GroupDiffCallback) {
+class GroupsPagingAdapter(private val onClick: (Group) -> Unit) :
+    PagingDataAdapter<Group, GroupsAdapter.ViewHolder>(GroupDiffCallback) {
 
     override fun onBindViewHolder(holder: GroupsAdapter.ViewHolder, position: Int) {
         getItem(position)?.let {

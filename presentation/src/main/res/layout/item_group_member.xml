@@ -6,7 +6,7 @@
 
         <variable
             name="member"
-            type="com.cheocharm.presentation.model.GroupMemberModel" />
+            type="com.cheocharm.domain.model.GroupMember" />
 
     </data>
 
