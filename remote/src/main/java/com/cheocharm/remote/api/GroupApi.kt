@@ -1,20 +1,52 @@
 package com.cheocharm.remote.api
 
 import com.cheocharm.remote.model.BaseResponse
+import com.cheocharm.remote.model.request.GroupCreateDto
+import com.cheocharm.remote.model.response.group.GroupJoinResponse
+import com.cheocharm.remote.model.response.group.GroupMemberResponse
+import com.cheocharm.remote.model.response.group.GroupResponse
 import com.cheocharm.remote.model.response.group.GroupSearchResponse
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.*
 
 interface GroupApi {
 
     @GET("group")
     suspend fun fetchGroupSearchList(
         @Query("page") page: Int,
-        @Query("searchName") searchName: String
+        @Query("groupName") searchName: String,
+        @Query("cursorId") cursorId: Int
     ): BaseResponse<GroupSearchResponse>
 
+    @Multipart
+    @POST("group")
+    suspend fun createGroup(
+        @Part("dto") dto: GroupCreateDto,
+        @Part file: MultipartBody.Part
+    ): BaseResponse<String>
+
     @POST("group/join")
-    suspend fun joinGroup(@Body body: HashMap<String, String>): BaseResponse<Unit>
+    suspend fun joinGroup(@Body body: HashMap<String, String>): BaseResponse<GroupJoinResponse>
+
+    @PATCH("group/join")
+    suspend fun modifyJoinGroup(@Body body: RequestBody): BaseResponse<String>
+
+    @POST("group/invite")
+    suspend fun inviteGroup(@Body body: RequestBody): BaseResponse<String>
+
+    @PATCH("group/status")
+    suspend fun modifyGroupStatus(@Body body: RequestBody): BaseResponse<String>
+
+    @PATCH("group/exit")
+    suspend fun exitGroup(@Body body: RequestBody): BaseResponse<String>
+
+    @PATCH("group/chief")
+    suspend fun modifyChief(@Body body: RequestBody): BaseResponse<String>
+
+    @GET("group/mygroup")
+    suspend fun fetchMyGroup(): BaseResponse<List<GroupResponse>>
+
+    @GET("group/member")
+    suspend fun fetchGroupMember(@Query("groupId") groupId: Int): BaseResponse<List<GroupMemberResponse>>
 }

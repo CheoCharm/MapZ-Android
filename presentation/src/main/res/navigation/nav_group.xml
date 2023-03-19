@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_group"
+    app:startDestination="@id/groupCreateFragment">
+
+    <fragment
+        android:id="@+id/groupCreateFragment"
+        android:name="com.cheocharm.presentation.ui.group.GroupCreateFragment"
+        android:label="GroupCreateFragment"
+        tools:layout="@layout/fragment_group_create">
+        <action
+            android:id="@+id/action_groupCreateFragment_to_groupCreateSearchFragment"
+            app:destination="@id/groupCreateSearchFragment" />
+        <action
+            android:id="@+id/action_groupCreateFragment_to_groupCreateSearchResultFragment"
+            app:destination="@id/groupCreateSearchResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupCreateSearchFragment"
+        android:name="com.cheocharm.presentation.ui.group.GroupCreateSearchFragment"
+        android:label="GroupCreateSearchFragment"
+        tools:layout="@layout/fragment_group_create_search" />
+    <fragment
+        android:id="@+id/groupCreateSearchResultFragment"
+        android:name="com.cheocharm.presentation.ui.group.GroupCreateSearchResultFragment"
+        android:label="GroupCreat현eSearchResultFragment"
+        tools:layout="@layout/fragment_group_create_search_result" />
+</navigation>

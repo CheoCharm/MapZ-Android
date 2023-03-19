@@ -14,4 +14,5 @@ sealed class Error(
     data class RefreshAccessTokenUnavailable(override val message: String) : Error()
     data class SearchGroupUnavailable(override val message: String) : Error()
     data class JoinGroupUnavailable(override val message: String) : Error()
+    data class GroupCreateUnavailable(override val message: String) : Error()
 }

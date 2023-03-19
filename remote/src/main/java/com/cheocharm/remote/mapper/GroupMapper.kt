@@ -1,8 +1,12 @@
 package com.cheocharm.remote.mapper
 
 import com.cheocharm.domain.model.Group
+import com.cheocharm.domain.model.GroupJoin
 import com.cheocharm.domain.model.GroupMember
 import com.cheocharm.domain.model.GroupSearch
+import com.cheocharm.domain.model.group.GroupCreateRequest
+import com.cheocharm.remote.model.request.GroupCreateDto
+import com.cheocharm.remote.model.response.group.GroupJoinResponse
 import com.cheocharm.remote.model.response.group.GroupSearchResponse
 
 // remote -> domain
@@ -14,4 +18,14 @@ internal fun GroupSearchResponse.toDomain(): GroupSearch {
         Group(it.groupName, it.bio, it.createdAt, groupMemberList, it.count, it.groupImageUrl)
     }
     return GroupSearch(hasNextPage, groupResultList)
+}
+
+// remote -> domain
+internal fun GroupJoinResponse.toDomain(): GroupJoin {
+    return GroupJoin(alreadyJoin, status)
+}
+
+// domain -> remote
+internal fun GroupCreateRequest.toDto(): GroupCreateDto {
+    return GroupCreateDto(groupName, groupBio, changeStatus)
 }

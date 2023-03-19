@@ -12,4 +12,5 @@ internal fun ErrorData.toDomain(): Error = when (this) {
     is ErrorData.RefreshAccessTokenUnavailable -> Error.RefreshAccessTokenUnavailable(message)
     is ErrorData.SearchGroupUnavailable -> Error.SearchGroupUnavailable(message)
     is ErrorData.JoinGroupUnavailable -> Error.JoinGroupUnavailable(message)
+    is ErrorData.GroupCreateUnavailable -> Error.GroupCreateUnavailable(message)
 }
