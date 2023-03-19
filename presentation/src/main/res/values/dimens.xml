@@ -36,10 +36,15 @@
     <dimen name="sign_up_agree_btn">14dp</dimen>
     <dimen name="sign_up_agree_divider">1.5dp</dimen>
     
-    <dimen name="write_margin_top">76dp</dimen>
     <dimen name="write_title_text_size">20sp</dimen>
-    <dimen name="write_group_member_image_size">23dp</dimen>
-    <dimen name="write_group_members_margin">10dp</dimen>
+    <dimen name="groups_item_padding_vertical">9dp</dimen>
+    <dimen name="groups_group_image_size">45dp</dimen>
+    <dimen name="groups_group_title_margin_start">10dp</dimen>
+    <dimen name="groups_members_icon_size">15dp</dimen>
+    <dimen name="groups_members_icon_margin_top">4dp</dimen>
+    <dimen name="groups_member_image_size">18dp</dimen>
+    <dimen name="groups_member_margin">10dp</dimen>
+    <dimen name="groups_number_of_members_margin_start">1dp</dimen>
     <dimen name="gallery_button_margin_top">100dp</dimen>
     <dimen name="default_elevation">4dp</dimen>
     <dimen name="location_picture_size">120dp</dimen>

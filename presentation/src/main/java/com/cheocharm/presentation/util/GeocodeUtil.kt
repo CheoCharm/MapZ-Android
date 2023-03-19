@@ -15,7 +15,7 @@ object GeocodeUtil {
                 val geocoder = Geocoder(context, Locale.KOREAN)
                 val addresses = geocoder.getFromLocation(it.latitude, it.longitude, 1)
 
-                if (addresses.isEmpty().not()) {
+                if (addresses != null && addresses.isEmpty().not()) {
                     val fetchedAddress = addresses.first()
                     val address = fetchedAddress.getAddressLine(0)
                     picture.address = address

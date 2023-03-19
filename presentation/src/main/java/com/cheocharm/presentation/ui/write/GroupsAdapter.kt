@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cheocharm.domain.model.Group
 import com.cheocharm.domain.model.GroupMember
 import com.cheocharm.presentation.R
-import com.cheocharm.presentation.databinding.ItemWriteGroupBinding
+import com.cheocharm.presentation.databinding.ItemGroupBinding
 
 class GroupsAdapter(private val onClick: (Group) -> Unit) :
     ListAdapter<Group, GroupsAdapter.ViewHolder>(GroupDiffCallback) {
 
-    class ViewHolder(private val binding: ItemWriteGroupBinding, val onClick: (Group) -> Unit) :
+    class ViewHolder(private val binding: ItemGroupBinding, val onClick: (Group) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -26,14 +26,13 @@ class GroupsAdapter(private val onClick: (Group) -> Unit) :
         }
 
         fun bind(group: Group) {
-            binding.group = group
-
             with(binding) {
+                this.group = group
 
-                val numberOfMembersExceedingFour = group.numberOfMembers
+                val numberOfMembersExceedingFour = group.numberOfMembers - 4
                 val members: List<GroupMember>
 
-                if (numberOfMembersExceedingFour == 0) {
+                if (numberOfMembersExceedingFour <= 0) {
                     members = group.members
                     tvWriteNumberOfGroupMembers.isVisible = false
                 } else {
@@ -49,13 +48,14 @@ class GroupsAdapter(private val onClick: (Group) -> Unit) :
                 rvWriteGroupMembers.adapter = MembersAdapter().apply {
                     submitList(members)
                 }
+
+                executePendingBindings()
             }
-            binding.executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemWriteGroupBinding.inflate(
+        val binding = ItemGroupBinding.inflate(
             LayoutInflater.from(viewGroup.context),
             viewGroup,
             false

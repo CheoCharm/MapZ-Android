@@ -3,6 +3,7 @@
     <color name="map_z_red_200">#FFFF7A7B</color>
     <color name="map_z_red_500">#FFF8444F</color>
     <color name="map_z_red_700">#FFB22730</color>
+    <color name="map_z_red_common">#FFED4E38</color>
     <color name="map_z_blue_200">#FF69E1F2</color>
     <color name="map_z_blue_700">#FF448E96</color>
     <color name="map_z_ivory">#FFF7F8F3</color>
@@ -30,7 +31,6 @@
     <color name="grey_dark">#292D32</color>
 
     <color name="bottom_nav_icon_color">@color/gray_500</color>
-    <color name="write_title_background_color">#FFBABABA</color>
     <color name="write_group_image_empty_color">#FFD9D9D9</color>
     <color name="picture_gallery_icon_color">#FF292D32</color>
     <color name="picture_gallery_desc_text_color">#FF6D6D6D</color>

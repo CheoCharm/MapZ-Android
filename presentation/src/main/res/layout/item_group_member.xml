@@ -7,17 +7,18 @@
         <variable
             name="member"
             type="com.cheocharm.domain.model.GroupMember" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="0dp"
-        android:paddingEnd="@dimen/write_group_members_margin">
+        android:paddingEnd="@dimen/groups_member_margin">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/write_group_member_image_size"
-            android:layout_height="@dimen/write_group_member_image_size"
+            android:layout_width="@dimen/groups_member_image_size"
+            android:layout_height="@dimen/groups_member_image_size"
             android:background="@drawable/bg_round"
             android:backgroundTint="@color/write_group_image_empty_color"
             app:imageCircledLoad="@{member.imageUrl}"

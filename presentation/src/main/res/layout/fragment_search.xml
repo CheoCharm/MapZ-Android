@@ -81,7 +81,7 @@
                 android:layout_marginTop="@dimen/space_small"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/space_small"
-                tools:listitem="@layout/item_write_group" />
+                tools:listitem="@layout/item_group" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

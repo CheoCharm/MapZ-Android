@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cheocharm.domain.model.GroupMember
-import com.cheocharm.presentation.databinding.ItemWriteGroupMemberBinding
+import com.cheocharm.presentation.databinding.ItemGroupMemberBinding
 
 class MembersAdapter : ListAdapter<GroupMember, MembersAdapter.ViewHolder>(MemberDiffCallback) {
 
-    class ViewHolder(private val binding: ItemWriteGroupMemberBinding) :
+    class ViewHolder(private val binding: ItemGroupMemberBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(member: GroupMember) {
@@ -20,7 +20,7 @@ class MembersAdapter : ListAdapter<GroupMember, MembersAdapter.ViewHolder>(Membe
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemWriteGroupMemberBinding.inflate(
+        val binding = ItemGroupMemberBinding.inflate(
             LayoutInflater.from(viewGroup.context),
             viewGroup,
             false
