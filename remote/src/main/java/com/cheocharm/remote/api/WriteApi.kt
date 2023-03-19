@@ -8,5 +8,5 @@ import retrofit2.http.Query
 interface WriteApi {
 
     @GET("group/mygroup")
-    suspend fun fetchMyGroups(@Query("accessToken") accessToken: String): BaseResponse<List<MyGroup>>
+    suspend fun fetchMyGroups(): BaseResponse<List<MyGroup>>
 }

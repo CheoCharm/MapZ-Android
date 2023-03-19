@@ -4,5 +4,5 @@ import com.cheocharm.data.model.GroupData
 
 interface MyGroupsRemoteDataSource {
 
-    suspend fun getMyGroups(accessToken: String): Result<List<GroupData>>
+    suspend fun getMyGroups(): Result<List<GroupData>>
 }

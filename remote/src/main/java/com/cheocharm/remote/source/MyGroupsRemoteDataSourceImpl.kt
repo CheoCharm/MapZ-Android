@@ -12,8 +12,8 @@ class MyGroupsRemoteDataSourceImpl @Inject constructor(
     private val writeApi: WriteApi
 ) : MyGroupsRemoteDataSource {
 
-    override suspend fun getMyGroups(accessToken: String): Result<List<GroupData>> {
-        val result = runCatching { writeApi.fetchMyGroups(accessToken) }
+    override suspend fun getMyGroups(): Result<List<GroupData>> {
+        val result = runCatching { writeApi.fetchMyGroups() }
 
         return when (val exception = result.exceptionOrNull()) {
             null -> {

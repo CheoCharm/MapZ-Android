@@ -12,8 +12,8 @@ class MyGroupsRepositoryImpl @Inject constructor(
     private val dataSource: MyGroupsRemoteDataSource
 ) : MyGroupsRepository {
 
-    override suspend fun getMyGroups(accessToken: String): Result<List<Group>> {
-        val result = dataSource.getMyGroups(accessToken).mapCatching {
+    override suspend fun getMyGroups(): Result<List<Group>> {
+        val result = dataSource.getMyGroups().mapCatching {
             it.map { data ->
                 data.toDomain()
             }
