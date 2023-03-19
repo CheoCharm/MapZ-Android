@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
+import com.cheocharm.presentation.common.EventObserver
 import com.cheocharm.presentation.databinding.FragmentGroupCreateBinding
 import com.cheocharm.presentation.util.UriUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +35,7 @@ class GroupCreateFragment :
         binding.viewmodel = groupCreateViewModel
 
         initButtons()
+        initObservers()
         initGalleryLauncher()
     }
 
@@ -41,9 +43,8 @@ class GroupCreateFragment :
         binding.toolbarGroupCreate.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.location_confirm -> {
-                    if (groupCreateViewModel.isGroupEnabled.value == true) findNavController().navigate(
-                        R.id.action_groupCreateFragment_to_groupCreateSearchFragment
-                    )
+                    if (groupCreateViewModel.isGroupEnabled.value == true)
+                        groupCreateViewModel.requestGroupCreate()
                     true
                 }
                 else -> {
@@ -66,6 +67,13 @@ class GroupCreateFragment :
             groupCreateViewModel.setGroupBio(text.toString())
             groupCreateViewModel.checkGroupEnabled()
         }
+    }
+
+    private fun initObservers() {
+        groupCreateViewModel.isGoToSearchEnabled.observe(viewLifecycleOwner, EventObserver {
+            //TODO: 검색화면으로 넘어가기
+//            findNavController().navigate(R.id.action_groupCreateFragment_to_groupCreateSearchFragment)
+        })
     }
 
     private fun initGalleryLauncher() {

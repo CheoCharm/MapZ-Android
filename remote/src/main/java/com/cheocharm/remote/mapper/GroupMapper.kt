@@ -4,6 +4,8 @@ import com.cheocharm.domain.model.Group
 import com.cheocharm.domain.model.GroupJoin
 import com.cheocharm.domain.model.GroupMember
 import com.cheocharm.domain.model.GroupSearch
+import com.cheocharm.domain.model.group.GroupCreateRequest
+import com.cheocharm.remote.model.request.GroupCreateDto
 import com.cheocharm.remote.model.response.group.GroupJoinResponse
 import com.cheocharm.remote.model.response.group.GroupSearchResponse
 
@@ -21,4 +23,9 @@ internal fun GroupSearchResponse.toDomain(): GroupSearch {
 // remote -> domain
 internal fun GroupJoinResponse.toDomain(): GroupJoin {
     return GroupJoin(alreadyJoin, status)
+}
+
+// domain -> remote
+internal fun GroupCreateRequest.toDto(): GroupCreateDto {
+    return GroupCreateDto(groupName, groupBio, changeStatus)
 }

@@ -1,10 +1,12 @@
 package com.cheocharm.remote.api
 
 import com.cheocharm.remote.model.BaseResponse
+import com.cheocharm.remote.model.request.GroupCreateDto
 import com.cheocharm.remote.model.response.group.GroupJoinResponse
 import com.cheocharm.remote.model.response.group.GroupMemberResponse
 import com.cheocharm.remote.model.response.group.GroupResponse
 import com.cheocharm.remote.model.response.group.GroupSearchResponse
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
 
@@ -17,8 +19,12 @@ interface GroupApi {
         @Query("cursorId") cursorId: Int
     ): BaseResponse<GroupSearchResponse>
 
+    @Multipart
     @POST("group")
-    suspend fun createGroup(@Body body: RequestBody): BaseResponse<String>
+    suspend fun createGroup(
+        @Part("dto") dto: GroupCreateDto,
+        @Part file: MultipartBody.Part
+    ): BaseResponse<String>
 
     @POST("group/join")
     suspend fun joinGroup(@Body body: HashMap<String, String>): BaseResponse<GroupJoinResponse>

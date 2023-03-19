@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_groupCreateFragment_to_groupCreateSearchFragment"
             app:destination="@id/groupCreateSearchFragment" />
+        <action
+            android:id="@+id/action_groupCreateFragment_to_groupCreateSearchResultFragment"
+            app:destination="@id/groupCreateSearchResultFragment" />
     </fragment>
     <fragment
         android:id="@+id/groupCreateSearchFragment"
         android:name="com.cheocharm.presentation.ui.group.GroupCreateSearchFragment"
         android:label="GroupCreateSearchFragment"
         tools:layout="@layout/fragment_group_create_search" />
+    <fragment
+        android:id="@+id/groupCreateSearchResultFragment"
+        android:name="com.cheocharm.presentation.ui.group.GroupCreateSearchResultFragment"
+        android:label="GroupCreat현eSearchResultFragment"
+        tools:layout="@layout/fragment_group_create_search_result" />
 </navigation>
