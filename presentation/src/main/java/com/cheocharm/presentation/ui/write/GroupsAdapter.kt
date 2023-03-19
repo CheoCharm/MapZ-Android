@@ -25,18 +25,18 @@ class GroupsAdapter(private val onClick: (Group) -> Unit) :
             }
         }
 
-        fun bind(groupModel: Group) {
+        fun bind(group: Group) {
             with(binding) {
-                group = groupModel
+                this.group = group
 
-                val numberOfMembersExceedingFour = groupModel.numberOfMembers - 4
+                val numberOfMembersExceedingFour = group.numberOfMembers - 4
                 val members: List<GroupMember>
 
                 if (numberOfMembersExceedingFour <= 0) {
-                    members = groupModel.members
+                    members = group.members
                     tvWriteNumberOfGroupMembers.isVisible = false
                 } else {
-                    members = groupModel.members.subList(0, 4)
+                    members = group.members.subList(0, 4)
                     tvWriteNumberOfGroupMembers.text = String.format(
                         binding.root.context.resources.getString(
                             R.string.format_write_number_of_group_members
