@@ -22,7 +22,7 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             permissions.forEach {
                 if (it.value.not()) {
-                    TODO("권한 없을 때 처리")
+                    // TODO: 권한 없을 때 처리
                 }
             }
         }

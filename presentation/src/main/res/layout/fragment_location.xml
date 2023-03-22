@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="1dp"
                 android:layout_marginEnd="@dimen/location_selected_location_margin_horizontal"
-                android:text="@{viewmodel.latLngString}"
+                android:text="@{viewmodel.locationString}"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_s_large"
                 android:ellipsize="end"
