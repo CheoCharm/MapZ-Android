@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/groups_number_of_members_margin_start"
             android:text="@{String.valueOf(group.numberOfMembers)}"
-            android:textColor="@color/map_z_blue_700"
+            android:textColor="@color/map_z_blue_common"
             android:textSize="@dimen/text_median"
             android:fontFamily="@font/apple_sd_gothic_neo_m"
             app:layout_constraintBottom_toBottomOf="@+id/rv_write_group_members"
