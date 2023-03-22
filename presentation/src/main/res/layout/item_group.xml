@@ -34,6 +34,7 @@
             android:text="@{group.name}"
             android:textColor="@color/black"
             android:textSize="@dimen/text_s_large"
+            android:fontFamily="@font/apple_sd_gothic_neo_m"
             app:layout_constraintStart_toEndOf="@+id/iv_write_group"
             app:layout_constraintTop_toTopOf="@+id/iv_write_group"
             tools:text="그룹 제목 1" />
@@ -67,6 +68,7 @@
             android:text="@{String.valueOf(group.numberOfMembers)}"
             android:textColor="@color/map_z_blue_700"
             android:textSize="@dimen/text_median"
+            android:fontFamily="@font/apple_sd_gothic_neo_m"
             app:layout_constraintBottom_toBottomOf="@+id/rv_write_group_members"
             app:layout_constraintStart_toEndOf="@+id/rv_write_group_members"
             app:layout_constraintTop_toTopOf="@+id/rv_write_group_members"
