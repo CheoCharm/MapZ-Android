@@ -3,17 +3,17 @@ package com.cheocharm.remote.source
 import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.model.GroupData
 import com.cheocharm.data.source.MyGroupsRemoteDataSource
-import com.cheocharm.remote.api.WriteApi
+import com.cheocharm.remote.api.DiaryApi
 import com.cheocharm.remote.mapper.toData
 import java.net.UnknownHostException
 import javax.inject.Inject
 
 class MyGroupsRemoteDataSourceImpl @Inject constructor(
-    private val writeApi: WriteApi
+    private val diaryApi: DiaryApi
 ) : MyGroupsRemoteDataSource {
 
     override suspend fun getMyGroups(): Result<List<GroupData>> {
-        val result = runCatching { writeApi.fetchMyGroups() }
+        val result = runCatching { diaryApi.fetchMyGroups() }
 
         return when (val exception = result.exceptionOrNull()) {
             null -> {
