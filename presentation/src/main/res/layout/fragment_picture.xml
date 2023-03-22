@@ -18,6 +18,7 @@
             android:layout_height="@dimen/write_toolbar_height"
             android:background="@color/white"
             android:elevation="@dimen/default_elevation"
+            android:theme="@style/Toolbar.Subtitle"
             app:title="@string/picture_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +54,7 @@
                     android:text="@string/picture_desc"
                     android:textColor="@color/picture_gallery_desc_text_color"
                     android:textSize="@dimen/text_median"
+                    android:fontFamily="@font/apple_sd_gothic_neo_l"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_picture_desc" />
@@ -67,6 +69,7 @@
                     android:gravity="center"
                     android:text="@string/picture_button"
                     android:textColor="@color/white"
+                    android:fontFamily="@font/apple_sd_gothic_neo_m"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

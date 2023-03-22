@@ -19,6 +19,10 @@
         <item name="android:backgroundTint">@color/white</item>
     </style>
 
+    <style name="Toolbar.Subtitle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/apple_sd_gothic_neo_m</item>
+    </style>
+
     <style name="common_toolbar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
