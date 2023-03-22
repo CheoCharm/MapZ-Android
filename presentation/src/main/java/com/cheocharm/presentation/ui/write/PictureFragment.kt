@@ -32,7 +32,7 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
 
     private val requestPermissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            if (permissions.any { it.value.not() }) {
+            if (permissions.all { it.value.not() }) {
                 val snackbar = Snackbar.make(
                     binding.containerPicture,
                     R.string.picture_set_permission,
