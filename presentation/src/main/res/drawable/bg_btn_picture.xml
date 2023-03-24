@@ -138,7 +138,7 @@
             <corners
                 android:radius="50dp" />
             <solid
-                android:color="@color/map_z_red_common" />
+                android:color="@color/map_z_red_500" />
         </shape>
     </item>
 

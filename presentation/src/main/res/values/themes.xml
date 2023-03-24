@@ -3,7 +3,7 @@
     <style name="Theme.MapZ" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/map_z_red_500</item>
-        <item name="colorPrimaryVariant">@color/map_z_red_common</item>
+        <item name="colorPrimaryVariant">@color/map_z_red_500</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/map_z_blue_200</item>

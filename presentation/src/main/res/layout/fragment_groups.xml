@@ -13,7 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/root_layout_default"
-        android:background="@color/map_z_red_common"
+        android:background="@color/map_z_red_500"
         tools:context=".ui.write.GroupsFragment">
 
         <androidx.appcompat.widget.AppCompatTextView

@@ -30,7 +30,7 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_gro
 
         binding.viewmodel = groupsViewModel
 
-        (requireActivity() as MainActivity).setStatusBarColor(R.color.map_z_red_common, false)
+        (requireActivity() as MainActivity).setStatusBarColor(R.color.map_z_red_500, false)
 
         setupSwipeRefreshLayout()
         setupRecyclerView()
