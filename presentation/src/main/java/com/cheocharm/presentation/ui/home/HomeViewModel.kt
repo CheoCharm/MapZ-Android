@@ -12,14 +12,14 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     private val _location = MutableLiveData<Location>()
     val location: LiveData<Location> = _location
 
-    private val _count = MutableLiveData<Int>()
-    val count: LiveData<Int> = _count
+    private val _zoomLevel = MutableLiveData<Float>()
+    val zoomLevel: LiveData<Float> = _zoomLevel
 
     fun updateLocation(location: Location) {
         _location.value = location
     }
 
-    fun countUp() {
-        _count.value = count.value?.plus(1) ?: 1
+    fun updateZoomLevel(level: Float) {
+        _zoomLevel.value = level
     }
 }

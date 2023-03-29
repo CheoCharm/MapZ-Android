@@ -33,6 +33,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         val mapFragment = (activity as MainActivity).getMap()
         mapFragment?.getMapAsync { map ->
+            map.setOnCameraMoveListener {
+                homeViewModel.updateZoomLevel(map.cameraPosition.zoom)
+            }
+
             map.setOnMapLoadedCallback {
                 if (ContextCompat.checkSelfPermission(
                         requireContext(),
@@ -55,10 +59,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                             SOUTH_KOREA_ZOOM_LEVEL
                         )
                     )
+
                 }
             }
         }
-
-        homeViewModel.countUp()
     }
 }
