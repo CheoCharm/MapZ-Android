@@ -58,12 +58,13 @@ class LocationViewModel @Inject constructor(
         viewModelScope.launch {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 geocodeUtil.execute(latLng, type, ::setSelectedLatLng) {
-                    _locationString.value =
+                    _locationString.postValue(
                         if (type != LatLngSelectionType.SPECIFIED) {
                             type.locationString
                         } else {
                             it[0].getAddressLine(0) ?: latLng.toCoordString()
                         }
+                    )
                 }
             } else {
                 geocodeUtil.execute(latLng, type, ::setSelectedLatLng)

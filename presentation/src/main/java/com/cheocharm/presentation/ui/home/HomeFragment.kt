@@ -44,13 +44,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     ) == PackageManager.PERMISSION_GRANTED
                 ) {
                     val locationClient = mainActivity.getLocationClient()
-                    locationClient?.lastLocation?.addOnSuccessListener { location ->
-                        map.moveCamera(
-                            CameraUpdateFactory.newLatLngZoom(
-                                location.toLatLng(),
-                                DEFAULT_ZOOM_LEVEL
+                    locationClient?.lastLocation?.addOnSuccessListener {
+                        it?.let { location ->
+                            map.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    location.toLatLng(),
+                                    DEFAULT_ZOOM_LEVEL
+                                )
                             )
-                        )
+                        }
                     }
                 } else {
                     map.moveCamera(

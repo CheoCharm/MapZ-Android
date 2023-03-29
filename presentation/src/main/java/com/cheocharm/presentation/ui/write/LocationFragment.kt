@@ -128,10 +128,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 googleMap.setPadding(0, top, 0, bottom)
 
                 locationViewModel.picture.observe(viewLifecycleOwner) { picture ->
-                    picture?.let {
-                        picturesAdapter.submitList(listOf(it))
+                    picture?.let { pic ->
+                        picturesAdapter.submitList(listOf(pic))
 
-                        val selectedLatLng = it.latLng
+                        val selectedLatLng = pic.latLng
 
                         if (selectedLatLng != null) {
                             initTypeToSpecified(selectedLatLng)
@@ -141,8 +141,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                             ) == PackageManager.PERMISSION_GRANTED
                         ) {
                             val locationClient = mainActivity.getLocationClient()
-                            locationClient?.lastLocation?.addOnSuccessListener { location ->
-                                initTypeToCurrent(location.toLatLng())
+                            locationClient?.lastLocation?.addOnSuccessListener {
+                                it?.let { location ->
+                                    initTypeToCurrent(location.toLatLng())
+                                }
                             }
                         } else {
                             initTypeToDefault()

@@ -16,17 +16,23 @@ class GeocodeUtil(context: Context) {
     suspend fun execute(picture: Picture, geocodeListener: GeocodeListener? = null) =
         withContext(ioDispatcher) {
             picture.latLng?.let {
-                runCatching {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && geocodeListener != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && geocodeListener != null) {
+                    runCatching {
                         geocoder.getFromLocation(it.latitude, it.longitude, 1, geocodeListener)
-                    } else {
-                        val addresses = geocoder.getFromLocation(it.latitude, it.longitude, 1)
-
+                    }.onFailure { throwable ->
+                        throwable.printStackTrace()
+                    }
+                } else {
+                    runCatching {
+                        geocoder.getFromLocation(it.latitude, it.longitude, 1)
+                    }.onSuccess { addresses ->
                         if (addresses != null && addresses.isEmpty().not()) {
                             val fetchedAddress = addresses.first()
                             val address = fetchedAddress.getAddressLine(0)
                             picture.address = address
                         }
+                    }.onFailure { throwable ->
+                        throwable.printStackTrace()
                     }
                 }
             }
@@ -38,22 +44,28 @@ class GeocodeUtil(context: Context) {
         callback: (DoubleArray, LatLngSelectionType, String?) -> Unit,
         geocodeListener: GeocodeListener? = null
     ) = withContext(ioDispatcher) {
-        runCatching {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && geocodeListener != null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && geocodeListener != null) {
+            runCatching {
                 geocoder.getFromLocation(latLng[0], latLng[1], 1, geocodeListener)
-            } else {
-                val addresses = geocoder.getFromLocation(latLng[0], latLng[1], 1)
-
+            }.onFailure { throwable ->
+                throwable.printStackTrace()
+            }
+        } else {
+            runCatching {
+                geocoder.getFromLocation(latLng[0], latLng[1], 1)
+            }.onSuccess { addresses ->
                 if (addresses != null && addresses.isEmpty().not()) {
                     val fetchedAddress = addresses.first()
                     val address = fetchedAddress.getAddressLine(0)
                     callback(latLng, type, address)
                     return@withContext
+                } else {
+                    callback(latLng, type, null)
                 }
+            }.onFailure { throwable ->
+                throwable.printStackTrace()
             }
         }
-
-        callback(latLng, type, null)
     }
 
     companion object {
