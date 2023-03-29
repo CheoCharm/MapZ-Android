@@ -141,9 +141,11 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                             ) == PackageManager.PERMISSION_GRANTED
                         ) {
                             val locationClient = mainActivity.getLocationClient()
-                            locationClient?.lastLocation?.addOnSuccessListener {
-                                it?.let { location ->
+                            locationClient?.lastLocation?.addOnSuccessListener { location ->
+                                if (location != null) {
                                     initTypeToCurrent(location.toLatLng())
+                                } else {
+                                    initTypeToDefault()
                                 }
                             }
                         } else {

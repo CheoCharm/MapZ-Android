@@ -16,6 +16,7 @@ import com.cheocharm.presentation.common.toLatLng
 import com.cheocharm.presentation.databinding.FragmentHomeBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,26 +45,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     ) == PackageManager.PERMISSION_GRANTED
                 ) {
                     val locationClient = mainActivity.getLocationClient()
-                    locationClient?.lastLocation?.addOnSuccessListener {
-                        it?.let { location ->
+                    locationClient?.lastLocation?.addOnSuccessListener { location ->
+                        if (location != null) {
                             map.moveCamera(
                                 CameraUpdateFactory.newLatLngZoom(
                                     location.toLatLng(),
                                     DEFAULT_ZOOM_LEVEL
                                 )
                             )
+                        } else {
+                            map.moveCameraToDefaultLocation()
                         }
                     }
                 } else {
-                    map.moveCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                            LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG),
-                            SOUTH_KOREA_ZOOM_LEVEL
-                        )
-                    )
-
+                    map.moveCameraToDefaultLocation()
                 }
             }
         }
+    }
+
+    private fun GoogleMap.moveCameraToDefaultLocation() {
+        moveCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG),
+                SOUTH_KOREA_ZOOM_LEVEL
+            )
+        )
     }
 }
