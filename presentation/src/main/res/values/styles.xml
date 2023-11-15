@@ -18,4 +18,62 @@
         <item name="android:background">@drawable/bg_top_radius_20dp</item>
         <item name="android:backgroundTint">@color/white</item>
     </style>
+
+    <style name="common_toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:elevation">@dimen/common_elevation</item>
+    </style>
+
+    <style name="write_tool">
+        <item name="android:layout_width">@dimen/write_tool_select_circle_size</item>
+        <item name="android:layout_height">@dimen/write_tool_select_circle_size</item>
+        <item name="android:background">@drawable/bg_round</item>
+        <item name="android:elevation">@dimen/common_elevation</item>
+        <item name="android:padding">3dp</item>
+    </style>
+
+    <style name="write_tool_color_select">
+        <item name="android:layout_width">@dimen/write_tool_select_circle_size</item>
+        <item name="android:layout_height">@dimen/write_tool_select_circle_size</item>
+        <item name="android:layout_marginStart">@dimen/space_large</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="srcCompat">@drawable/ic_write_tool_color_select</item>
+    </style>
+
+    <style name="write_tool_detail_page">
+        <item name="android:layout_width">10dp</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:background">@drawable/bg_round</item>
+        <item name="android:layout_marginTop">13dp</item>
+        <item name="android:layout_marginBottom">7dp</item>
+    </style>
+
+    <style name="write_font_family_item">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/write_font_family_item_height</item>
+        <item name="android:layout_marginStart">@dimen/write_font_family_item_horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/write_font_family_item_horizontal_margin</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">@dimen/write_font_family_horizontal_padding</item>
+        <item name="android:paddingEnd">@dimen/write_font_family_horizontal_padding</item>
+    </style>
+
+    <style name="write_tool_detail">
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@drawable/bg_radius_10dp</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:elevation">@dimen/common_elevation</item>
+        <item name="android:outlineProvider">paddedBounds</item>
+    </style>
+
+    <style name="write_font_size_item">
+        <item name="android:layout_width">@dimen/write_tool_select_circle_size</item>
+        <item name="android:layout_height">@dimen/write_tool_select_circle_size</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

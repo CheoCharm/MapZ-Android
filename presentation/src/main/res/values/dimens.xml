@@ -20,6 +20,11 @@
     <dimen name="text_x_large">20sp</dimen>
     <dimen name="text_xx_large">24sp</dimen>
 
+    <dimen name="common_icon_size">24dp</dimen>
+    <dimen name="common_elevation">4dp</dimen>
+    <dimen name="sub_elevation">2dp</dimen>
+    <dimen name="common_divider_height">1.5dp</dimen>
+
     <dimen name="sign_in_top">150dp</dimen>
     <dimen name="sign_in_title_text">34sp</dimen>
     <dimen name="sign_in_button_top">70dp</dimen>
@@ -36,7 +41,7 @@
     <dimen name="sign_up_agree_btn">14dp</dimen>
     <dimen name="sign_up_agree_divider">1.5dp</dimen>
     
-    <dimen name="write_title_text_size">20sp</dimen>
+    <dimen name="groups_title_text_size">20sp</dimen>
     <dimen name="groups_item_padding_vertical">9dp</dimen>
     <dimen name="groups_group_image_size">45dp</dimen>
     <dimen name="groups_group_title_margin_start">10dp</dimen>
@@ -46,8 +51,22 @@
     <dimen name="groups_member_margin">10dp</dimen>
     <dimen name="groups_number_of_members_margin_start">1dp</dimen>
     <dimen name="gallery_button_margin_top">100dp</dimen>
-    <dimen name="default_elevation">4dp</dimen>
     <dimen name="location_picture_size">120dp</dimen>
     <dimen name="location_selected_location_margin_top">10dp</dimen>
     <dimen name="location_selected_location_margin_horizontal">15dp</dimen>
+    <dimen name="write_tools_height">50dp</dimen>
+    <dimen name="write_tool_close_btn_size">20dp</dimen>
+    <dimen name="write_tool_select_circle_size">30dp</dimen>
+    <dimen name="write_picture_list_height">122dp</dimen>
+    <dimen name="write_tool_detail_width">150dp</dimen>
+    <dimen name="write_tool_detail_divider_height">1dp</dimen>
+    <dimen name="write_tool_detail_divider_top_margin">10dp</dimen>
+    <dimen name="write_tool_detail_divider_bottom_margin">14dp</dimen>
+    <dimen name="write_tool_detail_page_horizontal_margin">10dp</dimen>
+    <dimen name="write_font_family_item_height">26dp</dimen>
+    <dimen name="write_font_family_item_horizontal_margin">9dp</dimen>
+    <dimen name="write_font_family_horizontal_padding">7dp</dimen>
+    <dimen name="write_font_family_item_vertical_margin">1dp</dimen>
+    <dimen name="write_font_size_horizontal_margin">2dp</dimen>
+    <dimen name="write_image_item_size">90dp</dimen>
 </resources>

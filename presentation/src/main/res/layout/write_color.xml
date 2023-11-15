@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.cheocharm.presentation.model.TextColor" />
+
+        <import type="com.cheocharm.presentation.model.TextEditTool" />
+
+        <variable
+            name="viewmodel"
+            type="com.cheocharm.presentation.ui.write.WriteViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="@dimen/common_elevation">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_write_color_close"
+            android:layout_width="@dimen/write_tool_close_btn_size"
+            android:layout_height="@dimen/write_tool_close_btn_size"
+            android:layout_marginStart="@dimen/space_median"
+            android:elevation="@dimen/common_elevation"
+            android:background="@null"
+            android:onClick="@{() -> viewmodel.onClickTool((TextEditTool) null)}"
+            app:srcCompat="@drawable/ic_write_tool_color_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <HorizontalScrollView
+            android:id="@+id/container_write_tool_color"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/space_median"
+            android:elevation="@dimen/common_elevation"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_write_color_close"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_write_color_red"
+                    style="@style/write_tool_color_select"
+                    android:layout_marginStart="@dimen/space_x_small"
+                    android:tint="@color/write_tool_color_red"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Red)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_write_color_orange"
+                    style="@style/write_tool_color_select"
+                    android:tint="@color/write_tool_color_orange"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Orange)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_color_red"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_write_color_yellow"
+                    style="@style/write_tool_color_select"
+                    android:tint="@color/write_tool_color_yellow"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Yellow)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_color_orange"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_write_color_green"
+                    style="@style/write_tool_color_select"
+                    android:tint="@color/write_tool_color_green"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Green)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_color_yellow"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_write_color_sky_blue"
+                    style="@style/write_tool_color_select"
+                    android:tint="@color/write_tool_color_sky"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Sky)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_color_green"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_write_color_blue"
+                    style="@style/write_tool_color_select"
+                    android:tint="@color/write_tool_color_blue"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Blue)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_color_sky_blue"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_write_color_violet"
+                    style="@style/write_tool_color_select"
+                    android:layout_marginEnd="@dimen/space_x_small"
+                    android:tint="@color/write_tool_color_violet"
+                    android:onClick="@{() -> viewmodel.changeTextColor(TextColor.Violet)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btn_write_color_blue"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </HorizontalScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

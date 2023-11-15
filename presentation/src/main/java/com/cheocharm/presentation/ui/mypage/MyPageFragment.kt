@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.BuildConfig
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentMyPageBinding
 import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.ui.login.SignActivity

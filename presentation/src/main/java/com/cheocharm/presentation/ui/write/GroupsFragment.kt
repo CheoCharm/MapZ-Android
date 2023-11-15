@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -19,13 +20,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_groups) {
     private val writeViewModel by hiltNavGraphViewModels<WriteViewModel>(R.id.write)
+    private val groupsViewModel: GroupsViewModel by viewModels()
 
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewmodel = writeViewModel
+        binding.viewmodel = groupsViewModel
 
         setupSwipeRefreshLayout()
         setupRecyclerView()

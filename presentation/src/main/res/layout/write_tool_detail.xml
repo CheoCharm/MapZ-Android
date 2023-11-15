@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.cheocharm.presentation.model.TextEditTool" />
+
+        <variable
+            name="viewmodel"
+            type="com.cheocharm.presentation.ui.write.WriteViewModel" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="page"
+            type="Integer" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/write_tool_detail_width"
+        android:layout_height="wrap_content"
+        style="@style/write_tool_detail">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_write_tool_detail_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_median"
+            android:text="@{title}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_s_large"
+            app:layout_constraintBottom_toBottomOf="@id/btn_tool_detail_close"
+            app:layout_constraintEnd_toStartOf="@id/btn_tool_detail_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_tool_detail_close"
+            tools:text="@string/write_select_font_family_title" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_tool_detail_close"
+            android:layout_width="@dimen/write_tool_close_btn_size"
+            android:layout_height="@dimen/write_tool_close_btn_size"
+            android:layout_marginTop="@dimen/space_small"
+            android:layout_marginEnd="@dimen/space_median"
+            android:background="@null"
+            android:onClick="@{() -> viewmodel.onClickTool((TextEditTool) null)}"
+            app:srcCompat="@drawable/ic_write_tool_color_close"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:id="@+id/view_write_tool_detail_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/write_tool_detail_divider_height"
+            android:layout_marginTop="@dimen/write_tool_detail_divider_top_margin"
+            android:layout_marginHorizontal="@dimen/space_small"
+            android:background="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/btn_tool_detail_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_write_tool_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/write_tool_detail_divider_bottom_margin"
+            app:layout_constraintTop_toBottomOf="@id/view_write_tool_detail_divider" />
+
+        <include
+            android:id="@+id/write_align"
+            layout="@layout/write_align"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/write_tool_detail_divider_bottom_margin"
+            android:layout_marginBottom="@dimen/space_x_small"
+            android:visibility="@{page == 0 ? View.VISIBLE : View.GONE}"
+            app:viewmodel="@{viewmodel}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_write_tool_detail_divider"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/view_tool_detail_page_1"
+            style="@style/write_tool_detail_page"
+            android:backgroundTint="@{page == 1 ? @color/write_tool_detail_theme : @color/gray_extra_700}"
+            android:layout_marginEnd="@dimen/write_tool_detail_page_horizontal_margin"
+            android:visibility="@{page == 0 ? View.GONE : View.VISIBLE}"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toBottomOf="@id/vp_write_tool_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/view_tool_detail_page_2"
+            tools:backgroundTint="@color/write_tool_detail_theme" />
+
+        <View
+            android:id="@+id/view_tool_detail_page_2"
+            style="@style/write_tool_detail_page"
+            android:backgroundTint="@{page == 2 ? @color/write_tool_detail_theme : @color/gray_extra_700}"
+            android:visibility="@{page == 0 ? View.GONE : View.VISIBLE}"
+            app:layout_constraintTop_toBottomOf="@id/vp_write_tool_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/view_tool_detail_page_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:backgroundTint="@color/gray_extra_700" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

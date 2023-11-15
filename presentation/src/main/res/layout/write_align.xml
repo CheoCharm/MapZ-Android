@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.cheocharm.presentation.model.TextAlign" />
+
+        <variable
+            name="viewmodel"
+            type="com.cheocharm.presentation.ui.write.WriteViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_write_align_left"
+            android:layout_width="@dimen/write_tool_select_circle_size"
+            android:layout_height="@dimen/write_tool_select_circle_size"
+            android:layout_marginStart="@dimen/space_median"
+            android:background="@{viewmodel.textAlign == TextAlign.Left ? @drawable/bg_round : null}"
+            android:backgroundTint="@{viewmodel.textAlign == TextAlign.Left ? @color/write_tool_detail_theme : @color/white}"
+            android:contentDescription="@string/write_align_left"
+            android:onClick="@{() -> viewmodel.changeTextAlign(TextAlign.Left)}"
+            app:srcCompat="@drawable/ic_write_tool_align_left"
+            app:tint="@{viewmodel.textAlign == TextAlign.Left ? @color/white : @color/grey_dark}"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintEnd_toStartOf="@id/btn_write_align_center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/bg_round"
+            tools:backgroundTint="@color/write_tool_detail_theme"
+            tools:tint="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_write_align_center"
+            android:layout_width="@dimen/write_tool_select_circle_size"
+            android:layout_height="@dimen/write_tool_select_circle_size"
+            android:background="@{viewmodel.textAlign == TextAlign.Center ? @drawable/bg_round : null}"
+            android:backgroundTint="@{viewmodel.textAlign == TextAlign.Center ? @color/write_tool_detail_theme : @color/white}"
+            android:contentDescription="@string/write_align_center"
+            android:onClick="@{() -> viewmodel.changeTextAlign(TextAlign.Center)}"
+            app:srcCompat="@drawable/ic_write_tool_align_center"
+            app:tint="@{viewmodel.textAlign == TextAlign.Center ? @color/white : @color/grey_dark}"
+            app:layout_constraintEnd_toStartOf="@id/btn_write_align_right"
+            app:layout_constraintStart_toEndOf="@id/btn_write_align_left"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@null" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_write_align_right"
+            android:layout_width="@dimen/write_tool_select_circle_size"
+            android:layout_height="@dimen/write_tool_select_circle_size"
+            android:layout_marginEnd="@dimen/space_median"
+            android:background="@{viewmodel.textAlign == TextAlign.Right ? @drawable/bg_round : null}"
+            android:backgroundTint="@{viewmodel.textAlign == TextAlign.Right ? @color/write_tool_detail_theme : @color/white}"
+            android:contentDescription="@string/write_align_right"
+            android:onClick="@{() -> viewmodel.changeTextAlign(TextAlign.Right)}"
+            app:srcCompat="@drawable/ic_write_tool_align_right"
+            app:tint="@{viewmodel.textAlign == TextAlign.Right ? @color/white : @color/grey_dark}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_write_align_center"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@null" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
