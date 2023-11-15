@@ -5,8 +5,8 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.common.GOOGLE_ID_TOKEN
 import com.cheocharm.presentation.common.SIGN_UP_TYPE
 import com.cheocharm.presentation.databinding.FragmentSignUpAgreeBinding

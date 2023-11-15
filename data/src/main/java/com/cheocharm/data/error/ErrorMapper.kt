@@ -13,4 +13,6 @@ internal fun ErrorData.toDomain(): Error = when (this) {
     is ErrorData.SearchGroupUnavailable -> Error.SearchGroupUnavailable(message)
     is ErrorData.JoinGroupUnavailable -> Error.JoinGroupUnavailable(message)
     is ErrorData.GetMyGroupsUnavailable -> Error.GetMyGroupsUnavailable(message)
+    is ErrorData.WriteImagesUnavailable -> Error.WriteImagesUnavailable(message)
+    is ErrorData.WriteDiaryUnavailable -> Error.WriteDiaryUnavailable(message)
 }

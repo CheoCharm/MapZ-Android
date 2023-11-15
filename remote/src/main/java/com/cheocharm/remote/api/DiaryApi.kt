@@ -3,7 +3,7 @@ package com.cheocharm.remote.api
 import com.cheocharm.remote.model.BaseResponse
 import com.cheocharm.remote.model.request.WriteDiaryDto
 import com.cheocharm.remote.model.request.WriteImageDto
-import com.cheocharm.domain.model.WriteImageResponse
+import com.cheocharm.remote.model.response.write.WriteImageResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.Multipart

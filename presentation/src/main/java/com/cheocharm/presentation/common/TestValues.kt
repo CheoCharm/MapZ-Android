@@ -7,6 +7,7 @@ import com.cheocharm.presentation.model.Sticker
 object TestValues {
     val testGroups = listOf(
         Group(
+            0,
             "그룹제목 1",
             "맵지 고등학교 추억 교환일기!",
             "2022.02.23",
@@ -22,6 +23,7 @@ object TestValues {
             ), 4
         ),
         Group(
+            1,
             "그룹제목 2", "맵지 고등학교 추억 교환일기!",
             "2022.02.23",
             listOf(
@@ -29,6 +31,7 @@ object TestValues {
             ), 0
         ),
         Group(
+            2,
             "그룹제목 3", "맵지 고등학교 추억 교환일기!",
             "2022.02.23",
             listOf(

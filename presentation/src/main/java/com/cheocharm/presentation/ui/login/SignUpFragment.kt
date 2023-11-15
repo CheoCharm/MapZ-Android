@@ -11,8 +11,8 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentSignUpBinding
 import dagger.hilt.android.AndroidEntryPoint
 

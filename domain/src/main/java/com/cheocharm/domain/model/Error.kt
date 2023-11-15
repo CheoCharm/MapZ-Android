@@ -15,4 +15,7 @@ sealed class Error(
     data class SearchGroupUnavailable(override val message: String) : Error()
     data class JoinGroupUnavailable(override val message: String) : Error()
     data class GetMyGroupsUnavailable(override val message: String) : Error()
+
+    data class WriteImagesUnavailable(override val message: String) : Error()
+    data class WriteDiaryUnavailable(override val message: String) : Error()
 }

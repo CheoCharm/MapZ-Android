@@ -3,15 +3,15 @@ package com.cheocharm.presentation.ui
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.core.view.isVisible
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.cheocharm.presentation.base.BaseActivity
 import com.cheocharm.presentation.R
+import com.cheocharm.presentation.base.BaseActivity
 import com.cheocharm.presentation.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

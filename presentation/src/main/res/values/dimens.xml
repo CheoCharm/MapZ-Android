@@ -41,7 +41,7 @@
     <dimen name="sign_up_agree_btn">14dp</dimen>
     <dimen name="sign_up_agree_divider">1.5dp</dimen>
     
-    <dimen name="write_title_text_size">20sp</dimen>
+    <dimen name="groups_title_text_size">20sp</dimen>
     <dimen name="groups_item_padding_vertical">9dp</dimen>
     <dimen name="groups_group_image_size">45dp</dimen>
     <dimen name="groups_group_title_margin_start">10dp</dimen>
