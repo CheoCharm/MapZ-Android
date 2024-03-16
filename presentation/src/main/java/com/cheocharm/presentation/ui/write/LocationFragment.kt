@@ -69,7 +69,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val menuHost: MenuHost = requireActivity() as MenuHost
+        val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -79,14 +79,12 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         super.onViewCreated(view, savedInstanceState)
 
         val picturesAdapter = PicturesAdapter()
+        val mainActivity = requireActivity() as MainActivity
 
         binding.viewmodel = locationViewModel
         binding.rvLocationPictures.apply {
             adapter = picturesAdapter
         }
-
-        val mainActivity = requireActivity() as MainActivity
-        mainActivity.setMapVisible(true)
 
         with(binding.toolbarLocation) {
             mainActivity.setSupportActionBar(this)
@@ -117,6 +115,17 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 }
             }
         }
+
+        setupMap(mainActivity, picturesAdapter)
+        setupToast()
+        setupNavigation()
+    }
+
+    private fun setupMap(
+        mainActivity: MainActivity,
+        picturesAdapter: PicturesAdapter
+    ) {
+        mainActivity.setMapVisible(true)
 
         val mapFragment = mainActivity.getMap()
         mapFragment?.getMapAsync { googleMap ->
@@ -181,9 +190,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 }
             }
         }
-
-        setupToast()
-        setupNavigation()
     }
 
     private fun initTypeToSpecified(latLng: LatLng) {
