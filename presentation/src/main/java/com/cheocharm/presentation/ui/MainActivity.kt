@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -111,4 +112,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     fun getMap(): SupportMapFragment? = mapFragment
 
     fun getLocationClient(): FusedLocationProviderClient? = fusedLocationClient
+
+    fun setStatusBarColor(id: Int, isLight: Boolean) {
+        val view = window.decorView
+        val wicc = WindowInsetsControllerCompat(window, view)
+
+        wicc.isAppearanceLightStatusBars = isLight
+        window.statusBarColor = resources.getColor(id, null)
+    }
 }

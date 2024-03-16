@@ -16,13 +16,7 @@
     <string name="format_search_count">Search %d</string>
     <string name="format_write_count">Write %d</string>
     <string name="format_my_page_count">My Page %d</string>
-    <string name="groups_title">일기 작성</string>
-    <string name="format_write_number_of_group_members">+ %d</string>
-    <string name="picture_desc">친구들과의 추억이 담긴 사진을 선택해주세요.</string>
-    <string name="picture_button">사진 가져오기</string>
     <string name="menu_item_confirm">완료</string>
-    <string name="location_title">위치 확인하기</string>
-    <string name="write_title">일기 작성하기</string>
     <string name="write_editor_placeholder">사진과 장소에 맞는 재미있는 일기를 작성해주세요.</string>
 
     <string name="sign_in_title">Login</string>
@@ -64,6 +58,18 @@
     <string name="search_group_join">그룹 가입하기</string>
     <string name="search_group_join_request">%s의 그룹장에게\n가입요청이 전달되었습니다.</string>
     <string name="search_group_join_request_description">가입이 승인되면 홈에서\n가입된 그룹을 볼 수 있어요!</string>
+
+    <string name="groups_title">일기 작성</string>
+    <string name="format_write_number_of_group_members">+ %d</string>
+    <string name="picture_title">사진 선택하기</string>
+    <string name="picture_desc">친구들과의 추억이 담긴 사진을 선택해주세요.</string>
+    <string name="picture_button">사진 가져오기</string>
+    <string name="picture_permission_rationale">파일 및 미디어 액세스 권한을 허용하지 않으면 일부 사진을 가져올 수 없습니다.</string>
+    <string name="picture_set_permission">모든 사진에 접근하려면 파일 및 미디어 액세스 권한을 허용해주세요.</string>
+    <string name="picture_snackbar_action">설정</string>
+    <string name="location_title">위치 확인하기</string>
+    <string name="location_confirm">위치 확인하기 완료</string>
+    <string name="write_title">일기 작성하기</string>
     <string name="common_title">제목</string>
     <string name="write_title_hint">추억의 제목을 작성해봐요.</string>
     <string name="write_select_font_family_title">글꼴 선택</string>

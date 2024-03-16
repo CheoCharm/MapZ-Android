@@ -5,7 +5,7 @@ import com.cheocharm.data.source.WriteRemoteDataSource
 import com.cheocharm.domain.model.TempDiary
 import com.cheocharm.domain.model.WriteDiaryRequest
 import com.cheocharm.domain.model.WriteImageRequest
-import com.cheocharm.remote.api.WriteApi
+import com.cheocharm.remote.api.DiaryApi
 import com.cheocharm.remote.mapper.toDomain
 import com.cheocharm.remote.mapper.toDto
 import okhttp3.MediaType.Companion.toMediaType
@@ -15,7 +15,7 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 class WriteRemoteDataSourceImpl @Inject constructor(
-    private val api: WriteApi
+    private val api: DiaryApi
 ) : WriteRemoteDataSource {
     override suspend fun requestWriteImages(request: WriteImageRequest): Result<TempDiary> {
         val images = request.images.map {

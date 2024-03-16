@@ -13,7 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/root_layout_default"
-        android:background="@color/map_z_red_common"
+        android:background="@color/map_z_red_500"
         tools:context=".ui.write.GroupsFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -24,7 +24,8 @@
             android:layout_marginTop="@dimen/space_small"
             android:text="@string/groups_title"
             android:textColor="@color/white"
-            android:textSize="@dimen/groups_title_text_size"
+            android:textSize="@dimen/write_title_text_size"
+            android:fontFamily="@font/apple_sd_gothic_neo_b"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
