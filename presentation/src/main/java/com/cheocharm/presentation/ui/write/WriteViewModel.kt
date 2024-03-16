@@ -17,6 +17,7 @@ import com.cheocharm.presentation.model.TextColor
 import com.cheocharm.presentation.model.TextEditTool
 import com.cheocharm.presentation.model.ToolDetailPage
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -60,12 +61,12 @@ class WriteViewModel @Inject constructor(
     }
 
     fun fetchMyGroups() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = getMyGroupsUseCase()
 
             result
                 .onSuccess { groups ->
-                    _groups.value = groups
+                    _groups.postValue(groups)
                 }
                 .onFailure { throwable ->
                     _toastText.value =

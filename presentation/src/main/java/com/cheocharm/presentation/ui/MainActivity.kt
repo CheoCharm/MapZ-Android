@@ -15,6 +15,8 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.cheocharm.domain.usecase.group.CreateGroupUseCase
+import com.cheocharm.domain.usecase.write.GetMyGroupsUseCase
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseActivity
 import com.cheocharm.presentation.databinding.ActivityMainBinding
@@ -22,6 +24,10 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.SupportMapFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -47,6 +53,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
+    @Inject
+    lateinit var getMyGroupsUseCase: GetMyGroupsUseCase
+    @Inject
+    lateinit var createGroupUseCase: CreateGroupUseCase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,6 +80,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         mapFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_main_map) as? SupportMapFragment
+
+        initMyGroups() // 오프라인 모드
+    }
+
+    private fun initMyGroups() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val result = getMyGroupsUseCase.invoke()
+
+            result.onFailure {
+                for (i in 1..3) {
+                    createGroupUseCase.invoke(0, "그룹제목 1", "", "")
+                }
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.N)

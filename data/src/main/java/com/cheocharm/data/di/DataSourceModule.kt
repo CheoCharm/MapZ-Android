@@ -2,6 +2,8 @@ package com.cheocharm.data.di
 
 import com.cheocharm.data.local.source.AuthLocalDataSource
 import com.cheocharm.data.local.source.AuthLocalDataSourceImpl
+import com.cheocharm.data.local.source.MyGroupsLocalDataSource
+import com.cheocharm.data.local.source.MyGroupsLocalDataSourceImpl
 import com.cheocharm.data.remote.source.AuthRemoteDataSource
 import com.cheocharm.data.remote.source.AuthRemoteDataSourceImpl
 import com.cheocharm.data.remote.source.GroupRemoteDataSource
@@ -23,11 +25,11 @@ import javax.inject.Singleton
 internal abstract class DataSourceModule {
     @Binds
     @Singleton
-    abstract fun bindAuthLocalDataSource(dataSourceImpl: AuthLocalDataSourceImpl): AuthLocalDataSource
+    abstract fun bindLoginRemoteDataSource(dataSource: LoginRemoteDataSourceImpl): LoginRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindLoginRemoteDataSource(dataSource: LoginRemoteDataSourceImpl): LoginRemoteDataSource
+    abstract fun bindAuthLocalDataSource(dataSourceImpl: AuthLocalDataSourceImpl): AuthLocalDataSource
 
     @Binds
     @Singleton
@@ -36,6 +38,10 @@ internal abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindGroupRemoteDataSource(dataSource: GroupRemoteDataSourceImpl): GroupRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindMyGroupsLocalDataSource(dataSource: MyGroupsLocalDataSourceImpl): MyGroupsLocalDataSource
 
     @Binds
     @Singleton
