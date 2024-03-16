@@ -6,15 +6,19 @@ import android.location.Geocoder.GeocodeListener
 import android.os.Build
 import com.cheocharm.presentation.enum.LatLngSelectionType
 import com.cheocharm.presentation.model.Picture
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class GeocodeUtil(context: Context) {
+class GeocodeUtil(
+    context: Context,
+    private val coroutineDispatcher: CoroutineDispatcher
+) {
     private val geocoder = Geocoder(context, Locale.KOREAN)
 
     suspend fun execute(picture: Picture, geocodeListener: GeocodeListener? = null) =
-        withContext(ioDispatcher) {
+        withContext(coroutineDispatcher) {
             picture.latLng?.let {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && geocodeListener != null) {
                     runCatching {
@@ -43,7 +47,7 @@ class GeocodeUtil(context: Context) {
         type: LatLngSelectionType,
         callback: (DoubleArray, LatLngSelectionType, String?) -> Unit,
         geocodeListener: GeocodeListener? = null
-    ) = withContext(ioDispatcher) {
+    ) = withContext(coroutineDispatcher) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && geocodeListener != null) {
             runCatching {
                 geocoder.getFromLocation(latLng[0], latLng[1], 1, geocodeListener)
@@ -66,9 +70,5 @@ class GeocodeUtil(context: Context) {
                 throwable.printStackTrace()
             }
         }
-    }
-
-    companion object {
-        private val ioDispatcher = Dispatchers.IO
     }
 }
