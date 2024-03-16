@@ -3,7 +3,6 @@ package com.cheocharm.presentation.ui.mypage
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.cheocharm.presentation.BuildConfig
 import com.cheocharm.presentation.R
@@ -38,8 +37,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
         binding.viewmodel = myPageViewModel
 
-        val mainActivityBinding = (activity as MainActivity).getBinding()
-        mainActivityBinding.fragmentMainMap.isVisible = false
+        val mainActivity = requireActivity() as MainActivity
+        mainActivity.setMapVisible(false)
 
         initButton()
         myPageViewModel.countUp()

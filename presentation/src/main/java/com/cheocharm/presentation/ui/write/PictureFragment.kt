@@ -14,15 +14,16 @@ import com.cheocharm.presentation.databinding.FragmentPictureBinding
 import com.cheocharm.presentation.model.Picture
 import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.Dispatchers
 
 class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_picture) {
-    private val pictureViewModel: PictureViewModel by navGraphViewModels(R.id.write)
+    private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.write)
 
     private val requestPermissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             permissions.forEach {
                 if (it.value.not()) {
-                    TODO("권한 없을 때 처리")
+                    // TODO: 권한 없을 때 처리
                 }
             }
         }
@@ -35,9 +36,9 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
                         LatLng(array[0], array[1])
                     }
                     val picture = Picture(uri, latLng)
+                    val geocodeUtil = GeocodeUtil(requireContext(), Dispatchers.IO)
 
-                    pictureViewModel.setPicture(picture)
-                    GeocodeUtil.execute(requireContext(), picture)
+                    locationViewModel.loadPicture(picture, geocodeUtil)
                     inputStream.close()
                 }
 

@@ -1,5 +1,6 @@
 package com.cheocharm.presentation.ui.write
 
+import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +10,10 @@ import com.cheocharm.domain.model.WriteImageRequest
 import com.cheocharm.domain.usecase.write.RequestWriteImagesUseCase
 import com.cheocharm.presentation.common.Event
 import com.cheocharm.presentation.common.TestValues
+import com.cheocharm.presentation.enum.LatLngSelectionType
+import com.cheocharm.presentation.model.Picture
 import com.cheocharm.presentation.model.Sticker
+import com.cheocharm.presentation.util.GeocodeUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -27,6 +31,64 @@ class LocationViewModel @Inject constructor(
 
     var stickers: List<Sticker> = TestValues.testStickers
         private set
+
+    private val _picture = MutableLiveData<Picture>()
+    val picture: LiveData<Picture> = _picture
+
+    private val _locationString = MutableLiveData<String>()
+    val locationString: LiveData<String> = _locationString
+
+    fun loadPicture(picture: Picture, geocodeUtil: GeocodeUtil) {
+        _picture.value = picture
+
+        if (picture.address == null) {
+            viewModelScope.launch {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    geocodeUtil.execute(picture) {
+                        _picture.value?.address = it[0].getAddressLine(0)
+                    }
+                } else {
+                    geocodeUtil.execute(picture)
+                }
+            }
+        }
+    }
+
+    fun geocode(geocodeUtil: GeocodeUtil, latLng: DoubleArray, type: LatLngSelectionType) {
+        viewModelScope.launch {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                geocodeUtil.execute(latLng, type, ::setSelectedLatLng) {
+                    _locationString.postValue(
+                        if (type != LatLngSelectionType.SPECIFIED) {
+                            type.locationString
+                        } else {
+                            it[0].getAddressLine(0) ?: latLng.toCoordString()
+                        }
+                    )
+                }
+            } else {
+                geocodeUtil.execute(latLng, type, ::setSelectedLatLng)
+            }
+        }
+    }
+
+    fun setSelectedLatLng(latLng: DoubleArray, type: LatLngSelectionType, address: String? = null) {
+        _locationString.postValue(
+            if (type == LatLngSelectionType.SPECIFIED) {
+                address ?: latLng.toCoordString()
+            } else {
+                type.locationString
+            }
+        )
+    }
+
+    private fun DoubleArray.toCoordString(): String {
+        val format = "%.5f"
+        val lat = format.format(get(0))
+        val lng = format.format(get(1))
+
+        return "($lat, $lng)"
+    }
 
     fun uploadImages(
         groupId: Long,
