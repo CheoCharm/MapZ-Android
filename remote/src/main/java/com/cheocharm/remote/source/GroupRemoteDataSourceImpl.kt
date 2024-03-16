@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.cheocharm.data.error.ErrorData
-import com.cheocharm.data.source.GroupRemoteDataSource
+import com.cheocharm.data.remote.source.GroupRemoteDataSource
 import com.cheocharm.domain.model.Group
 import com.cheocharm.remote.api.GroupApi
 import kotlinx.coroutines.flow.Flow

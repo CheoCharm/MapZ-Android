@@ -1,4 +1,4 @@
-package com.cheocharm.data.source
+package com.cheocharm.data.remote.source
 
 import com.cheocharm.domain.model.TempDiary
 import com.cheocharm.domain.model.WriteDiaryRequest

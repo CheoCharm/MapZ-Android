@@ -1,11 +1,11 @@
 package com.cheocharm.remote.di
 
-import com.cheocharm.data.source.GroupRemoteDataSource
+import com.cheocharm.data.remote.source.GroupRemoteDataSource
 import com.cheocharm.remote.source.GroupRemoteDataSourceImpl
-import com.cheocharm.data.source.AuthRemoteDataSource
-import com.cheocharm.data.source.LoginRemoteDataSource
-import com.cheocharm.data.source.MyGroupsRemoteDataSource
-import com.cheocharm.data.source.WriteRemoteDataSource
+import com.cheocharm.data.remote.source.AuthRemoteDataSource
+import com.cheocharm.data.remote.source.LoginRemoteDataSource
+import com.cheocharm.data.remote.source.MyGroupsRemoteDataSource
+import com.cheocharm.data.remote.source.WriteRemoteDataSource
 import com.cheocharm.remote.source.AuthRemoteDataSourceImpl
 import com.cheocharm.remote.source.LoginRemoteDataSourceImpl
 import com.cheocharm.remote.source.MyGroupsRemoteDataSourceImpl

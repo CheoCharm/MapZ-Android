@@ -2,7 +2,7 @@ package com.cheocharm.data.repository
 
 import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.error.toDomain
-import com.cheocharm.data.source.WriteRemoteDataSource
+import com.cheocharm.data.remote.source.WriteRemoteDataSource
 import com.cheocharm.domain.model.TempDiary
 import com.cheocharm.domain.model.WriteDiaryRequest
 import com.cheocharm.domain.model.WriteImageRequest

@@ -1,11 +1,10 @@
 package com.cheocharm.remote.source
 
 import com.cheocharm.data.error.ErrorData
-import com.cheocharm.data.source.AuthRemoteDataSource
+import com.cheocharm.data.remote.source.AuthRemoteDataSource
 import com.cheocharm.domain.model.Token
 import com.cheocharm.remote.api.TokenApi
 import com.cheocharm.remote.mapper.toDomain
-import com.cheocharm.remote.model.TokenResponse
 import java.net.UnknownHostException
 import javax.inject.Inject
 

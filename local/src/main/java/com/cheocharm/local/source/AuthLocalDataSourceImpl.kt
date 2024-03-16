@@ -1,6 +1,6 @@
 package com.cheocharm.local.source
 
-import com.cheocharm.data.source.AuthLocalDataSource
+import com.cheocharm.data.local.source.AuthLocalDataSource
 import com.cheocharm.local.SharedPrefManager
 import javax.inject.Inject
 

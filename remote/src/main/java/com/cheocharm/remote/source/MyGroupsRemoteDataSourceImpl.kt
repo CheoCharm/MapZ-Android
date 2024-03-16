@@ -2,7 +2,7 @@ package com.cheocharm.remote.source
 
 import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.model.GroupData
-import com.cheocharm.data.source.MyGroupsRemoteDataSource
+import com.cheocharm.data.remote.source.MyGroupsRemoteDataSource
 import com.cheocharm.remote.api.DiaryApi
 import com.cheocharm.remote.mapper.toData
 import java.net.UnknownHostException

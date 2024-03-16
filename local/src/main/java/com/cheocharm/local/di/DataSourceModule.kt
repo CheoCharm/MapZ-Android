@@ -1,6 +1,6 @@
 package com.cheocharm.local.di
 
-import com.cheocharm.data.source.AuthLocalDataSource
+import com.cheocharm.data.local.source.AuthLocalDataSource
 import com.cheocharm.local.source.AuthLocalDataSourceImpl
 import dagger.Binds
 import dagger.Module

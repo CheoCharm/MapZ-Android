@@ -1,4 +1,4 @@
-package com.cheocharm.data.source
+package com.cheocharm.data.remote.source
 
 import androidx.paging.PagingData
 import com.cheocharm.domain.model.Group

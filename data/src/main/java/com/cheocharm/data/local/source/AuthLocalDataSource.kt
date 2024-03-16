@@ -1,4 +1,4 @@
-package com.cheocharm.data.source
+package com.cheocharm.data.local.source
 
 interface AuthLocalDataSource {
 

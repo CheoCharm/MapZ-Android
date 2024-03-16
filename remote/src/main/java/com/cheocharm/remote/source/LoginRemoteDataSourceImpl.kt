@@ -1,7 +1,7 @@
 package com.cheocharm.remote.source
 
 import com.cheocharm.data.error.ErrorData
-import com.cheocharm.data.source.LoginRemoteDataSource
+import com.cheocharm.data.remote.source.LoginRemoteDataSource
 import com.cheocharm.domain.model.GoogleSignUpRequest
 import com.cheocharm.domain.model.Token
 import com.cheocharm.domain.model.MapZSignInRequest
