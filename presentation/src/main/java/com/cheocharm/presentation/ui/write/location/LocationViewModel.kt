@@ -1,4 +1,4 @@
-package com.cheocharm.presentation.ui.write
+package com.cheocharm.presentation.ui.write.location
 
 import android.os.Build
 import androidx.lifecycle.LiveData

@@ -11,7 +11,7 @@
 
         <variable
             name="viewmodel"
-            type="com.cheocharm.presentation.ui.write.WriteViewModel" />
+            type="com.cheocharm.presentation.ui.write.diary.WriteViewModel" />
 
         <variable
             name="title"

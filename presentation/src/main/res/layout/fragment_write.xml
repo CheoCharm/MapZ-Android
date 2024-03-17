@@ -13,13 +13,13 @@
 
         <variable
             name="viewmodel"
-            type="com.cheocharm.presentation.ui.write.WriteViewModel" />
+            type="com.cheocharm.presentation.ui.write.diary.WriteViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/root_layout_default"
-        tools:context=".ui.write.WriteFragment">
+        tools:context=".ui.write.diary.WriteFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_write"

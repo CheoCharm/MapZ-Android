@@ -1,4 +1,4 @@
-package com.cheocharm.presentation.ui.write
+package com.cheocharm.presentation.ui.write.groups
 
 import android.os.Bundle
 import android.util.Log

@@ -1,4 +1,4 @@
-package com.cheocharm.presentation.ui.write
+package com.cheocharm.presentation.ui.write.diary
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,15 +1,12 @@
-package com.cheocharm.presentation.ui.write
+package com.cheocharm.presentation.ui.write.diary
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cheocharm.domain.model.Group
 import com.cheocharm.domain.model.TempDiary
 import com.cheocharm.domain.model.WriteDiaryRequest
-import com.cheocharm.domain.usecase.write.GetMyGroupsUseCase
 import com.cheocharm.domain.usecase.write.RequestWriteDiaryUseCase
-import com.cheocharm.presentation.common.ErrorMessage
 import com.cheocharm.presentation.common.Event
 import com.cheocharm.presentation.model.Sticker
 import com.cheocharm.presentation.model.TextAlign
@@ -17,7 +14,6 @@ import com.cheocharm.presentation.model.TextColor
 import com.cheocharm.presentation.model.TextEditTool
 import com.cheocharm.presentation.model.ToolDetailPage
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -6,7 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cheocharm.presentation.R
-import com.cheocharm.presentation.ui.write.WriteImageItemDecoration
+import com.cheocharm.presentation.ui.write.diary.WriteImageItemDecoration
 
 object BindingAdapters {
 

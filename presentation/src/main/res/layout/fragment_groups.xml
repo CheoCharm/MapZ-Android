@@ -7,14 +7,14 @@
 
         <variable
             name="viewmodel"
-            type="com.cheocharm.presentation.ui.write.GroupsViewModel" />
+            type="com.cheocharm.presentation.ui.write.groups.GroupsViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/root_layout_default"
         android:background="@color/map_z_red_500"
-        tools:context=".ui.write.GroupsFragment">
+        tools:context=".ui.write.groups.GroupsFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_groups_title"

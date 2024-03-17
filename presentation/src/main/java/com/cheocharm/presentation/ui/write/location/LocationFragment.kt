@@ -1,4 +1,4 @@
-package com.cheocharm.presentation.ui.write
+package com.cheocharm.presentation.ui.write.location
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -30,6 +30,7 @@ import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.enum.LatLngSelectionType
 import com.cheocharm.presentation.model.Picture
 import com.cheocharm.presentation.ui.MainActivity
+import com.cheocharm.presentation.ui.write.diary.WriteViewModel
 import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

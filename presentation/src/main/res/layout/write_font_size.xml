@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="com.cheocharm.presentation.ui.write.WriteFontViewModel" />
+            type="com.cheocharm.presentation.ui.write.diary.WriteFontViewModel" />
 
     </data>
 
