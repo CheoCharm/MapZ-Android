@@ -2,8 +2,8 @@ package com.cheocharm.data.repository
 
 import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.error.toDomain
-import com.cheocharm.data.source.AuthLocalDataSource
-import com.cheocharm.data.source.AuthRemoteDataSource
+import com.cheocharm.data.local.source.AuthLocalDataSource
+import com.cheocharm.data.remote.source.AuthRemoteDataSource
 import com.cheocharm.domain.model.Token
 import com.cheocharm.domain.repository.AuthRepository
 import javax.inject.Inject

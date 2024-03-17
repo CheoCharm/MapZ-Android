@@ -3,7 +3,7 @@ package com.cheocharm.data.repository
 import androidx.paging.PagingData
 import com.cheocharm.data.error.ErrorData
 import com.cheocharm.data.error.toDomain
-import com.cheocharm.data.source.GroupRemoteDataSource
+import com.cheocharm.data.remote.source.GroupRemoteDataSource
 import com.cheocharm.domain.model.Group
 import com.cheocharm.domain.repository.GroupRepository
 import kotlinx.coroutines.flow.Flow
