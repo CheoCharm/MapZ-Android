@@ -273,27 +273,16 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.menu_base_confirm -> {
-                getFiles()?.let {
-                    locationViewModel.uploadImages(
-                        TEST_GROUP_ID,
-                        address,
-                        location?.latitude,
-                        location?.longitude,
-                        it
-                    )
-                }
+                locationViewModel.confirmLocation(
+                    TEST_GROUP_ID,
+                    address,
+                    location?.latitude,
+                    location?.longitude
+                )
 
                 true
             }
             else -> false
-        }
-    }
-
-    private fun getFiles(): List<File> ?{
-        val pictures = locationViewModel.pictures.value
-
-        return pictures?.map {
-            File(it.uri.toString())
         }
     }
 

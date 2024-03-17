@@ -94,27 +94,38 @@ class LocationViewModel @Inject constructor(
         return "($lat, $lng)"
     }
 
-    fun uploadImages(
+    fun confirmLocation(
         groupId: Long,
         address: String?,
         lat: Double?,
-        lng: Double?,
-        images: List<File>
+        lng: Double?
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            requestWriteImagesUseCase.invoke(
-                WriteImageRequest(
-                    groupId,
-                    address ?: TEST_ADDRESS,
-                    lat ?: TEST_LAT,
-                    lng ?: TEST_LNG,
-                    images
-                )
-            ).onSuccess {
-                _locationSelectedEvent.postValue(Event(it))
-            }.onFailure {
-                _toastText.postValue(Event(it.message ?: ""))
-            }
+            val images = getFiles() ?: return@launch
+
+//            requestWriteImagesUseCase.invoke(
+//                WriteImageRequest(
+//                    groupId,
+//                    address ?: TEST_ADDRESS,
+//                    lat ?: TEST_LAT,
+//                    lng ?: TEST_LNG,
+//                    images
+//                )
+//            ).onSuccess {
+//                _locationSelectedEvent.postValue(Event(it))
+//            }.onFailure {
+//                _toastText.postValue(Event(it.message ?: ""))
+//            }
+
+            _locationSelectedEvent.postValue(Event(TempDiary(0, listOf())))
+        }
+    }
+
+    private fun getFiles(): List<File> ?{
+        val pictures = pictures.value
+
+        return pictures?.map {
+            File(it.uri.toString())
         }
     }
 
