@@ -13,7 +13,7 @@ import com.cheocharm.presentation.common.GROUP_JOIN_REQUEST_BOTTOM
 import com.cheocharm.presentation.databinding.ActivityMainBinding
 import com.cheocharm.presentation.databinding.FragmentSearchGroupBinding
 import com.cheocharm.presentation.ui.MainActivity
-import com.cheocharm.presentation.ui.write.MembersAdapter
+import com.cheocharm.presentation.ui.write.groups.MembersAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

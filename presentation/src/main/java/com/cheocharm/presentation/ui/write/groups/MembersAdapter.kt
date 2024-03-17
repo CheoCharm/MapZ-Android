@@ -1,4 +1,4 @@
-package com.cheocharm.presentation.ui.write
+package com.cheocharm.presentation.ui.write.groups
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

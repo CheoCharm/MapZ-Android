@@ -1,4 +1,4 @@
-package com.cheocharm.presentation.ui.write
+package com.cheocharm.presentation.ui.write.location
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -30,6 +30,7 @@ import com.cheocharm.presentation.databinding.FragmentLocationBinding
 import com.cheocharm.presentation.enum.LatLngSelectionType
 import com.cheocharm.presentation.model.Picture
 import com.cheocharm.presentation.ui.MainActivity
+import com.cheocharm.presentation.ui.write.diary.WriteViewModel
 import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -106,7 +107,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                     val latLng = if (lat != null && lng != null) LatLng(lat, lng) else null
                     val picture = Picture(Uri.parse(uri), latLng)
 
-                    locationViewModel.loadPicture(picture, geocodeUtil)
+                    locationViewModel.loadPicture(listOf(picture), geocodeUtil)
                 }
 
                 if (isDefaultLocation) {
@@ -137,11 +138,11 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
                 val bottom = binding.containerLocationPictures.height
                 googleMap.setPadding(0, top, 0, bottom)
 
-                locationViewModel.picture.observe(viewLifecycleOwner) { picture ->
-                    picture?.let { pic ->
-                        picturesAdapter.submitList(listOf(pic))
+                locationViewModel.pictures.observe(viewLifecycleOwner) { pictures ->
+                    pictures?.let { pics ->
+                        picturesAdapter.submitList(pics)
 
-                        val selectedLatLng = pic.latLng
+                        val selectedLatLng = pics[0].latLng
 
                         if (selectedLatLng != null) {
                             initTypeToSpecified(selectedLatLng)
@@ -292,7 +293,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        val picture = locationViewModel.picture.value
+        // TODO: savedStateHandle 사용
+        val pictures = locationViewModel.pictures.value
+        val picture = pictures?.get(0)
 
         if (picture != null) {
             with(outState) {

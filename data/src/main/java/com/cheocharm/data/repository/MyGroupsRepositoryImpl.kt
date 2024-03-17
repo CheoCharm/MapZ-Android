@@ -9,11 +9,11 @@ import com.cheocharm.domain.repository.MyGroupsRepository
 import javax.inject.Inject
 
 class MyGroupsRepositoryImpl @Inject constructor(
-    private val dataSource: MyGroupsRemoteDataSource
+    private val remoteDataSource: MyGroupsRemoteDataSource
 ) : MyGroupsRepository {
 
     override suspend fun getMyGroups(): Result<List<Group>> {
-        val result = dataSource.getMyGroups().mapCatching {
+        val result = remoteDataSource.getMyGroups().mapCatching {
             it.map { data ->
                 data.toDomain()
             }

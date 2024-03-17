@@ -1,4 +1,4 @@
-package com.cheocharm.presentation.ui.write
+package com.cheocharm.presentation.ui.write.location
 
 import android.os.Build
 import androidx.lifecycle.LiveData
@@ -32,23 +32,26 @@ class LocationViewModel @Inject constructor(
     var stickers: List<Sticker> = TestValues.testStickers
         private set
 
-    private val _picture = MutableLiveData<Picture>()
-    val picture: LiveData<Picture> = _picture
+    private val _pictures = MutableLiveData<List<Picture>>()
+    val pictures: LiveData<List<Picture>> = _pictures
 
     private val _locationString = MutableLiveData<String>()
     val locationString: LiveData<String> = _locationString
 
-    fun loadPicture(picture: Picture, geocodeUtil: GeocodeUtil) {
-        _picture.value = picture
+    fun loadPicture(pictures: List<Picture>, geocodeUtil: GeocodeUtil) {
+        _pictures.value = pictures
 
-        if (picture.address == null) {
+        // TODO: 모든 사진에 대해 지오코딩
+        val pic = pictures[0]
+
+        if (pic.address == null) {
             viewModelScope.launch {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    geocodeUtil.execute(picture) {
-                        _picture.value?.address = it[0].getAddressLine(0)
+                    geocodeUtil.execute(pic) {
+                        _pictures.value?.get(0)?.address = it[0].getAddressLine(0)
                     }
                 } else {
-                    geocodeUtil.execute(picture)
+                    geocodeUtil.execute(pic)
                 }
             }
         }

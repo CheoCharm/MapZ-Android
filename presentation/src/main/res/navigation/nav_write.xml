@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/write_dest"
-        android:name="com.cheocharm.presentation.ui.write.GroupsFragment"
+        android:name="com.cheocharm.presentation.ui.write.groups.GroupsFragment"
         android:label="fragment_write"
         tools:layout="@layout/fragment_groups" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/pictureFragment"
-        android:name="com.cheocharm.presentation.ui.write.PictureFragment"
+        android:name="com.cheocharm.presentation.ui.write.location.PictureFragment"
         android:label="PictureFragment"
         tools:layout="@layout/fragment_picture" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
-        android:name="com.cheocharm.presentation.ui.write.LocationFragment"
+        android:name="com.cheocharm.presentation.ui.write.location.LocationFragment"
         android:label="LocationFragment"
         tools:layout="@layout/fragment_location">
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/writeFragment"
-        android:name="com.cheocharm.presentation.ui.write.WriteFragment"
+        android:name="com.cheocharm.presentation.ui.write.diary.WriteFragment"
         android:label="WriteFragment"
         tools:layout="@layout/fragment_write" />
 

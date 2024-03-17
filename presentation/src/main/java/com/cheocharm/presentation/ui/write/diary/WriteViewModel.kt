@@ -1,15 +1,12 @@
-package com.cheocharm.presentation.ui.write
+package com.cheocharm.presentation.ui.write.diary
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cheocharm.domain.model.Group
 import com.cheocharm.domain.model.TempDiary
 import com.cheocharm.domain.model.WriteDiaryRequest
-import com.cheocharm.domain.usecase.write.GetMyGroupsUseCase
 import com.cheocharm.domain.usecase.write.RequestWriteDiaryUseCase
-import com.cheocharm.presentation.common.ErrorMessage
 import com.cheocharm.presentation.common.Event
 import com.cheocharm.presentation.model.Sticker
 import com.cheocharm.presentation.model.TextAlign
@@ -22,14 +19,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WriteViewModel @Inject constructor(
-    private val getMyGroupsUseCase: GetMyGroupsUseCase,
     private val requestWriteDiaryUseCase: RequestWriteDiaryUseCase
 ) : ViewModel() {
     lateinit var temp: TempDiary
     lateinit var stickers: List<Sticker>
-
-    private val _groups = MutableLiveData<List<Group>>()
-    val groups: LiveData<List<Group>> = _groups
 
     private val _openTool = MutableLiveData<TextEditTool?>()
     val openTool: LiveData<TextEditTool?> = _openTool
@@ -49,30 +42,11 @@ class WriteViewModel @Inject constructor(
     private val _underline = MutableLiveData<Boolean>()
     val underline: LiveData<Boolean> = _underline
 
-    private val _toastText = MutableLiveData<Event<String>>()
-    val toastText: LiveData<Event<String>> = _toastText
-
     private val _diaryWrittenEvent = MutableLiveData<Event<Long>?>()
     val diaryWrittenEvent: LiveData<Event<Long>?> = _diaryWrittenEvent
 
-    init {
-        fetchMyGroups()
-    }
-
-    fun fetchMyGroups() {
-        viewModelScope.launch {
-            val result = getMyGroupsUseCase()
-
-            result
-                .onSuccess { groups ->
-                    _groups.value = groups
-                }
-                .onFailure { throwable ->
-                    _toastText.value =
-                        Event(throwable.message ?: ErrorMessage.FETCH_MY_GROUPS_FAILED)
-                }
-        }
-    }
+    private val _toastText = MutableLiveData<Event<String>>()
+    val toastText: LiveData<Event<String>> = _toastText
 
     fun onClickTool(tool: TextEditTool?) {
         _openTool.value = if (openTool.value == tool) null else tool

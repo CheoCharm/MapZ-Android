@@ -12,7 +12,6 @@ import javax.inject.Inject
 class GroupRepositoryImpl @Inject constructor(
     private val groupRemoteDataSource: GroupRemoteDataSource
 ) : GroupRepository {
-
     override fun searchGroup(searchGroupName: String): Flow<PagingData<Group>> {
         return groupRemoteDataSource.fetchGroupSearchList(searchGroupName)
     }

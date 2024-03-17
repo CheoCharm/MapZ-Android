@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.cheocharm.domain.model.Group
 import com.cheocharm.presentation.databinding.ItemGroupBinding
-import com.cheocharm.presentation.ui.write.GroupDiffCallback
-import com.cheocharm.presentation.ui.write.GroupsAdapter
+import com.cheocharm.presentation.ui.write.groups.GroupDiffCallback
+import com.cheocharm.presentation.ui.write.groups.GroupsAdapter
 
 class GroupsPagingAdapter(private val onClick: (Group) -> Unit) :
     PagingDataAdapter<Group, GroupsAdapter.ViewHolder>(GroupDiffCallback) {

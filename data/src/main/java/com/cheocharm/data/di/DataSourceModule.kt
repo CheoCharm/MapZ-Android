@@ -23,11 +23,11 @@ import javax.inject.Singleton
 internal abstract class DataSourceModule {
     @Binds
     @Singleton
-    abstract fun bindAuthLocalDataSource(dataSourceImpl: AuthLocalDataSourceImpl): AuthLocalDataSource
+    abstract fun bindLoginRemoteDataSource(dataSource: LoginRemoteDataSourceImpl): LoginRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindLoginRemoteDataSource(dataSource: LoginRemoteDataSourceImpl): LoginRemoteDataSource
+    abstract fun bindAuthLocalDataSource(dataSourceImpl: AuthLocalDataSourceImpl): AuthLocalDataSource
 
     @Binds
     @Singleton
