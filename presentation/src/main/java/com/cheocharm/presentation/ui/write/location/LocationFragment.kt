@@ -15,9 +15,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.common.DEFAULT_ZOOM_LEVEL
@@ -38,14 +38,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import java.io.File
 
 @AndroidEntryPoint
 class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment_location),
     MenuProvider {
-    private val locationViewModel by navGraphViewModels<LocationViewModel>(R.id.write) { defaultViewModelProviderFactory }
-    private val writeViewModel by navGraphViewModels<WriteViewModel>(R.id.write) { defaultViewModelProviderFactory }
+    private val locationViewModel: LocationViewModel by hiltNavGraphViewModels(R.id.write)
+    private val writeViewModel: WriteViewModel by hiltNavGraphViewModels(R.id.write)
 
     private lateinit var map: GoogleMap
     private lateinit var geocodeUtil: GeocodeUtil
@@ -56,14 +54,11 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     private var draggableMarker: Marker? = null
     private var address: String? = null
     private var location: LatLng? = null
-    private var file: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        geocodeUtil = GeocodeUtil(requireContext(), Dispatchers.IO)
-
-        setHasOptionsMenu(true)
+        geocodeUtil = GeocodeUtil(requireContext())
     }
 
     override fun onCreateView(
@@ -92,31 +87,39 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             mainActivity.setSupportActionBar(this)
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-                mainActivity.onBackPressed()
+                mainActivity.onBackPressedDispatcher.onBackPressed()
             }
         }
 
-        if (savedInstanceState != null) {
-            with(savedInstanceState) {
-                val uri = getString(KEY_URI)
-                val lat = getString(KEY_LAT)?.toDoubleOrNull()
-                val lng = getString(KEY_LNG)?.toDoubleOrNull()
-                val isDefaultLocation = getBoolean(KEY_IS_DEFAULT_LOCATION)
-
-                if (uri != null) {
-                    val latLng = if (lat != null && lng != null) LatLng(lat, lng) else null
-                    val picture = Picture(Uri.parse(uri), latLng)
-
-                    locationViewModel.loadPicture(listOf(picture), geocodeUtil)
-                }
-
-                if (isDefaultLocation) {
-                    val typeDefault = LatLngSelectionType.DEFAULT
-                    initialType = typeDefault
-                    locationViewModel.setSelectedLatLng(defaultLatLng.toDoubleArray(), typeDefault)
-                }
+        locationViewModel.isDefaultLocationLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                val typeDefault = LatLngSelectionType.DEFAULT
+                initialType = typeDefault
+                locationViewModel.setSelectedLatLng(defaultLatLng.toDoubleArray(), typeDefault)
             }
         }
+
+//        if (savedInstanceState != null) {
+//            with(savedInstanceState) {
+//                val uri = getString(KEY_URI)
+//                val lat = getString(KEY_LAT)?.toDoubleOrNull()
+//                val lng = getString(KEY_LNG)?.toDoubleOrNull()
+//                val isDefaultLocation = getBoolean(KEY_IS_DEFAULT_LOCATION)
+//
+//                if (uri != null) {
+//                    val latLng = if (lat != null && lng != null) LatLng(lat, lng) else null
+//                    val picture = Picture(Uri.parse(uri), latLng)
+//
+//                    locationViewModel.loadPicture(listOf(picture), geocodeUtil)
+//                }
+//
+//                if (isDefaultLocation) {
+//                    val typeDefault = LatLngSelectionType.DEFAULT
+//                    initialType = typeDefault
+//                    locationViewModel.setSelectedLatLng(defaultLatLng.toDoubleArray(), typeDefault)
+//                }
+//            }
+//        }
 
         setupMap(mainActivity, picturesAdapter)
         setupToast()
@@ -275,16 +278,12 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.menu_base_confirm -> {
-                // TODO: file을 여기서 초기화하면 전역변수로 두지 않아도 될듯
-                file?.let {
-                    locationViewModel.uploadImages(
-                        TEST_GROUP_ID,
-                        address,
-                        location?.latitude,
-                        location?.longitude,
-                        listOf(it)
-                    )
-                }
+                locationViewModel.confirmLocation(
+                    TEST_GROUP_ID,
+                    address,
+                    location?.latitude,
+                    location?.longitude
+                )
 
                 true
             }
@@ -293,24 +292,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        // TODO: savedStateHandle 사용
-        val pictures = locationViewModel.pictures.value
-        val picture = pictures?.get(0)
+        val latLng = map.cameraPosition.target
+        val isDefaultLocation = distanceBetween(defaultLatLng, latLng) <= 1
 
-        if (picture != null) {
-            with(outState) {
-                putString(KEY_URI, picture.uri.toString())
-
-                if (picture.latLng != null) {
-                    putString(KEY_LAT, picture.latLng.latitude.toString())
-                    putString(KEY_LNG, picture.latLng.longitude.toString())
-                }
-
-                val latLng = map.cameraPosition.target
-                val isDefaultLocation = distanceBetween(defaultLatLng, latLng) <= 1
-                putBoolean(KEY_IS_DEFAULT_LOCATION, isDefaultLocation)
-            }
-        }
+        locationViewModel.saveIsDefaultLocation(isDefaultLocation)
 
         super.onSaveInstanceState(outState)
     }
@@ -326,11 +311,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
 
     companion object {
         private val defaultLatLng = LatLng(SOUTH_KOREA_LAT, SOUTH_KOREA_LNG)
-
-        private const val KEY_URI = "uri"
-        private const val KEY_LAT = "lat"
-        private const val KEY_LNG = "lng"
-        private const val KEY_IS_DEFAULT_LOCATION = "isDefaultLocation"
         private const val TEST_GROUP_ID = 1L
     }
 }

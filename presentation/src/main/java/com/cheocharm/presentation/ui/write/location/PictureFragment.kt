@@ -25,7 +25,6 @@ import com.cheocharm.presentation.ui.MainActivity
 import com.cheocharm.presentation.util.GeocodeUtil
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
 
 class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_picture) {
     private val locationViewModel: LocationViewModel by hiltNavGraphViewModels(R.id.write)
@@ -52,7 +51,7 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
             if (it.resultCode == Activity.RESULT_OK) {
                 val pictures = mutableListOf<Picture>()
                 val clipData = it?.data?.clipData
-                val geocodeUtil = GeocodeUtil(requireContext(), Dispatchers.IO)
+                val geocodeUtil = GeocodeUtil(requireContext())
 
                 if (clipData == null) {
                     val uri = it?.data?.data
