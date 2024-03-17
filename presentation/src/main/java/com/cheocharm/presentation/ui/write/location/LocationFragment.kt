@@ -38,7 +38,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import java.io.File
 
 @AndroidEntryPoint
@@ -60,7 +59,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        geocodeUtil = GeocodeUtil(requireContext(), Dispatchers.IO)
+        geocodeUtil = GeocodeUtil(requireContext())
 
         setHasOptionsMenu(true)
     }

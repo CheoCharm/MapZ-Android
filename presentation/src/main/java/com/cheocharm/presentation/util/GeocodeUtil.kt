@@ -9,11 +9,11 @@ import com.cheocharm.presentation.model.Picture
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.*
+import java.util.Locale
 
 class GeocodeUtil(
     context: Context,
-    private val coroutineDispatcher: CoroutineDispatcher
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     private val geocoder = Geocoder(context, Locale.KOREAN)
 
