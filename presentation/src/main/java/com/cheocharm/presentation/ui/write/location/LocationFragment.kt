@@ -87,7 +87,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
             mainActivity.setSupportActionBar(this)
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-                mainActivity.onBackPressed()
+                mainActivity.onBackPressedDispatcher.onBackPressed()
             }
         }
 
