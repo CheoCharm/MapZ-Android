@@ -6,7 +6,6 @@ import com.cheocharm.data.error.toDomain
 import com.cheocharm.data.local.source.MyGroupsLocalDataSource
 import com.cheocharm.data.remote.source.GroupRemoteDataSource
 import com.cheocharm.domain.model.Group
-import com.cheocharm.domain.model.GroupMember
 import com.cheocharm.domain.repository.GroupRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -15,11 +14,14 @@ class GroupRepositoryImpl @Inject constructor(
     private val groupRemoteDataSource: GroupRemoteDataSource,
     private val myGroupsLocalDataSource: MyGroupsLocalDataSource
 ) : GroupRepository {
-    private var count = 0
-
-    override suspend fun createGroup(userId: Int, name: String, bio: String, groupImageUrl: String) {
+    override suspend fun createGroup(
+        userId: Int,
+        name: String,
+        bio: String,
+        groupImageUrl: String?
+    ) {
         val group = com.cheocharm.data.local.model.Group(
-            count++,
+            0,
             name,
             "",
             "",
@@ -27,6 +29,10 @@ class GroupRepositoryImpl @Inject constructor(
             1
         )
         myGroupsLocalDataSource.joinGroup(group)
+    }
+
+    override suspend fun clearMyGroups() {
+
     }
 
     override fun searchGroup(searchGroupName: String): Flow<PagingData<Group>> {

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -20,8 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_groups) {
-    private val writeViewModel by hiltNavGraphViewModels<WriteViewModel>(R.id.write)
-    private val groupsViewModel: GroupsViewModel by viewModels()
+    private val groupsViewModel: GroupsViewModel by hiltNavGraphViewModels(R.id.write)
 
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
@@ -41,7 +39,7 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_gro
         swipeRefreshLayout = binding.containerGroupsRefresh
 
         swipeRefreshLayout.setOnRefreshListener {
-            writeViewModel.fetchMyGroups()
+            groupsViewModel.fetchMyGroups()
         }
     }
 
@@ -55,13 +53,16 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_gro
             adapter = groupsAdapter
         }
 
-        writeViewModel.groups.observe(viewLifecycleOwner) {
+        groupsViewModel.groups.observe(viewLifecycleOwner) {
             swipeRefreshLayout.isRefreshing = false
 
             it?.let {
+                Log.d(logTag, it.toString())
                 groupsAdapter.submitList(it)
             }
         }
+
+        groupsViewModel.fetchMyGroups()
     }
 
     private fun adapterOnClick(group: Group) {
@@ -70,7 +71,7 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(R.layout.fragment_gro
     }
 
     private fun setupToast() {
-        writeViewModel.toastText.observe(viewLifecycleOwner, EventObserver {
+        groupsViewModel.toastText.observe(viewLifecycleOwner, EventObserver {
             swipeRefreshLayout.isRefreshing = false
 
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()

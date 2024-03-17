@@ -18,4 +18,7 @@ interface GroupDao {
 
     @Delete
     fun delete(group: Group)
+
+    @Query("DELETE FROM `Group`")
+    fun clear()
 }

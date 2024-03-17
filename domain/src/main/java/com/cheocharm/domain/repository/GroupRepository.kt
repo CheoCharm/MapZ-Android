@@ -9,8 +9,10 @@ interface GroupRepository {
         userId: Int,
         name: String,
         bio: String,
-        groupImageUrl: String
+        groupImageUrl: String?
     )
+
+    suspend fun clearMyGroups()
 
     fun searchGroup(searchGroupName: String): Flow<PagingData<Group>>
 

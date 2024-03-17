@@ -17,4 +17,8 @@ class MyGroupsLocalDataSourceImpl @Inject constructor(
     override suspend fun joinGroup(group: com.cheocharm.data.local.model.Group) {
         groupDao.insertAll(group)
     }
+
+    override suspend fun clearMyGroups() {
+        groupDao.clear()
+    }
 }

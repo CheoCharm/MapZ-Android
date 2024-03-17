@@ -10,7 +10,7 @@ class CreateGroupUseCase @Inject constructor(
         userId: Int,
         name: String,
         bio: String,
-        groupImageUrl: String
+        groupImageUrl: String? = null
     ) {
         return groupRepository.createGroup(userId, name, bio, groupImageUrl)
     }

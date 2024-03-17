@@ -6,4 +6,6 @@ interface MyGroupsLocalDataSource {
     suspend fun getMyGroups(): List<Group>
 
     suspend fun joinGroup(group: com.cheocharm.data.local.model.Group)
+
+    suspend fun clearMyGroups()
 }

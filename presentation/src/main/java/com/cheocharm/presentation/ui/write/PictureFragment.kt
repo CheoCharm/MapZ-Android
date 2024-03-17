@@ -14,9 +14,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.exifinterface.media.ExifInterface
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.cheocharm.presentation.R
 import com.cheocharm.presentation.base.BaseFragment
 import com.cheocharm.presentation.databinding.FragmentPictureBinding
@@ -28,7 +28,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 
 class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_picture) {
-    private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.write)
+    private val locationViewModel: LocationViewModel by hiltNavGraphViewModels(R.id.write)
 
     private val requestPermissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -73,9 +73,7 @@ class PictureFragment : BaseFragment<FragmentPictureBinding>(R.layout.fragment_p
 
                 }
 
-                val picture = pictures[0]
-
-                locationViewModel.loadPicture(picture, geocodeUtil)
+                locationViewModel.loadPicture(pictures, geocodeUtil)
                 navigateToLocationFragment()
             }
         }
