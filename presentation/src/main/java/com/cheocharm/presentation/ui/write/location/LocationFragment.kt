@@ -56,7 +56,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     private var draggableMarker: Marker? = null
     private var address: String? = null
     private var location: LatLng? = null
-    private var file: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -275,20 +274,27 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.menu_base_confirm -> {
-                // TODO: file을 여기서 초기화하면 전역변수로 두지 않아도 될듯
-                file?.let {
+                getFiles()?.let {
                     locationViewModel.uploadImages(
                         TEST_GROUP_ID,
                         address,
                         location?.latitude,
                         location?.longitude,
-                        listOf(it)
+                        it
                     )
                 }
 
                 true
             }
             else -> false
+        }
+    }
+
+    private fun getFiles(): List<File> ?{
+        val pictures = locationViewModel.pictures.value
+
+        return pictures?.map {
+            File(it.uri.toString())
         }
     }
 

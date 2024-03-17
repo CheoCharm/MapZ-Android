@@ -15,6 +15,7 @@ import com.cheocharm.presentation.model.Picture
 import com.cheocharm.presentation.model.Sticker
 import com.cheocharm.presentation.util.GeocodeUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -100,11 +101,7 @@ class LocationViewModel @Inject constructor(
         lng: Double?,
         images: List<File>
     ) {
-        viewModelScope.launch {
-            // 테스트
-//            _toastText.value = Event("TEST: 이미지 업로드 실패")
-//            _locationSelectedEvent.value = Event(TempDiary(38, TestValues.testImages))
-
+        viewModelScope.launch(Dispatchers.IO) {
             requestWriteImagesUseCase.invoke(
                 WriteImageRequest(
                     groupId,
@@ -114,9 +111,9 @@ class LocationViewModel @Inject constructor(
                     images
                 )
             ).onSuccess {
-                _locationSelectedEvent.value = Event(it)
+                _locationSelectedEvent.postValue(Event(it))
             }.onFailure {
-                _toastText.value = Event(it.message ?: "")
+                _toastText.postValue(Event(it.message ?: ""))
             }
         }
     }
