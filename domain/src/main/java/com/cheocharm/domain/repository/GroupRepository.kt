@@ -5,15 +5,6 @@ import com.cheocharm.domain.model.Group
 import kotlinx.coroutines.flow.Flow
 
 interface GroupRepository {
-    suspend fun createGroup(
-        userId: Int,
-        name: String,
-        bio: String,
-        groupImageUrl: String?
-    )
-
-    suspend fun clearMyGroups()
-
     fun searchGroup(searchGroupName: String): Flow<PagingData<Group>>
 
     suspend fun joinGroup(groupName: String): Result<Unit>

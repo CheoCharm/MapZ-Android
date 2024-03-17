@@ -14,7 +14,3 @@ internal fun GroupData.toDomain(): Group =
         groupMembersImageUrls.size,
         groupImageUrl
     )
-
-internal fun com.cheocharm.data.local.model.Group.toDomain(): Group = Group(
-    id, name, bio, createdAt, members.map { GroupMember(it.imageUrl) }, numberOfMembers, groupImageUrl
-)
