@@ -59,8 +59,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(R.layout.fragment
         super.onCreate(savedInstanceState)
 
         geocodeUtil = GeocodeUtil(requireContext())
-
-        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
